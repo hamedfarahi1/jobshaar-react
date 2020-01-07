@@ -1,11 +1,15 @@
 package ir.khu.jaobshaar.entity.model;
 
 import javax.persistence.*;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
 public class User {
+    public static final int USER_ROLE_EMPLOYER = 0;
+    public static final int USER_ROLE_EMPLOYEE = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,11 +24,14 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private int role;
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, int role) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     public User() {
@@ -62,6 +69,14 @@ public class User {
         this.email = email;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -69,6 +84,7 @@ public class User {
                 "\n , username='" + username + '\'' +
                 "\n , password='" + password + '\'' +
                 "\n , email='" + email + '\'' +
+                "\n , role =  " + role + " " +
                 '}';
     }
 }
