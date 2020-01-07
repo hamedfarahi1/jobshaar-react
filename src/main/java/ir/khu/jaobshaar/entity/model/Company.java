@@ -7,64 +7,86 @@ import javax.persistence.*;
 @Table
 public class Company {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@Column(length = 50, unique = true, nullable = false)
-	private String name;
+    @Column(length = 50, unique = true, nullable = false)
+    private String name;
 
-	@Column
-	private int categoryTypeIndex;
+    @Column
+    private int categoryTypeIndex;
 
-	@Column(length = 1024)
-	private String bio;
+    @Column(length = 1024)
+    private String bio;
 
-	@Column(length = 255)
-	private String address;
-
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
-	private Employer employer;
+    @Column(length = 255)
+    private String address;
 
 
-	public String getName() {
-		return name;
-	}
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
+    private Employer employer;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Company() {
+    }
 
-	public int getCategoryTypeIndex() {
-		return categoryTypeIndex;
-	}
+    public Company(String name, int categoryTypeIndex, String bio, String address, Employer employer) {
+        this.name = name;
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.bio = bio;
+        this.address = address;
+        this.employer = employer;
+    }
 
-	public void setCategoryTypeIndex(int categoryTypeIndex) {
-		this.categoryTypeIndex = categoryTypeIndex;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getBio() {
-		return bio;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
+    public int getCategoryTypeIndex() {
+        return categoryTypeIndex;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setCategoryTypeIndex(int categoryTypeIndex) {
+        this.categoryTypeIndex = categoryTypeIndex;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getBio() {
+        return bio;
+    }
 
-	public Employer getEmployer() {
-		return employer;
-	}
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
-	public void setEmployer(Employer employer) {
-		this.employer = employer;
-	}
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Employer getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "\n id=" + id +
+                "\n, name='" + name + '\'' +
+                "\n, categoryTypeIndex=" + categoryTypeIndex +
+                "\n, bio='" + bio + '\'' +
+                "\n, address='" + address + '\'' +
+                "\n, employer=" + employer +
+                '}';
+    }
 }
