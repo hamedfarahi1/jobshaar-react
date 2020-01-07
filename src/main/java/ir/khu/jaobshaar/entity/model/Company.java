@@ -1,17 +1,17 @@
 package ir.khu.jaobshaar.entity.model;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
 @Table
 public class Company {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(length = 50,unique = true, nullable = false)
+	@Column(length = 50, unique = true, nullable = false)
 	private String name;
 
 	@Column
@@ -27,8 +27,6 @@ public class Company {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
 	private Employer employer;
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
-//	private Set<Job> jobs;
 
 	public String getName() {
 		return name;
