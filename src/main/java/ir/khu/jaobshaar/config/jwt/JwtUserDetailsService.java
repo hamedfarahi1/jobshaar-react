@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -30,8 +29,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user == null) {
             onUserNotFound();
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                new ArrayList<>());
+        return user;
     }
 
     @NonNull
