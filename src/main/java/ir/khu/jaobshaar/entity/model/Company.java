@@ -11,7 +11,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column
@@ -20,9 +20,8 @@ public class Company {
     @Column(length = 1024)
     private String bio;
 
-    @Column(length = 255)
+    @Column()
     private String address;
-
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
     private Employer employer;
