@@ -1,10 +1,11 @@
 package ir.khu.jaobshaar.service.user;
 
 import ir.khu.jaobshaar.component.user.EmployeeManager;
+import ir.khu.jaobshaar.component.user.EmployerManager;
 import ir.khu.jaobshaar.config.jwt.JwtResponse;
 import ir.khu.jaobshaar.config.jwt.JwtTokenUtil;
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
-import ir.khu.jaobshaar.service.dto.user.EmployeeDTO;
+import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,16 +34,31 @@ public class UserController {
     @Autowired
     private EmployeeManager employeeManager;
 
+    @Autowired
+    private EmployerManager employerManager;
+
     @PostMapping("/employee/register")
-    public ResponseEntity<?> registerEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        employeeManager.register(employeeDTO);
-        return ResponseEntity.ok(authenticate(employeeDTO.getUsername(), employeeDTO.getPassword()));
+    public ResponseEntity<?> registerEmployee(@RequestBody UserDTO userDTO) {
+        employeeManager.register(userDTO);
+        return ResponseEntity.ok(authenticate(userDTO.getUsername(), userDTO.getPassword()));
     }
 
     @PostMapping(value = "/employee/login")
-    public ResponseEntity<?> loginEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        employeeManager.login(employeeDTO);
-        return ResponseEntity.ok(authenticate(employeeDTO.getUsername(), employeeDTO.getPassword()));
+    public ResponseEntity<?> loginEmployee(@RequestBody UserDTO userDTO) {
+        employeeManager.login(userDTO);
+        return ResponseEntity.ok(authenticate(userDTO.getUsername(), userDTO.getPassword()));
+    }
+
+    @PostMapping("/employer/register")
+    public ResponseEntity<?> registerEmployer(@RequestBody UserDTO userDTO) {
+        employerManager.register(userDTO);
+        return ResponseEntity.ok(authenticate(userDTO.getUsername(), userDTO.getPassword()));
+    }
+
+    @PostMapping(value = "/employer/login")
+    public ResponseEntity<?> loginEmployer(@RequestBody UserDTO userDTO) {
+        employerManager.login(userDTO);
+        return ResponseEntity.ok(authenticate(userDTO.getUsername(), userDTO.getPassword()));
     }
 
     private JwtResponse authenticate(String username, String password) {

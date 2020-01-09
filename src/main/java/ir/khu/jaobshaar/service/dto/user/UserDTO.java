@@ -1,19 +1,19 @@
 package ir.khu.jaobshaar.service.dto.user;
 
-public class EmployeeDTO {
+public class UserDTO {
 
     private String username;
     private String password;
     private String email;
 
 
-    public EmployeeDTO(String username, String password, String email) {
+    public UserDTO(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public EmployeeDTO() {
+    public UserDTO() {
     }
 
     public String getUsername() {

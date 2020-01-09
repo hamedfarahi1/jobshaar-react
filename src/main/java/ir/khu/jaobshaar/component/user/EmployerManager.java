@@ -1,8 +1,8 @@
 package ir.khu.jaobshaar.component.user;
 
-import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.User;
-import ir.khu.jaobshaar.repository.EmployeeRepository;
+import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
@@ -11,23 +11,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeManager {
+public class EmployerManager {
 
-    private EmployeeRepository employeeRepository;
+    private EmployerRepository employerRepository;
 
     private PasswordEncoder bcryptEncoder;
 
-    public EmployeeManager(EmployeeRepository employeeRepository, PasswordEncoder bcryptEncoder) {
-        this.employeeRepository = employeeRepository;
+    public EmployerManager(EmployerRepository employerRepository, PasswordEncoder bcryptEncoder) {
+        this.employerRepository = employerRepository;
         this.bcryptEncoder = bcryptEncoder;
     }
 
     public void login(final UserDTO userDTO) {
         ValidationUtils.validateUser(userDTO);
 
-        final Employee employee = employeeRepository.findByUsername(userDTO.getUsername());
+        final Employer employer = employerRepository.findByUsername(userDTO.getUsername());
 
-        if (employee == null) {
+        if (employer == null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_USER_NOT_FOUND, " ERROR_CODE_USER_NOT_FOUND "
             );
@@ -43,21 +43,21 @@ public class EmployeeManager {
             );
         }
 
-        final Employee existEmployee = employeeRepository.findByUsername(userDTO.getUsername());
+        final Employer existEmployer = employerRepository.findByUsername(userDTO.getUsername());
 
-        if (existEmployee != null) {
+        if (existEmployer != null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_USER_ALREADY_EXIST, " ERROR_CODE_USER_ALREADY_EXIST "
             );
         }
 
-        final Employee employee = new Employee();
-        employee.setUsername(userDTO.getUsername());
-        employee.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
-        employee.setEmail(userDTO.getEmail());
-        employee.setRole(User.USER_ROLE_EMPLOYEE);
+        final Employer employer = new Employer();
+        employer.setUsername(userDTO.getUsername());
+        employer.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
+        employer.setEmail(userDTO.getEmail());
+        employer.setRole(User.USER_ROLE_EMPLOYER);
 
-        employeeRepository.save(employee);
+        employerRepository.save(employer);
     }
 
 }

@@ -58,7 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // dont authenticate this particular request
                 .authorizeRequests().antMatchers(
                 "/api/employee/register",
-                "/api/employee/login"
+                "/api/employee/login",
+                "/api/employer/register",
+                "/api/employer/login"
         ).permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
@@ -67,7 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
         // Add a filter to validate the tokens with every request
     }
 }
