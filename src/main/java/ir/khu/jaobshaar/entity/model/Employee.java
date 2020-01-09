@@ -10,7 +10,8 @@ public class Employee extends User {
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    public Employee(Resume resume) {
+    public Employee(String username, String password, String email, int role, Resume resume) {
+        super(username, password, email, role);
         this.resume = resume;
     }
 
@@ -22,5 +23,13 @@ public class Employee extends User {
         return "Employee{" +
                 "\n resume=" + resume +
                 '}';
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }

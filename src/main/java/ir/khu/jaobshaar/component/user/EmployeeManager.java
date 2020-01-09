@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.component.user;
 
+import ir.khu.jaobshaar.constants.StudentsMockData;
 import ir.khu.jaobshaar.entity.model.Employee;
 import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
@@ -48,6 +49,17 @@ public class EmployeeManager {
         if (existEmployee != null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_USER_ALREADY_EXIST, " ERROR_CODE_USER_ALREADY_EXIST "
+            );
+        }
+
+        if (
+                !StudentsMockData.isStudentExist(
+                        userDTO.getUsername(),
+                        userDTO.getPassword()
+                )
+        ) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_STUDENT_NOT_FOUND, " Current Student is not exist in university"
             );
         }
 

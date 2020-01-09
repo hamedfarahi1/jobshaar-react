@@ -9,28 +9,22 @@ public class StudentsMockData {
     static {
         studentMap.put(
                 "973309300",
-                "1234"
+                "123456"
         );
         studentMap.put(
                 "962023026",
-                "1234"
+                "123456"
         );
     }
-
 
     public static boolean isStudentExist(
             final String username,
             final String password
     ) {
-
-
-        if (
-                username == null ||
-                        username.isEmpty() ||
-                        !studentMap.containsKey(username)
-        ) {
+        if (!studentMap.containsKey(username)) {
             return false;
         }
+
         final String existPassword = studentMap.get(username);
 
         return password.equalsIgnoreCase(existPassword);
