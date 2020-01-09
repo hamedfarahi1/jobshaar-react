@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table
+@Table(name = "COMPANY")
 public class Company {
 
     @Id
@@ -35,6 +35,13 @@ public class Company {
         this.bio = bio;
         this.address = address;
         this.employer = employer;
+    }
+
+    public Company(String name, int categoryTypeIndex, String bio, String address) {
+        this.name = name;
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.bio = bio;
+        this.address = address;
     }
 
     public String getName() {

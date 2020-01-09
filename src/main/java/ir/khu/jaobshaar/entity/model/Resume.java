@@ -3,7 +3,7 @@ package ir.khu.jaobshaar.entity.model;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "RESUME")
 public class Resume {
 
     @Id

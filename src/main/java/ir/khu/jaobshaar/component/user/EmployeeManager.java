@@ -63,13 +63,14 @@ public class EmployeeManager {
             );
         }
 
-        final Employee employee = new Employee();
-        employee.setUsername(userDTO.getUsername());
-        employee.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
-        employee.setEmail(userDTO.getEmail());
-        employee.setRole(User.USER_ROLE_EMPLOYEE);
-
-        employeeRepository.save(employee);
+        employeeRepository.save(
+                new Employee(
+                        userDTO.getUsername(),
+                        bcryptEncoder.encode(userDTO.getPassword()),
+                        userDTO.getEmail(),
+                        User.USER_ROLE_EMPLOYEE
+                )
+        );
     }
 
 }

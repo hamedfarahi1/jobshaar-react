@@ -8,7 +8,7 @@ import java.util.Collection;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "users")
+@Table(name = "USERS")
 public class User implements UserDetails {
     public static final int USER_ROLE_EMPLOYER = 0;
     public static final int USER_ROLE_EMPLOYEE = 1;

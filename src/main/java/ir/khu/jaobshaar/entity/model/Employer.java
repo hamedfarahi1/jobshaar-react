@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "employer")
+@Table(name = "EMPLOYER")
 public class Employer extends User {
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -16,6 +16,10 @@ public class Employer extends User {
     private Set<Job> jobs;
 
     public Employer() {
+    }
+
+    public Employer(String username, String password, String email, int role) {
+        super(username, password, email, role);
     }
 
     public Employer(String username, String password, String email, int role, Company company, Set<Job> jobs) {

@@ -9,4 +9,5 @@ public class ErrorCodes {
     public static final int ERROR_CODE_COMPANY_ALREADY_EXIST = 605;
     public static final int ERROR_CODE_INVALID_COMPANY_FIELD = 606;
     public static final int ERROR_CODE_STUDENT_NOT_FOUND = 607;
+    public static final int ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY = 608;
 }

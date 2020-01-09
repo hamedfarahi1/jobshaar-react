@@ -3,7 +3,7 @@ package ir.khu.jaobshaar.entity.model;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "JOB")
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,13 @@ public class Job {
         this.requiredGender = requiredGender;
         this.description = description;
         this.employer = employer;
+    }
+
+    public Job(int categoryType, int cooperationType, int requiredGender, String description) {
+        this.categoryType = categoryType;
+        this.cooperationType = cooperationType;
+        this.requiredGender = requiredGender;
+        this.description = description;
     }
 
     public Long getId() {

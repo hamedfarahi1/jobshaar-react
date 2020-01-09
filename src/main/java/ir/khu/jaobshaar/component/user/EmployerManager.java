@@ -57,13 +57,14 @@ public class EmployerManager {
             );
         }
 
-        final Employer employer = new Employer();
-        employer.setUsername(userDTO.getUsername());
-        employer.setPassword(bcryptEncoder.encode(userDTO.getPassword()));
-        employer.setEmail(userDTO.getEmail());
-        employer.setRole(User.USER_ROLE_EMPLOYER);
-
-        employerRepository.save(employer);
+        employerRepository.save(
+                new Employer(
+                        userDTO.getUsername(),
+                        bcryptEncoder.encode(userDTO.getPassword()),
+                        userDTO.getEmail(),
+                        User.USER_ROLE_EMPLOYER
+                )
+        );
     }
 
     public void addCompany(final CompanyDTO companyDTO, final String userName) {
@@ -92,12 +93,24 @@ public class EmployerManager {
             );
         }
 
-        final Company company = new Company();
-        company.setAddress(companyDTO.getAddress());
-        company.setBio(companyDTO.getBio());
-        company.setName(companyDTO.getName());
-        company.setCategoryTypeIndex(companyDTO.getCategoryTypeIndex());
-        company.setEmployer(employerRepository.findByUsername(userName));
+        final Employer currentEmployer = employerRepository.findByUsername(userName);
+
+        if (currentEmployer.getCompany() != null) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY, "ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY"
+            );
+        }
+
+        final Company company = new Company(
+                companyDTO.getName(),
+                companyDTO.getCategoryTypeIndex(),
+                companyDTO.getBio(),
+                companyDTO.getAddress()
+        );
+
+        currentEmployer.setCompany(company);
+
+        company.setEmployer(currentEmployer);
 
         companyRepository.save(company);
     }
