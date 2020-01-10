@@ -10,4 +10,7 @@ public class ErrorCodes {
     public static final int ERROR_CODE_INVALID_COMPANY_FIELD = 606;
     public static final int ERROR_CODE_STUDENT_NOT_FOUND = 607;
     public static final int ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY = 608;
+    public static final int ERROR_CODE_INVALID_JOB_FIELD = 609;
+    public static final int ERROR_CODE_ACCESS_NOT_PERMITTED = 610;
+    public static final int ERROR_CODE_EMAIL_ALREADY_EXIST = 611;
 }

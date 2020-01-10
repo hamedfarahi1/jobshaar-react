@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.component.user;
 
+import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
 import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.User;
@@ -20,11 +21,14 @@ public class EmployerManager {
 
     private CompanyRepository companyRepository;
 
+    private JwtUserDetailsService userDetailsService;
+
     private PasswordEncoder bcryptEncoder;
 
-    public EmployerManager(EmployerRepository employerRepository, CompanyRepository companyRepository, PasswordEncoder bcryptEncoder) {
+    public EmployerManager(EmployerRepository employerRepository, CompanyRepository companyRepository, JwtUserDetailsService userDetailsService, PasswordEncoder bcryptEncoder) {
         this.employerRepository = employerRepository;
         this.companyRepository = companyRepository;
+        this.userDetailsService = userDetailsService;
         this.bcryptEncoder = bcryptEncoder;
     }
 
@@ -49,11 +53,16 @@ public class EmployerManager {
             );
         }
 
-        final Employer existEmployer = employerRepository.findByUsername(userDTO.getUsername());
 
-        if (existEmployer != null) {
+        if (employerRepository.findByUsername(userDTO.getUsername()) != null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_USER_ALREADY_EXIST, " ERROR_CODE_USER_ALREADY_EXIST "
+            );
+        }
+
+        if (employerRepository.findByEmail(userDTO.getEmail()) != null) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_EMAIL_ALREADY_EXIST, " ERROR_CODE_EMAIL_ALREADY_EXIST "
             );
         }
 
@@ -67,7 +76,7 @@ public class EmployerManager {
         );
     }
 
-    public void addCompany(final CompanyDTO companyDTO, final String userName) {
+    public void addCompany(final CompanyDTO companyDTO) {
         if (companyDTO == null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_INVALID_COMPANY_FIELD, " CompanyDTO is null "
@@ -93,7 +102,9 @@ public class EmployerManager {
             );
         }
 
-        final Employer currentEmployer = employerRepository.findByUsername(userName);
+        final Employer currentEmployer = employerRepository.findByUsername(
+                userDetailsService.getCurrentUser().getUsername()
+        );
 
         if (currentEmployer.getCompany() != null) {
             throw ResponseException.newResponseException(

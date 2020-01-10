@@ -44,11 +44,16 @@ public class EmployeeManager {
             );
         }
 
-        final Employee existEmployee = employeeRepository.findByUsername(userDTO.getUsername());
 
-        if (existEmployee != null) {
+        if (employeeRepository.findByUsername(userDTO.getUsername()) != null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_USER_ALREADY_EXIST, " ERROR_CODE_USER_ALREADY_EXIST "
+            );
+        }
+
+        if (employeeRepository.findByEmail(userDTO.getEmail()) != null) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_EMAIL_ALREADY_EXIST, " ERROR_CODE_EMAIL_ALREADY_EXIST "
             );
         }
 
