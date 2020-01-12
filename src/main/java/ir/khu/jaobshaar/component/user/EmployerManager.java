@@ -1,9 +1,7 @@
 package ir.khu.jaobshaar.component.user;
 
-import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.User;
-import ir.khu.jaobshaar.repository.CompanyRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.ValidationUtils;
@@ -17,16 +15,10 @@ public class EmployerManager {
 
     private EmployerRepository employerRepository;
 
-    private CompanyRepository companyRepository;
-
-    private JwtUserDetailsService userDetailsService;
-
     private PasswordEncoder bcryptEncoder;
 
-    public EmployerManager(EmployerRepository employerRepository, CompanyRepository companyRepository, JwtUserDetailsService userDetailsService, PasswordEncoder bcryptEncoder) {
+    public EmployerManager(EmployerRepository employerRepository, PasswordEncoder bcryptEncoder) {
         this.employerRepository = employerRepository;
-        this.companyRepository = companyRepository;
-        this.userDetailsService = userDetailsService;
         this.bcryptEncoder = bcryptEncoder;
     }
 

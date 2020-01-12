@@ -2,6 +2,7 @@ package ir.khu.jaobshaar.service.user;
 
 import ir.khu.jaobshaar.component.user.EmployeeManager;
 import ir.khu.jaobshaar.component.user.EmployerManager;
+import ir.khu.jaobshaar.component.user.UserManager;
 import ir.khu.jaobshaar.config.jwt.JwtResponse;
 import ir.khu.jaobshaar.config.jwt.JwtTokenUtil;
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
@@ -37,6 +38,9 @@ public class UserController {
     @Autowired
     private EmployerManager employerManager;
 
+    @Autowired
+    private UserManager userManager;
+
     @PostMapping("/employee/register")
     public ResponseEntity<?> registerEmployee(@RequestBody UserDTO userDTO) {
         employeeManager.register(userDTO);
@@ -59,6 +63,11 @@ public class UserController {
     public ResponseEntity<?> loginEmployer(@RequestBody UserDTO userDTO) {
         employerManager.login(userDTO);
         return ResponseEntity.ok(authenticate(userDTO.getUsername(), userDTO.getPassword()));
+    }
+
+    @GetMapping(value = "/who_am_i")
+    public ResponseEntity<?> whoAmI() {
+        return ResponseEntity.ok(userManager.whoAmI());
     }
 
     private JwtResponse authenticate(String username, String password) {
