@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.config.security;
 
+import ir.khu.jaobshaar.config.jwt.ExceptionHandlerFilter;
 import ir.khu.jaobshaar.config.jwt.JwtAuthenticationEntryPoint;
 import ir.khu.jaobshaar.config.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    private ExceptionHandlerFilter exceptionHandlerFilter;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,7 +72,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // store user's state.
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(exceptionHandlerFilter, JwtRequestFilter.class)
+        ;
         // Add a filter to validate the tokens with every request
     }
 }
