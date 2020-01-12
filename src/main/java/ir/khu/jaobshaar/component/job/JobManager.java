@@ -1,17 +1,21 @@
 package ir.khu.jaobshaar.component.job;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
+import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.repository.JobRepository;
+import ir.khu.jaobshaar.service.domain.CompanyDomain;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.JobDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobManager {
@@ -35,7 +39,7 @@ public class JobManager {
 
         final User user = userDetailsService.getCurrentUser();
 
-        if (user.getRole() != User.USER_ROLE_EMPLOYER) {
+        if (user.getRole() != User.PersonRule.EMPLOYER) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "Employee can't add job"
             );
@@ -54,9 +58,35 @@ public class JobManager {
         );
     }
 
-    public List<Job> getJobs() {
-        // TODO: 1/10/2020 Implement get Jobs List
-        return null;
+    public List<JobDomain> getJobs() {
+        userDetailsService.getCurrentUser();
+        return jobDomainGenerator(
+                jobRepository.findAll()
+        );
+    }
+
+    private List<JobDomain> jobDomainGenerator(final List<Job> jobList) {
+        return jobList.stream().map(
+                job -> {
+                    final Company company = job.getEmployer().getCompany();
+                    final CompanyDomain companyDomain = company == null ? null : new CompanyDomain(
+                            company.getId(),
+                            company.getName(),
+                            company.getCategoryTypeIndex(),
+                            company.getBio(),
+                            company.getAddress()
+                    );
+                    return new JobDomain(
+                            job.getId(),
+                            job.getCategoryType(),
+                            job.getCooperationType(),
+                            job.getRequiredGender(),
+                            job.getDescription(),
+                            job.getDate(),
+                            companyDomain
+                    );
+                }
+        ).collect(Collectors.toList());
     }
 
 }

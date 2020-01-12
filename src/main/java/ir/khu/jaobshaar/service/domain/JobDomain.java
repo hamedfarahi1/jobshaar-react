@@ -1,51 +1,30 @@
-package ir.khu.jaobshaar.entity.model;
+package ir.khu.jaobshaar.service.domain;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "JOB")
-public class Job {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class JobDomain {
     private Long id;
 
-    @Column
     private int categoryType;
 
-    @Column
     private int cooperationType;
 
-    @Column
     private int requiredGender;
 
-    @Column(length = 1024)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "employer_id")
-    private Employer employer;
+    private Date date;
 
-    @Column()
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date = new Date();
+    private CompanyDomain company;
 
-    public Job() {
-    }
-
-    public Job(int categoryType, int cooperationType, int requiredGender, String description, Employer employer) {
+    public JobDomain(Long id, int categoryType, int cooperationType, int requiredGender, String description, Date date, CompanyDomain company) {
+        this.id = id;
         this.categoryType = categoryType;
         this.cooperationType = cooperationType;
         this.requiredGender = requiredGender;
         this.description = description;
-        this.employer = employer;
-    }
-
-    public Job(int categoryType, int cooperationType, int requiredGender, String description) {
-        this.categoryType = categoryType;
-        this.cooperationType = cooperationType;
-        this.requiredGender = requiredGender;
-        this.description = description;
+        this.date = date;
+        this.company = company;
     }
 
     public Long getId() {
@@ -88,14 +67,6 @@ public class Job {
         this.description = description;
     }
 
-    public Employer getEmployer() {
-        return employer;
-    }
-
-    public void setEmployer(Employer employer) {
-        this.employer = employer;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -103,4 +74,13 @@ public class Job {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public CompanyDomain getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyDomain company) {
+        this.company = company;
+    }
+
 }

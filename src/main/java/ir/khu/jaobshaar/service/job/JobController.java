@@ -2,7 +2,7 @@ package ir.khu.jaobshaar.service.job;
 
 
 import ir.khu.jaobshaar.component.job.JobManager;
-import ir.khu.jaobshaar.entity.model.Job;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.JobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,14 @@ public class JobController {
     @Autowired
     private JobManager jobManager;
 
-    @PostMapping("/jobs/add_job")
+    @PostMapping("/jobs")
     public ResponseEntity<?> addJob(@RequestBody JobDTO jobDTO) {
         jobManager.addJob(jobDTO);
         return ResponseEntity.ok(jobDTO);
     }
 
-    @GetMapping("jobs/get_jobs")
-    public ResponseEntity<List<Job>> getJobs() {
+    @GetMapping("/jobs")
+    public ResponseEntity<List<JobDomain>> getJobs() {
         return ResponseEntity.ok(jobManager.getJobs());
     }
 
