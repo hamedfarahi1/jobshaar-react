@@ -6,18 +6,18 @@ import javax.persistence.*;
 @Table(name = "EMPLOYEE")
 public class Employee extends User {
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
     public Employee() {
     }
 
-    public Employee(String username, String password, String email, int role) {
+    public Employee(String username, String password, String email, PersonRule role) {
         super(username, password, email, role);
     }
 
-    public Employee(String username, String password, String email, int role, Resume resume) {
+    public Employee(String username, String password, String email, PersonRule role, Resume resume) {
         super(username, password, email, role);
         this.resume = resume;
     }

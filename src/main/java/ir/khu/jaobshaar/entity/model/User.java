@@ -10,9 +10,6 @@ import java.util.Collection;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "USERS")
 public class User implements UserDetails {
-    public static final int USER_ROLE_EMPLOYER = 0;
-    public static final int USER_ROLE_EMPLOYEE = 1;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,9 +24,9 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private int role;
+    private PersonRule role;
 
-    public User(String username, String password, String email, int role) {
+    public User(String username, String password, String email, PersonRule role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -97,11 +94,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public int getRole() {
+    public PersonRule getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(PersonRule role) {
         this.role = role;
     }
 
@@ -114,5 +111,9 @@ public class User implements UserDetails {
                 "\n , email='" + email + '\'' +
                 "\n , role =  " + role + " " +
                 '}';
+    }
+
+    public enum PersonRule {
+        EMPLOYER, EMPLOYEE
     }
 }

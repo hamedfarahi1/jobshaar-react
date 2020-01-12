@@ -84,6 +84,14 @@ public class Company {
         this.employer = employer;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Company{" +

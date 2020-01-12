@@ -1,12 +1,10 @@
 package ir.khu.jaobshaar.component.user;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
-import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.CompanyRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
-import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
@@ -71,59 +69,9 @@ public class EmployerManager {
                         userDTO.getUsername(),
                         bcryptEncoder.encode(userDTO.getPassword()),
                         userDTO.getEmail(),
-                        User.USER_ROLE_EMPLOYER
+                        User.PersonRule.EMPLOYER
                 )
         );
-    }
-
-    public void addCompany(final CompanyDTO companyDTO) {
-        if (companyDTO == null) {
-            throw ResponseException.newResponseException(
-                    ErrorCodes.ERROR_CODE_INVALID_COMPANY_FIELD, " CompanyDTO is null "
-            );
-        }
-
-        final String companyName = companyDTO.getName();
-
-        if (
-                companyName == null ||
-                        companyName.isEmpty()
-        ) {
-            throw ResponseException.newResponseException(
-                    ErrorCodes.ERROR_CODE_INVALID_COMPANY_FIELD, " Company Name  is empty "
-            );
-        }
-
-        final Company existCompany = companyRepository.findByName(companyName);
-
-        if (existCompany != null) {
-            throw ResponseException.newResponseException(
-                    ErrorCodes.ERROR_CODE_COMPANY_ALREADY_EXIST, " ERROR_CODE_COMPANY_ALREADY_EXIST "
-            );
-        }
-
-        final Employer currentEmployer = employerRepository.findByUsername(
-                userDetailsService.getCurrentUser().getUsername()
-        );
-
-        if (currentEmployer.getCompany() != null) {
-            throw ResponseException.newResponseException(
-                    ErrorCodes.ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY, "ERROR_CODE_EMPLOYER_ALREADY_HAS_COMPANY"
-            );
-        }
-
-        final Company company = new Company(
-                companyDTO.getName(),
-                companyDTO.getCategoryTypeIndex(),
-                companyDTO.getBio(),
-                companyDTO.getAddress()
-        );
-
-        currentEmployer.setCompany(company);
-
-        company.setEmployer(currentEmployer);
-
-        companyRepository.save(company);
     }
 
 }

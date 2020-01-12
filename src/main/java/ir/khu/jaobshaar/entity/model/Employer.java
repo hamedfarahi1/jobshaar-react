@@ -8,21 +8,21 @@ import java.util.Set;
 @Table(name = "EMPLOYER")
 public class Employer extends User {
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "employer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
     private Set<Job> jobs;
 
     public Employer() {
     }
 
-    public Employer(String username, String password, String email, int role) {
+    public Employer(String username, String password, String email, PersonRule role) {
         super(username, password, email, role);
     }
 
-    public Employer(String username, String password, String email, int role, Company company, Set<Job> jobs) {
+    public Employer(String username, String password, String email, PersonRule role, Company company, Set<Job> jobs) {
         super(username, password, email, role);
         this.company = company;
         this.jobs = jobs;

@@ -73,7 +73,7 @@ public class EmployeeManager {
                         userDTO.getUsername(),
                         bcryptEncoder.encode(userDTO.getPassword()),
                         userDTO.getEmail(),
-                        User.USER_ROLE_EMPLOYEE
+                        User.PersonRule.EMPLOYEE
                 )
         );
     }
