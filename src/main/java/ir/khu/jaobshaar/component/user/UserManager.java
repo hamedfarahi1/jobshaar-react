@@ -14,7 +14,7 @@ public class UserManager {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
-    public UserDomain whoAmI() {
+    public UserDomain getCurrentUser() {
         final User currentUser = jwtUserDetailsService.getCurrentUser();
         return new UserDomain(
                 currentUser.getId(),

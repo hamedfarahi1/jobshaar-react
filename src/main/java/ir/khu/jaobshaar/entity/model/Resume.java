@@ -29,7 +29,6 @@ public class Resume {
         return "Resume{" +
                 "\n id=" + id +
                 "\n , url='" + url + '\'' +
-                "\n , employee=" + employee +
                 '}';
     }
 }

@@ -100,7 +100,6 @@ public class Company {
                 "\n, categoryTypeIndex=" + categoryTypeIndex +
                 "\n, bio='" + bio + '\'' +
                 "\n, address='" + address + '\'' +
-                "\n, employer=" + employer +
                 '}';
     }
 }

@@ -43,11 +43,4 @@ public class Employer extends User {
     public void setJobs(Set<Job> jobs) {
         this.jobs = jobs;
     }
-
-    @Override
-    public String toString() {
-        return "Employer{" +
-                "\n company=" + company +
-                '}';
-    }
 }

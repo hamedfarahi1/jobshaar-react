@@ -58,10 +58,18 @@ public class JobManager {
         );
     }
 
-    public List<JobDomain> getJobs() {
+    public List<JobDomain> getEmployeeJobs() {
+        // TODO: 1/13/2020 Hoy Fateme ! - > Get Filter Request Param Using Predicate
         userDetailsService.getCurrentUser();
         return jobDomainGenerator(
                 jobRepository.findAll()
+        );
+    }
+
+    public List<JobDomain> getEmployerJobs() {
+        final User currentUser = userDetailsService.getCurrentUser();
+        return jobDomainGenerator(
+                jobRepository.findAllByEmployerId(currentUser.getId())
         );
     }
 
