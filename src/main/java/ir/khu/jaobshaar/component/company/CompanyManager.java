@@ -1,6 +1,7 @@
 package ir.khu.jaobshaar.component.company;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
+import ir.khu.jaobshaar.entity.enums.CompanyCategoryType;
 import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.repository.CompanyRepository;
@@ -64,7 +65,7 @@ public class CompanyManager {
 
         final Company company = new Company(
                 companyDTO.getName(),
-                companyDTO.getCategoryTypeIndex(),
+                CompanyCategoryType.fromKey(companyDTO.getCategoryTypeIndex()),
                 companyDTO.getBio(),
                 companyDTO.getAddress()
         );

@@ -1,5 +1,9 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.enums.CooperationType;
+import ir.khu.jaobshaar.entity.enums.JobCategoryType;
+import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,13 +15,13 @@ public class Job {
     private Long id;
 
     @Column
-    private int categoryType;
+    private JobCategoryType categoryTypeIndex;
 
     @Column
-    private int cooperationType;
+    private CooperationType cooperationTypeIndex;
 
     @Column
-    private int requiredGender;
+    private RequiredGenderType requiredGenderTypeIndex;
 
     @Column(length = 1024)
     private String description;
@@ -33,18 +37,18 @@ public class Job {
     public Job() {
     }
 
-    public Job(int categoryType, int cooperationType, int requiredGender, String description, Employer employer) {
-        this.categoryType = categoryType;
-        this.cooperationType = cooperationType;
-        this.requiredGender = requiredGender;
+    public Job(JobCategoryType categoryTypeIndex, CooperationType cooperationTypeIndex, RequiredGenderType requiredGenderTypeIndex, String description, Employer employer) {
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.cooperationTypeIndex = cooperationTypeIndex;
+        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
         this.description = description;
         this.employer = employer;
     }
 
-    public Job(int categoryType, int cooperationType, int requiredGender, String description) {
-        this.categoryType = categoryType;
-        this.cooperationType = cooperationType;
-        this.requiredGender = requiredGender;
+    public Job(JobCategoryType categoryTypeIndex, CooperationType cooperationTypeIndex, RequiredGenderType requiredGenderTypeIndex, String description) {
+        this.categoryTypeIndex = categoryTypeIndex;
+        this.cooperationTypeIndex = cooperationTypeIndex;
+        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
         this.description = description;
     }
 
@@ -56,28 +60,28 @@ public class Job {
         this.id = id;
     }
 
-    public int getCategoryType() {
-        return categoryType;
+    public JobCategoryType getCategoryTypeIndex() {
+        return categoryTypeIndex;
     }
 
-    public void setCategoryType(int categoryType) {
-        this.categoryType = categoryType;
+    public void setCategoryTypeIndex(JobCategoryType categoryTypeIndex) {
+        this.categoryTypeIndex = categoryTypeIndex;
     }
 
-    public int getCooperationType() {
-        return cooperationType;
+    public CooperationType getCooperationTypeIndex() {
+        return cooperationTypeIndex;
     }
 
-    public void setCooperationType(int cooperationType) {
-        this.cooperationType = cooperationType;
+    public void setCooperationTypeIndex(CooperationType cooperationTypeIndex) {
+        this.cooperationTypeIndex = cooperationTypeIndex;
     }
 
-    public int getRequiredGender() {
-        return requiredGender;
+    public RequiredGenderType getRequiredGenderTypeIndex() {
+        return requiredGenderTypeIndex;
     }
 
-    public void setRequiredGender(int requiredGender) {
-        this.requiredGender = requiredGender;
+    public void setRequiredGenderTypeIndex(RequiredGenderType requiredGenderTypeIndex) {
+        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
     }
 
     public String getDescription() {

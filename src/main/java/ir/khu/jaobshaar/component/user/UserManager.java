@@ -20,7 +20,7 @@ public class UserManager {
                 currentUser.getId(),
                 currentUser.getUsername(),
                 currentUser.getEmail(),
-                currentUser.getRole()
+                currentUser.getRoleTypeIndex()
         );
     }
 }

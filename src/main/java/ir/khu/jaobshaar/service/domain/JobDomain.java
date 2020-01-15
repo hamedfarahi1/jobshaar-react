@@ -5,11 +5,11 @@ import java.util.Date;
 public class JobDomain {
     private Long id;
 
-    private int categoryType;
+    private int categoryTypeIndex;
 
-    private int cooperationType;
+    private int cooperationTypeIndex;
 
-    private int requiredGender;
+    private int requiredGenderTypeIndex;
 
     private String description;
 
@@ -19,9 +19,9 @@ public class JobDomain {
 
     public JobDomain(Long id, int categoryType, int cooperationType, int requiredGender, String description, Date date, CompanyDomain company) {
         this.id = id;
-        this.categoryType = categoryType;
-        this.cooperationType = cooperationType;
-        this.requiredGender = requiredGender;
+        this.categoryTypeIndex = categoryType;
+        this.cooperationTypeIndex = cooperationType;
+        this.requiredGenderTypeIndex = requiredGender;
         this.description = description;
         this.date = date;
         this.company = company;
@@ -35,28 +35,28 @@ public class JobDomain {
         this.id = id;
     }
 
-    public int getCategoryType() {
-        return categoryType;
+    public int getCategoryTypeIndex() {
+        return categoryTypeIndex;
     }
 
-    public void setCategoryType(int categoryType) {
-        this.categoryType = categoryType;
+    public void setCategoryTypeIndex(int categoryType) {
+        this.categoryTypeIndex = categoryType;
     }
 
-    public int getCooperationType() {
-        return cooperationType;
+    public int getCooperationTypeIndex() {
+        return cooperationTypeIndex;
     }
 
-    public void setCooperationType(int cooperationType) {
-        this.cooperationType = cooperationType;
+    public void setCooperationTypeIndex(int cooperationType) {
+        this.cooperationTypeIndex = cooperationType;
     }
 
-    public int getRequiredGender() {
-        return requiredGender;
+    public int getRequiredGenderTypeIndex() {
+        return requiredGenderTypeIndex;
     }
 
-    public void setRequiredGender(int requiredGender) {
-        this.requiredGender = requiredGender;
+    public void setRequiredGenderTypeIndex(int requiredGender) {
+        this.requiredGenderTypeIndex = requiredGender;
     }
 
     public String getDescription() {

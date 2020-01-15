@@ -1,6 +1,8 @@
 package ir.khu.jaobshaar.entity.model;
 
 
+import ir.khu.jaobshaar.entity.enums.PersonRuleType;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,11 +20,11 @@ public class Employer extends User {
     public Employer() {
     }
 
-    public Employer(String username, String password, String email, PersonRule role) {
+    public Employer(String username, String password, String email, PersonRuleType role) {
         super(username, password, email, role);
     }
 
-    public Employer(String username, String password, String email, PersonRule role, Company company, Set<Job> jobs) {
+    public Employer(String username, String password, String email, PersonRuleType role, Company company, Set<Job> jobs) {
         super(username, password, email, role);
         this.company = company;
         this.jobs = jobs;
