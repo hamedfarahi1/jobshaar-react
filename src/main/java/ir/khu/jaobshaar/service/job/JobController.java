@@ -2,8 +2,12 @@ package ir.khu.jaobshaar.service.job;
 
 
 import ir.khu.jaobshaar.component.job.JobManager;
+import ir.khu.jaobshaar.service.criteria.JobCriteria;
 import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.JobDTO;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +31,21 @@ public class JobController {
     }
 
     @GetMapping("/employee")
-    public ResponseEntity<List<JobDomain>> getEmployeeJobs() {
-        // TODO: 1/13/2020 Hoy Fateme ! - > Get Filter Request Param Using Predicate
-        return ResponseEntity.ok(jobManager.getEmployeeJobs());
+    public ResponseEntity<List<JobDomain>> getEmployeeJobs(JobCriteria jobCriteria, Pageable pageable) {
+        List<JobDomain> jobDomains = jobManager.getEmployeeJobs(jobCriteria, pageable);
+        ResponseEntity<List<JobDomain>> responseEntity = ResponseEntity.ok(jobDomains);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("total-count", "" + jobManager.countAll());
+        return new ResponseEntity<>(jobDomains, headers, HttpStatus.OK);
     }
 
     @GetMapping("/employer")
-    public ResponseEntity<List<JobDomain>> getEmployerJobs() {
-        return ResponseEntity.ok(jobManager.getEmployerJobs());
+    public ResponseEntity<List<JobDomain>> getEmployerJobs(Pageable pageable) {
+        return ResponseEntity.ok(jobManager.getEmployerJobs(pageable));
     }
 
+    @GetMapping()
+    public ResponseEntity<List<JobDomain>> getAll() {
+        return ResponseEntity.ok(jobManager.getAllJobsEmployee());
+    }
 }

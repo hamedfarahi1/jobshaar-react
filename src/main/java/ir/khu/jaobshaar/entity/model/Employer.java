@@ -10,11 +10,11 @@ import java.util.Set;
 @Table(name = "EMPLOYER")
 public class Employer extends User {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employer")
     private Set<Job> jobs;
 
     public Employer() {

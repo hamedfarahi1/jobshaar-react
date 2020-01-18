@@ -56,9 +56,8 @@ public class EmployeeManager {
                     ErrorCodes.ERROR_CODE_EMAIL_ALREADY_EXIST, " ERROR_CODE_EMAIL_ALREADY_EXIST "
             );
         }
-        // if student exist isStudentExist return true otherwise return false ??
         if (
-                StudentsMockData.isStudentExist(
+                !StudentsMockData.isStudentExist(
                         userDTO.getUsername(),
                         userDTO.getPassword()
                 )

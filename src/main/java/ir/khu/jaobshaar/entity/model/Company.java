@@ -22,11 +22,8 @@ public class Company extends EntityBase {
     @Column()
     private String address;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "company")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "company", cascade = CascadeType.ALL)
     private Employer employer;
-
-    public Company() {
-    }
 
     public String getName() {
         return name;
