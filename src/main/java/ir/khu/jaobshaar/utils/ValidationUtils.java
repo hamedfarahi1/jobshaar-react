@@ -4,6 +4,7 @@ import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.http.HttpStatus;
 
 public class ValidationUtils {
@@ -44,4 +45,7 @@ public class ValidationUtils {
         }
     }
 
+    public static boolean isValidURL(final String urlStr) {
+        return UrlValidator.getInstance().isValid(urlStr);
+    }
 }

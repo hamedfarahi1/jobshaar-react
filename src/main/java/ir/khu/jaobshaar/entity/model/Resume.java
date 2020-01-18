@@ -11,7 +11,7 @@ public class Resume extends EntityBase {
     @Column(unique = true)
     private String url;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "resume")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "resume", cascade = CascadeType.ALL)
     private Employee employee;
 
     public Resume() {
