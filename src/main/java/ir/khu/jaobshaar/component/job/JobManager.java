@@ -1,6 +1,10 @@
 package ir.khu.jaobshaar.component.job;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
+import ir.khu.jaobshaar.entity.enums.CooperationType;
+import ir.khu.jaobshaar.entity.enums.JobCategoryType;
+import ir.khu.jaobshaar.entity.enums.PersonRuleType;
+import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.Job;
@@ -39,7 +43,7 @@ public class JobManager {
 
         final User user = userDetailsService.getCurrentUser();
 
-        if (user.getRole() != User.PersonRule.EMPLOYER) {
+        if (user.getRoleTypeIndex() != PersonRuleType.EMPLOYER) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "Employee can't add job"
             );
@@ -49,9 +53,9 @@ public class JobManager {
 
         jobRepository.save(
                 new Job(
-                        jobDTO.getCategoryType(),
-                        jobDTO.getCooperationType(),
-                        jobDTO.getRequiredGender(),
+                        JobCategoryType.fromKey(jobDTO.getCategoryType()),
+                        CooperationType.fromKey(jobDTO.getCooperationType()),
+                        RequiredGenderType.fromKey(jobDTO.getRequiredGender()),
                         jobDTO.getDescription(),
                         employer
                 )
@@ -80,15 +84,15 @@ public class JobManager {
                     final CompanyDomain companyDomain = company == null ? null : new CompanyDomain(
                             company.getId(),
                             company.getName(),
-                            company.getCategoryTypeIndex(),
+                            company.getCategoryTypeIndex().toKey(),
                             company.getBio(),
                             company.getAddress()
                     );
                     return new JobDomain(
                             job.getId(),
-                            job.getCategoryType(),
-                            job.getCooperationType(),
-                            job.getRequiredGender(),
+                            job.getCategoryTypeIndex().toKey(),
+                            job.getCooperationTypeIndex().toKey(),
+                            job.getRequiredGenderTypeIndex().toKey().intValue(),
                             job.getDescription(),
                             job.getDate(),
                             companyDomain

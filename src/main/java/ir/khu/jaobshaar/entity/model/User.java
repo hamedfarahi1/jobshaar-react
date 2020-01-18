@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,13 +25,13 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private PersonRule role;
+    private PersonRuleType roleTypeIndex;
 
-    public User(String username, String password, String email, PersonRule role) {
+    public User(String username, String password, String email, PersonRuleType roleTypeIndex) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.roleTypeIndex = roleTypeIndex;
     }
 
     public User() {
@@ -50,6 +51,14 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public PersonRuleType getRoleTypeIndex() {
+        return roleTypeIndex;
+    }
+
+    public void setRoleTypeIndex(PersonRuleType roleTypeIndex) {
+        this.roleTypeIndex = roleTypeIndex;
     }
 
     @Override
@@ -94,14 +103,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public PersonRule getRole() {
-        return role;
-    }
-
-    public void setRole(PersonRule role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -109,11 +110,7 @@ public class User implements UserDetails {
                 "\n , username='" + username + '\'' +
                 "\n , password='" + password + '\'' +
                 "\n , email='" + email + '\'' +
-                "\n , role =  " + role + " " +
+                "\n , role =  " + roleTypeIndex + " " +
                 '}';
-    }
-
-    public enum PersonRule {
-        EMPLOYER, EMPLOYEE
     }
 }

@@ -1,5 +1,7 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.enums.CompanyCategoryType;
+
 import javax.persistence.*;
 
 
@@ -15,7 +17,7 @@ public class Company {
     private String name;
 
     @Column
-    private int categoryTypeIndex;
+    private CompanyCategoryType categoryTypeIndex;
 
     @Column(length = 1024)
     private String bio;
@@ -29,7 +31,7 @@ public class Company {
     public Company() {
     }
 
-    public Company(String name, int categoryTypeIndex, String bio, String address, Employer employer) {
+    public Company(String name, CompanyCategoryType categoryTypeIndex, String bio, String address, Employer employer) {
         this.name = name;
         this.categoryTypeIndex = categoryTypeIndex;
         this.bio = bio;
@@ -37,7 +39,7 @@ public class Company {
         this.employer = employer;
     }
 
-    public Company(String name, int categoryTypeIndex, String bio, String address) {
+    public Company(String name, CompanyCategoryType categoryTypeIndex, String bio, String address) {
         this.name = name;
         this.categoryTypeIndex = categoryTypeIndex;
         this.bio = bio;
@@ -52,11 +54,11 @@ public class Company {
         this.name = name;
     }
 
-    public int getCategoryTypeIndex() {
+    public CompanyCategoryType getCategoryTypeIndex() {
         return categoryTypeIndex;
     }
 
-    public void setCategoryTypeIndex(int categoryTypeIndex) {
+    public void setCategoryTypeIndex(CompanyCategoryType categoryTypeIndex) {
         this.categoryTypeIndex = categoryTypeIndex;
     }
 

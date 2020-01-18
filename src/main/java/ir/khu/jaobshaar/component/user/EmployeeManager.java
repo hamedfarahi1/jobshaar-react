@@ -1,8 +1,8 @@
 package ir.khu.jaobshaar.component.user;
 
 import ir.khu.jaobshaar.constants.StudentsMockData;
+import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import ir.khu.jaobshaar.entity.model.Employee;
-import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.ValidationUtils;
@@ -73,7 +73,7 @@ public class EmployeeManager {
                         userDTO.getUsername(),
                         bcryptEncoder.encode(userDTO.getPassword()),
                         userDTO.getEmail(),
-                        User.PersonRule.EMPLOYEE
+                        PersonRuleType.EMPLOYEE
                 )
         );
     }
