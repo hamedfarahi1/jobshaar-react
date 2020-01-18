@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.EntityBase;
 import ir.khu.jaobshaar.entity.enums.CompanyCategoryType;
 
 import javax.persistence.*;
@@ -7,11 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "COMPANY")
-public class Company {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Company extends EntityBase {
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -29,21 +26,6 @@ public class Company {
     private Employer employer;
 
     public Company() {
-    }
-
-    public Company(String name, CompanyCategoryType categoryTypeIndex, String bio, String address, Employer employer) {
-        this.name = name;
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.bio = bio;
-        this.address = address;
-        this.employer = employer;
-    }
-
-    public Company(String name, CompanyCategoryType categoryTypeIndex, String bio, String address) {
-        this.name = name;
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.bio = bio;
-        this.address = address;
     }
 
     public String getName() {
@@ -86,18 +68,10 @@ public class Company {
         this.employer = employer;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "Company{" +
-                "\n id=" + id +
+                "\n id=" + getId() +
                 "\n, name='" + name + '\'' +
                 "\n, categoryTypeIndex=" + categoryTypeIndex +
                 "\n, bio='" + bio + '\'' +

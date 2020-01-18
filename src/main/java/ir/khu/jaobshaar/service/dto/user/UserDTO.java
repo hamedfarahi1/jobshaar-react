@@ -1,6 +1,8 @@
 package ir.khu.jaobshaar.service.dto.user;
 
-public class UserDTO {
+import ir.khu.jaobshaar.service.dto.DTOBase;
+
+public class UserDTO extends DTOBase {
 
     private String username;
     private String password;

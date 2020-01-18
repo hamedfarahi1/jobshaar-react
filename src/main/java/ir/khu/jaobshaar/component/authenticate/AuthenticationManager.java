@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,9 +29,7 @@ public class AuthenticationManager {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            final String token = jwtTokenUtil.generateToken(userDetails);
+            final String token = jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(username));
 
             return new JwtResponse(token);
         } catch (DisabledException e) {

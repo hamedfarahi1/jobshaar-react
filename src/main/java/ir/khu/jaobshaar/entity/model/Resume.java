@@ -1,14 +1,12 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.EntityBase;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "RESUME")
-public class Resume {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Resume extends EntityBase {
 
     @Column(unique = true)
     private String url;
@@ -16,28 +14,15 @@ public class Resume {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "resume")
     private Employee employee;
 
-    public Resume(String url, Employee employee) {
-        this.url = url;
-        this.employee = employee;
-    }
-
     public Resume() {
     }
 
     @Override
     public String toString() {
         return "Resume{" +
-                "\n id=" + id +
+                "\n id=" + getId() +
                 "\n , url='" + url + '\'' +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUrl() {

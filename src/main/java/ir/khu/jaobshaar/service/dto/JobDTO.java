@@ -1,43 +1,45 @@
 package ir.khu.jaobshaar.service.dto;
 
-public class JobDTO {
-    private int categoryType;
+public class JobDTO extends DTOBase {
+    private Integer categoryType;
 
-    private int cooperationType;
+    private Integer cooperationType;
 
-    private int requiredGender;
+    private Integer requiredGender;
 
     private String description;
 
-    public JobDTO(int categoryType, int cooperationType, int requiredGender, String description) {
+    public JobDTO(Integer categoryType, Integer cooperationType, Integer requiredGender, String description) {
         this.categoryType = categoryType;
         this.cooperationType = cooperationType;
         this.requiredGender = requiredGender;
         this.description = description;
     }
 
+    public JobDTO() {
+    }
 
-    public int getCategoryType() {
+    public Integer getCategoryType() {
         return categoryType;
     }
 
-    public void setCategoryType(int categoryType) {
+    public void setCategoryType(Integer categoryType) {
         this.categoryType = categoryType;
     }
 
-    public int getCooperationType() {
+    public Integer getCooperationType() {
         return cooperationType;
     }
 
-    public void setCooperationType(int cooperationType) {
+    public void setCooperationType(Integer cooperationType) {
         this.cooperationType = cooperationType;
     }
 
-    public int getRequiredGender() {
+    public Integer getRequiredGender() {
         return requiredGender;
     }
 
-    public void setRequiredGender(int requiredGender) {
+    public void setRequiredGender(Integer requiredGender) {
         this.requiredGender = requiredGender;
     }
 

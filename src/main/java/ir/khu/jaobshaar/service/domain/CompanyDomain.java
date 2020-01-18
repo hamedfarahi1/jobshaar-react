@@ -1,31 +1,24 @@
 package ir.khu.jaobshaar.service.domain;
 
-public class CompanyDomain {
-
-    private Long id;
+public class CompanyDomain extends DomainBase {
 
     private String name;
 
-    private int categoryTypeIndex;
+    private Integer categoryTypeIndex;
 
     private String bio;
 
     private String address;
 
-    public CompanyDomain(Long id, String name, int categoryTypeIndex, String bio, String address) {
-        this.id = id;
+    public CompanyDomain(Long id, String name, Integer categoryTypeIndex, String bio, String address) {
+        this.setId(id);
         this.name = name;
         this.categoryTypeIndex = categoryTypeIndex;
         this.bio = bio;
         this.address = address;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public CompanyDomain() {
     }
 
     public String getName() {
@@ -36,11 +29,11 @@ public class CompanyDomain {
         this.name = name;
     }
 
-    public int getCategoryTypeIndex() {
+    public Integer getCategoryTypeIndex() {
         return categoryTypeIndex;
     }
 
-    public void setCategoryTypeIndex(int categoryTypeIndex) {
+    public void setCategoryTypeIndex(Integer categoryTypeIndex) {
         this.categoryTypeIndex = categoryTypeIndex;
     }
 

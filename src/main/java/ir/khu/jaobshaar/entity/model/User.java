@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.EntityBase;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +11,7 @@ import java.util.Collection;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "USERS")
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class User extends EntityBase implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -35,14 +33,6 @@ public class User implements UserDetails {
     }
 
     public User() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -106,7 +96,7 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "\n id=" + id +
+                "\n id=" + getId() +
                 "\n , username='" + username + '\'' +
                 "\n , password='" + password + '\'' +
                 "\n , email='" + email + '\'' +
