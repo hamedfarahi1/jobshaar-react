@@ -2,7 +2,6 @@ package ir.khu.jaobshaar.service.company;
 
 import ir.khu.jaobshaar.component.company.CompanyManager;
 import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class CompanyController {
 
-    @Autowired
-    private CompanyManager companyManager;
+    private final CompanyManager companyManager;
+
+    public CompanyController(CompanyManager companyManager) {
+        this.companyManager = companyManager;
+    }
 
     @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {

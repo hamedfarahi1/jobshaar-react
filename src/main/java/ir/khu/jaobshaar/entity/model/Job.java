@@ -1,5 +1,6 @@
 package ir.khu.jaobshaar.entity.model;
 
+import ir.khu.jaobshaar.entity.EntityBase;
 import ir.khu.jaobshaar.entity.enums.CooperationType;
 import ir.khu.jaobshaar.entity.enums.JobCategoryType;
 import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
@@ -9,10 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "JOB")
-public class Job {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Job extends EntityBase {
 
     @Column
     private JobCategoryType categoryTypeIndex;
@@ -35,29 +33,6 @@ public class Job {
     private Date date = new Date();
 
     public Job() {
-    }
-
-    public Job(JobCategoryType categoryTypeIndex, CooperationType cooperationTypeIndex, RequiredGenderType requiredGenderTypeIndex, String description, Employer employer) {
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.cooperationTypeIndex = cooperationTypeIndex;
-        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
-        this.description = description;
-        this.employer = employer;
-    }
-
-    public Job(JobCategoryType categoryTypeIndex, CooperationType cooperationTypeIndex, RequiredGenderType requiredGenderTypeIndex, String description) {
-        this.categoryTypeIndex = categoryTypeIndex;
-        this.cooperationTypeIndex = cooperationTypeIndex;
-        this.requiredGenderTypeIndex = requiredGenderTypeIndex;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public JobCategoryType getCategoryTypeIndex() {

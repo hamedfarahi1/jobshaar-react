@@ -1,12 +1,12 @@
 package ir.khu.jaobshaar.component.company;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
-import ir.khu.jaobshaar.entity.enums.CompanyCategoryType;
 import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.repository.CompanyRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.service.dto.employer.CompanyDTO;
+import ir.khu.jaobshaar.service.mapper.CompanyMapper;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.stereotype.Service;
@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyManager {
 
+    private final CompanyMapper companyMapper;
     private EmployerRepository employerRepository;
-
     private CompanyRepository companyRepository;
-
     private JwtUserDetailsService userDetailsService;
 
 
-    public CompanyManager(EmployerRepository employerRepository, CompanyRepository companyRepository, JwtUserDetailsService userDetailsService) {
+    public CompanyManager(EmployerRepository employerRepository, CompanyRepository companyRepository, JwtUserDetailsService userDetailsService, CompanyMapper companyMapper) {
         this.employerRepository = employerRepository;
         this.companyRepository = companyRepository;
         this.userDetailsService = userDetailsService;
+        this.companyMapper = companyMapper;
     }
 
     public void addCompany(final CompanyDTO companyDTO) {
@@ -63,12 +63,7 @@ public class CompanyManager {
             );
         }
 
-        final Company company = new Company(
-                companyDTO.getName(),
-                CompanyCategoryType.fromKey(companyDTO.getCategoryTypeIndex()),
-                companyDTO.getBio(),
-                companyDTO.getAddress()
-        );
+        final Company company = companyMapper.toEntity(companyDTO);
 
         currentEmployer.setCompany(company);
 
@@ -76,6 +71,4 @@ public class CompanyManager {
 
         companyRepository.save(company);
     }
-
-
 }

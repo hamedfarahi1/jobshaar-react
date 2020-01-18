@@ -1,17 +1,19 @@
 package ir.khu.jaobshaar.service.dto.employer;
 
-public class CompanyDTO {
+import ir.khu.jaobshaar.service.dto.DTOBase;
+
+public class CompanyDTO extends DTOBase {
 
     private String name;
 
-    private int categoryTypeIndex;
+    private Integer categoryTypeIndex;
 
     private String bio;
 
     private String address;
 
 
-    public CompanyDTO(String name, int categoryTypeIndex, String bio, String address) {
+    public CompanyDTO(String name, Integer categoryTypeIndex, String bio, String address) {
         this.name = name;
         this.categoryTypeIndex = categoryTypeIndex;
         this.bio = bio;
@@ -29,11 +31,11 @@ public class CompanyDTO {
         this.name = name;
     }
 
-    public int getCategoryTypeIndex() {
+    public Integer getCategoryTypeIndex() {
         return categoryTypeIndex;
     }
 
-    public void setCategoryTypeIndex(int categoryTypeIndex) {
+    public void setCategoryTypeIndex(Integer categoryTypeIndex) {
         this.categoryTypeIndex = categoryTypeIndex;
     }
 

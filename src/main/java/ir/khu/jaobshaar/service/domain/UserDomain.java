@@ -1,30 +1,22 @@
 package ir.khu.jaobshaar.service.domain;
 
-import ir.khu.jaobshaar.entity.enums.PersonRuleType;
-
-public class UserDomain {
-    private Long id;
+public class UserDomain extends DomainBase {
 
     private String username;
 
     private String email;
 
-    private PersonRuleType roleTypeIndex;
+    private Integer roleTypeIndex;
 
 
-    public UserDomain(Long id, String username, String email, PersonRuleType roleTypeIndex) {
-        this.id = id;
+    public UserDomain(Long id, String username, String email, Integer roleTypeIndex) {
+        this.setId(id);
         this.username = username;
         this.email = email;
         this.roleTypeIndex = roleTypeIndex;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public UserDomain() {
     }
 
     public String getUsername() {
@@ -43,11 +35,11 @@ public class UserDomain {
         this.email = email;
     }
 
-    public PersonRuleType getRoleTypeIndex() {
+    public Integer getRoleTypeIndex() {
         return roleTypeIndex;
     }
 
-    public void setRoleTypeIndex(PersonRuleType roleTypeIndex) {
+    public void setRoleTypeIndex(Integer roleTypeIndex) {
         this.roleTypeIndex = roleTypeIndex;
     }
 }

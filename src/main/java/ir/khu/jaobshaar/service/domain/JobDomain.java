@@ -2,14 +2,13 @@ package ir.khu.jaobshaar.service.domain;
 
 import java.util.Date;
 
-public class JobDomain {
-    private Long id;
+public class JobDomain extends DomainBase {
 
-    private int categoryTypeIndex;
+    private Integer categoryTypeIndex;
 
-    private int cooperationTypeIndex;
+    private Integer cooperationTypeIndex;
 
-    private int requiredGenderTypeIndex;
+    private Integer requiredGenderTypeIndex;
 
     private String description;
 
@@ -17,8 +16,8 @@ public class JobDomain {
 
     private CompanyDomain company;
 
-    public JobDomain(Long id, int categoryType, int cooperationType, int requiredGender, String description, Date date, CompanyDomain company) {
-        this.id = id;
+    public JobDomain(Long id, Integer categoryType, Integer cooperationType, Integer requiredGender, String description, Date date, CompanyDomain company) {
+        this.setId(id);
         this.categoryTypeIndex = categoryType;
         this.cooperationTypeIndex = cooperationType;
         this.requiredGenderTypeIndex = requiredGender;
@@ -27,35 +26,30 @@ public class JobDomain {
         this.company = company;
     }
 
-    public Long getId() {
-        return id;
+    public JobDomain() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getCategoryTypeIndex() {
+    public Integer getCategoryTypeIndex() {
         return categoryTypeIndex;
     }
 
-    public void setCategoryTypeIndex(int categoryType) {
+    public void setCategoryTypeIndex(Integer categoryType) {
         this.categoryTypeIndex = categoryType;
     }
 
-    public int getCooperationTypeIndex() {
+    public Integer getCooperationTypeIndex() {
         return cooperationTypeIndex;
     }
 
-    public void setCooperationTypeIndex(int cooperationType) {
+    public void setCooperationTypeIndex(Integer cooperationType) {
         this.cooperationTypeIndex = cooperationType;
     }
 
-    public int getRequiredGenderTypeIndex() {
+    public Integer getRequiredGenderTypeIndex() {
         return requiredGenderTypeIndex;
     }
 
-    public void setRequiredGenderTypeIndex(int requiredGender) {
+    public void setRequiredGenderTypeIndex(Integer requiredGender) {
         this.requiredGenderTypeIndex = requiredGender;
     }
 

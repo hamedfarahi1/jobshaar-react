@@ -24,12 +24,6 @@ public class Employer extends User {
         super(username, password, email, role);
     }
 
-    public Employer(String username, String password, String email, PersonRuleType role, Company company, Set<Job> jobs) {
-        super(username, password, email, role);
-        this.company = company;
-        this.jobs = jobs;
-    }
-
     public Company getCompany() {
         return company;
     }

@@ -19,11 +19,6 @@ public class Employee extends User {
         super(username, password, email, role);
     }
 
-    public Employee(String username, String password, String email, PersonRuleType role, Resume resume) {
-        super(username, password, email, role);
-        this.resume = resume;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
