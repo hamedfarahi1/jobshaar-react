@@ -2,7 +2,9 @@ package ir.khu.jaobshaar.component.company;
 
 import ir.khu.jaobshaar.entity.model.Company;
 import ir.khu.jaobshaar.entity.model.Company_;
+import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.service.criteria.CompanyCriteria;
+import ir.khu.jaobshaar.service.criteria.JobCriteria;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -38,7 +40,7 @@ public class CompanyFiltering {
         }
         if (companyCriteria.getCategoryTypeIndex() != null) {
             if (companyCriteria.getCategoryTypeIndex().getIn() != null)
-                predicates.add(cb.in(root.get(Company_.CATEGORY_TYPE_INDEX)).value(companyCriteria.getCategoryTypeIndex().getIn()));
+                predicates.add(getValueIn(cb,root,Company_.CATEGORY_TYPE_INDEX,companyCriteria.getCategoryTypeIndex().getIn()));
 
             if (companyCriteria.getCategoryTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Company_.CATEGORY_TYPE_INDEX), companyCriteria.getCategoryTypeIndex().getEquals()));
@@ -47,6 +49,14 @@ public class CompanyFiltering {
             predicates.add(cb.like(root.get(Company_.NAME), "%" + companyCriteria.getName().getContains() + "%"));
         }
         return entityManager.createQuery(cq.select(root).where(predicates.toArray(new Predicate[predicates.size()]))).getResultList();
+    }
+
+    private CriteriaBuilder.In<Integer> getValueIn(CriteriaBuilder cb, Root<Company> root, String column, List<Integer> values) {
+        CriteriaBuilder.In<Integer> in = cb.in(root.get(column));
+        for (Integer value : values) {
+            in.value(value);
+        }
+        return in;
     }
 
 }

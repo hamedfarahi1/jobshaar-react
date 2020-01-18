@@ -54,22 +54,22 @@ public class JobFiltering {
                 return new ArrayList<>();
         }
         if (jobCriteria.getCategoryTypeIndex() != null) {
-            if (jobCriteria.getCategoryTypeIndex().getIn() != null)
-                predicates.add(cb.in(root.get(Job_.CATEGORY_TYPE_INDEX)).value(jobCriteria.getCategoryTypeIndex().getIn()));
-
+            if (jobCriteria.getCategoryTypeIndex().getIn() != null) {
+                predicates.add(getValueIn(cb, root,Job_.CATEGORY_TYPE_INDEX,jobCriteria.getCategoryTypeIndex().getIn()));
+            }
             if (jobCriteria.getCategoryTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.CATEGORY_TYPE_INDEX), jobCriteria.getCategoryTypeIndex().getEquals()));
         }
         if (jobCriteria.getCooperationTypeIndex() != null) {
             if (jobCriteria.getCooperationTypeIndex().getIn() != null)
-                predicates.add(cb.in(root.get(Job_.COOPERATION_TYPE_INDEX)).value(jobCriteria.getCooperationTypeIndex().getIn()));
+                predicates.add(getValueIn(cb, root,Job_.COOPERATION_TYPE_INDEX,jobCriteria.getCooperationTypeIndex().getIn()));
 
             if (jobCriteria.getCooperationTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.COOPERATION_TYPE_INDEX), jobCriteria.getCooperationTypeIndex().getEquals()));
         }
         if (jobCriteria.getRequiredGenderTypeIndex() != null) {
             if (jobCriteria.getRequiredGenderTypeIndex().getIn() != null)
-                predicates.add(cb.in(root.get(Job_.REQUIRED_GENDER_TYPE_INDEX)).value(jobCriteria.getRequiredGenderTypeIndex().getIn()));
+                predicates.add(getValueIn(cb, root,Job_.REQUIRED_GENDER_TYPE_INDEX,jobCriteria.getRequiredGenderTypeIndex().getIn()));
 
             if (jobCriteria.getRequiredGenderTypeIndex().getEquals() != null)
                 predicates.add(cb.equal(root.get(Job_.REQUIRED_GENDER_TYPE_INDEX), jobCriteria.getRequiredGenderTypeIndex().getEquals()
@@ -85,5 +85,13 @@ public class JobFiltering {
         if (pageable.isPaged())
             typedQuery.setFirstResult((int) pageable.getOffset()).setMaxResults(pageable.getPageSize());
         return typedQuery.getResultList();
+    }
+
+    private CriteriaBuilder.In<Integer> getValueIn(CriteriaBuilder cb, Root<Job> root, String column, List<Integer> values) {
+        CriteriaBuilder.In<Integer> in = cb.in(root.get(column));
+        for (Integer value : values) {
+            in.value(value);
+        }
+        return in;
     }
 }
