@@ -73,4 +73,8 @@ public class JobManager {
     public long countAll() {
         return jobRepository.count();
     }
+
+    public long countEmployerJobs(){
+        return jobRepository.countAllByEmployerId(userDetailsService.getCurrentUser().getId());
+    }
 }

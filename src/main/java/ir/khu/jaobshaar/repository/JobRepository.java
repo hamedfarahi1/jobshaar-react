@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findAllByEmployerId(long employerId, Pageable pageable);
+
+    long countAllByEmployerId(Long id);
 }
