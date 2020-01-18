@@ -24,81 +24,81 @@ import java.util.stream.Collectors;
 @Service
 public class JobManager {
 
-	private EmployerRepository employerRepository;
-	private JobRepository jobRepository;
-	private JwtUserDetailsService userDetailsService;
+    private EmployerRepository employerRepository;
+    private JobRepository jobRepository;
+    private JwtUserDetailsService userDetailsService;
 
-	public JobManager(EmployerRepository employerRepository, JobRepository jobRepository, JwtUserDetailsService userDetailsService) {
-		this.employerRepository = employerRepository;
-		this.jobRepository = jobRepository;
-		this.userDetailsService = userDetailsService;
-	}
+    public JobManager(EmployerRepository employerRepository, JobRepository jobRepository, JwtUserDetailsService userDetailsService) {
+        this.employerRepository = employerRepository;
+        this.jobRepository = jobRepository;
+        this.userDetailsService = userDetailsService;
+    }
 
-	public void addJob(final JobDTO jobDTO) {
-		if (jobDTO == null) {
-			throw ResponseException.newResponseException(
-					ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, " ERROR_CODE_INVALID_JOB_FIELD"
-			);
-		}
+    public void addJob(final JobDTO jobDTO) {
+        if (jobDTO == null) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, " ERROR_CODE_INVALID_JOB_FIELD"
+            );
+        }
 
-		final User user = userDetailsService.getCurrentUser();
+        final User user = userDetailsService.getCurrentUser();
 
-		if (user.getRoleTypeIndex() != PersonRuleType.EMPLOYER) {
-			throw ResponseException.newResponseException(
-					ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "Employee can't add job"
-			);
-		}
+        if (user.getRoleTypeIndex() != PersonRuleType.EMPLOYER) {
+            throw ResponseException.newResponseException(
+                    ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, "Employee can't add job"
+            );
+        }
 
-		final Employer employer = employerRepository.findByUsername(user.getUsername());
+        final Employer employer = employerRepository.findByUsername(user.getUsername());
 
-		jobRepository.save(
-				new Job(
-						JobCategoryType.fromKey(jobDTO.getCategoryType()),
-						CooperationType.fromKey(jobDTO.getCooperationType()),
-						RequiredGenderType.fromKey(jobDTO.getRequiredGender()),
-						jobDTO.getDescription(),
-						employer
-				)
-		);
-	}
+        jobRepository.save(
+                new Job(
+                        JobCategoryType.fromKey(jobDTO.getCategoryType()),
+                        CooperationType.fromKey(jobDTO.getCooperationType()),
+                        RequiredGenderType.fromKey(jobDTO.getRequiredGender()),
+                        jobDTO.getDescription(),
+                        employer
+                )
+        );
+    }
 
-	public List<JobDomain> getEmployeeJobs() {
-		// TODO: 1/13/2020 Hoy Fateme ! - > Get Filter Request Param Using Predicate
-		userDetailsService.getCurrentUser();
-		return jobDomainGenerator(
-				jobRepository.findAll()
-		);
-	}
+    public List<JobDomain> getEmployeeJobs() {
+        // TODO: 1/13/2020 Hoy Fateme ! - > Get Filter Request Param Using Predicate
+        userDetailsService.getCurrentUser();
+        return jobDomainGenerator(
+                jobRepository.findAll()
+        );
+    }
 
-	public List<JobDomain> getEmployerJobs() {
-		final User currentUser = userDetailsService.getCurrentUser();
-		return jobDomainGenerator(
-				jobRepository.findAllByEmployerId(currentUser.getId())
-		);
-	}
+    public List<JobDomain> getEmployerJobs() {
+        final User currentUser = userDetailsService.getCurrentUser();
+        return jobDomainGenerator(
+                jobRepository.findAllByEmployerId(currentUser.getId())
+        );
+    }
 
-	private List<JobDomain> jobDomainGenerator(final List<Job> jobList) {
-		return jobList.stream().map(
-				job -> {
-					final Company company = job.getEmployer().getCompany();
-					final CompanyDomain companyDomain = company == null ? null : new CompanyDomain(
-							company.getId(),
-							company.getName(),
-							company.getCategoryTypeIndex().toKey(),
-							company.getBio(),
-							company.getAddress()
-					);
-					return new JobDomain(
-							job.getId(),
-							job.getCategoryTypeIndex().toKey(),
+    private List<JobDomain> jobDomainGenerator(final List<Job> jobList) {
+        return jobList.stream().map(
+                job -> {
+                    final Company company = job.getEmployer().getCompany();
+                    final CompanyDomain companyDomain = company == null ? null : new CompanyDomain(
+                            company.getId(),
+                            company.getName(),
+                            company.getCategoryTypeIndex().toKey(),
+                            company.getBio(),
+                            company.getAddress()
+                    );
+                    return new JobDomain(
+                            job.getId(),
+                            job.getCategoryTypeIndex().toKey(),
                             job.getCooperationTypeIndex().toKey(),
-							job.getRequiredGenderTypeIndex().toKey().intValue(),
-							job.getDescription(),
-							job.getDate(),
-							companyDomain
-					);
-				}
-		).collect(Collectors.toList());
-	}
+                            job.getRequiredGenderTypeIndex().toKey().intValue(),
+                            job.getDescription(),
+                            job.getDate(),
+                            companyDomain
+                    );
+                }
+        ).collect(Collectors.toList());
+    }
 
 }
