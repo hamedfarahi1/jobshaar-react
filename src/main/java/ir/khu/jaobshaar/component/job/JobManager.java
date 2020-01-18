@@ -6,28 +6,34 @@ import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.entity.model.User;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.repository.JobRepository;
+import ir.khu.jaobshaar.service.criteria.JobCriteria;
 import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.JobDTO;
 import ir.khu.jaobshaar.service.mapper.JobMapper;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class JobManager {
 
     private final JobMapper jobMapper;
+    private final JobFiltering jobFiltering;
     private EmployerRepository employerRepository;
     private JobRepository jobRepository;
     private JwtUserDetailsService userDetailsService;
 
-    public JobManager(EmployerRepository employerRepository, JobRepository jobRepository, JwtUserDetailsService userDetailsService, JobMapper jobMapper) {
+    public JobManager(EmployerRepository employerRepository, JobRepository jobRepository,
+                      JwtUserDetailsService userDetailsService, JobMapper jobMapper, JobFiltering jobFiltering) {
         this.employerRepository = employerRepository;
         this.jobRepository = jobRepository;
         this.userDetailsService = userDetailsService;
         this.jobMapper = jobMapper;
+        this.jobFiltering = jobFiltering;
     }
 
     public void addJob(final JobDTO jobDTO) {
@@ -49,13 +55,22 @@ public class JobManager {
         jobRepository.save(job);
     }
 
-    public List<JobDomain> getEmployeeJobs() {
-        // TODO: 1/13/2020 Hoy Fateme ! - > Get Filter Request Param Using Predicate
-        userDetailsService.getCurrentUser();
-        return jobMapper.toDomainList(jobRepository.findAll());
+    public List<JobDomain> getEmployeeJobs(JobCriteria jobCriteria, Pageable pageable) {
+        return jobMapper.toDomainList(jobFiltering.filter(jobCriteria, pageable));
     }
 
-    public List<JobDomain> getEmployerJobs() {
-        return jobMapper.toDomainList(jobRepository.findAllByEmployerId(userDetailsService.getCurrentUser().getId()));
+    public List<JobDomain> getEmployerJobs(Pageable pageable) {
+        return jobMapper.toDomainList(jobRepository.findAllByEmployerId(userDetailsService.getCurrentUser().getId(), pageable));
+    }
+
+
+    public List<JobDomain> getAllJobsEmployee() {
+        List<Job> jobs = new ArrayList<>();
+        jobRepository.findAll().forEach(job -> jobs.add(job));
+        return jobMapper.toDomainList(jobs);
+    }
+
+    public long countAll() {
+        return jobRepository.count();
     }
 }

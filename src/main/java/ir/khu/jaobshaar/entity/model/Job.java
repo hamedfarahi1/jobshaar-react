@@ -24,7 +24,7 @@ public class Job extends EntityBase {
     @Column(length = 1024)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employer_id")
     private Employer employer;
 
@@ -81,5 +81,11 @@ public class Job extends EntityBase {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Company getCompany() {
+        if (employer != null)
+            return employer.getCompany();
+        return null;
     }
 }
