@@ -10,11 +10,15 @@ import javax.persistence.Converter;
 public class CompanyCategoryTypeConverter implements AttributeConverter<CompanyCategoryType, Integer> {
 	@Override
 	public Integer convertToDatabaseColumn(CompanyCategoryType attribute) {
-		return attribute.toKey();
+		if (attribute != null)
+			return attribute.toKey();
+		return null;
 	}
 
 	@Override
 	public CompanyCategoryType convertToEntityAttribute(Integer dbData) {
-		return CompanyCategoryType.fromKey(dbData);
+		if (dbData != null)
+			return CompanyCategoryType.fromKey(dbData);
+		return null;
 	}
 }

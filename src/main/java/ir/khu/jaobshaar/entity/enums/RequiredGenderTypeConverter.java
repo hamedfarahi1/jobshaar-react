@@ -7,14 +7,18 @@ import javax.persistence.Converter;
 
 @Component
 @Converter(autoApply = true)
-public class RequiredGenderTypeConverter implements AttributeConverter<RequiredGenderType,Integer> {
+public class RequiredGenderTypeConverter implements AttributeConverter<RequiredGenderType, Integer> {
 	@Override
 	public Integer convertToDatabaseColumn(RequiredGenderType requiredGenderType) {
-		return requiredGenderType.toKey();
+		if (requiredGenderType != null)
+			return requiredGenderType.toKey();
+		return null;
 	}
 
 	@Override
 	public RequiredGenderType convertToEntityAttribute(Integer integer) {
-		return RequiredGenderType.fromKey(integer);
+		if (integer != null)
+			return RequiredGenderType.fromKey(integer);
+		return null;
 	}
 }

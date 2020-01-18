@@ -7,14 +7,18 @@ import javax.persistence.Converter;
 
 @Component
 @Converter(autoApply = true)
-public class JobCategoryTypeConverter implements AttributeConverter<JobCategoryType,Integer> {
+public class JobCategoryTypeConverter implements AttributeConverter<JobCategoryType, Integer> {
 	@Override
 	public Integer convertToDatabaseColumn(JobCategoryType jobCategoryType) {
-		return jobCategoryType.toKey();
+		if (jobCategoryType != null)
+			return jobCategoryType.toKey();
+		return null;
 	}
 
 	@Override
 	public JobCategoryType convertToEntityAttribute(Integer integer) {
-		return JobCategoryType.fromKey(integer);
+		if (integer != null)
+			return JobCategoryType.fromKey(integer);
+		return null;
 	}
 }

@@ -7,14 +7,18 @@ import javax.persistence.Converter;
 
 @Component
 @Converter(autoApply = true)
-public class CooperationTypeConverter implements AttributeConverter<CooperationType,Integer> {
+public class CooperationTypeConverter implements AttributeConverter<CooperationType, Integer> {
 	@Override
 	public Integer convertToDatabaseColumn(CooperationType cooperationType) {
-		return cooperationType.toKey();
+		if (cooperationType != null)
+			return cooperationType.toKey();
+		return null;
 	}
 
 	@Override
 	public CooperationType convertToEntityAttribute(Integer integer) {
-		return CooperationType.fromKey(integer);
+		if (integer != null)
+			return CooperationType.fromKey(integer);
+		return null;
 	}
 }

@@ -17,6 +17,6 @@ public enum RequiredGenderType implements EnumProviderKey<Integer> {
 
 	@Override
 	public Integer toKey() {
-		return null;
+		return key;
 	}
 }
