@@ -4,7 +4,7 @@ import ir.khu.jaobshaar.utils.EnumProviderKey;
 import ir.khu.jaobshaar.utils.EnumUtil;
 
 public enum RequiredGenderType implements EnumProviderKey<Integer> {
-    MALE(0), FEMALE(1);
+    MALE(0), FEMALE(1),DONT_CARE(2);
 
     private int key;
 
