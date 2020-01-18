@@ -4,7 +4,7 @@ import ir.khu.jaobshaar.utils.EnumProviderKey;
 import ir.khu.jaobshaar.utils.EnumUtil;
 
 public enum CooperationType implements EnumProviderKey<Integer> {
-    PART_TIME(0), FULL_TIME(1), INTERNSHIP(2),FREE_LANCE(3);
+    PART_TIME(0), FULL_TIME(1), INTERNSHIP(2), FREE_LANCE(3);
 
     private int key;
 
