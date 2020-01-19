@@ -48,4 +48,9 @@ public class JobController {
     public ResponseEntity<List<JobDomain>> getAll() {
         return ResponseEntity.ok(jobManager.getAllJobsEmployee());
     }
+
+    @PostMapping()
+    public ResponseEntity<?> acceptJob(){
+        return null;
+    }
 }

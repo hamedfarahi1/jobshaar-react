@@ -7,6 +7,7 @@ import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "JOB")
@@ -32,7 +33,18 @@ public class Job extends EntityBase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date = new Date();
 
+    @OneToMany(mappedBy = "id.job")
+    private List<EmployeeJobs> employeeJobs;
+
     public Job() {
+    }
+
+    public List<EmployeeJobs> getEmployeeJobs() {
+        return employeeJobs;
+    }
+
+    public void setEmployeeJobs(List<EmployeeJobs> employeeJobs) {
+        this.employeeJobs = employeeJobs;
     }
 
     public JobCategoryType getCategoryTypeIndex() {
