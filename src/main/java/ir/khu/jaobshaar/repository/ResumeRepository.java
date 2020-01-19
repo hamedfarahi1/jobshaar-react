@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResumeRepository extends CrudRepository<Resume, Long> {
+    Resume findResumeByUrl(String url);
 }

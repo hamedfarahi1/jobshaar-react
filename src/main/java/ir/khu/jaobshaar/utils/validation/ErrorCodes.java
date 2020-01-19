@@ -13,4 +13,8 @@ public class ErrorCodes {
     public static final int ERROR_CODE_INVALID_JOB_FIELD = 609;
     public static final int ERROR_CODE_ACCESS_NOT_PERMITTED = 610;
     public static final int ERROR_CODE_EMAIL_ALREADY_EXIST = 611;
+    public static final int ERROR_CODE_INVALID_RESUME_URL = 612;
+    public static final int ERROR_CODE_RESUME_ALREADY_EXIST = 613;
+    public static final int ERROR_CODE_RESUME_IS_NOT_EXIST = 614;
+    public static final int ERROR_CODE_RESUME_URL_ALREADY_EXIST = 615;
 }
