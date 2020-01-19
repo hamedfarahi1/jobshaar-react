@@ -26,8 +26,7 @@ public class JobController {
 
     @PostMapping
     public ResponseEntity<?> addJob(@RequestBody JobDTO jobDTO) {
-        jobManager.addJob(jobDTO);
-        return ResponseEntity.ok(jobDTO);
+        return ResponseEntity.ok(jobManager.addJob(jobDTO));
     }
 
     @GetMapping("/employee")
@@ -45,8 +44,8 @@ public class JobController {
         return new ResponseEntity<>(jobManager.getEmployerJobs(pageable), httpHeaders, HttpStatus.OK);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<JobDomain>> getAll() {
-        return ResponseEntity.ok(jobManager.getAllJobsEmployee());
+    @GetMapping
+    public ResponseEntity<JobDomain> getJobById(@RequestParam long id) {
+        return ResponseEntity.ok(jobManager.getJobById(id));
     }
 }

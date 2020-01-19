@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobManager {
@@ -36,7 +37,7 @@ public class JobManager {
         this.jobFiltering = jobFiltering;
     }
 
-    public void addJob(final JobDTO jobDTO) {
+    public JobDomain addJob(final JobDTO jobDTO) {
         if (jobDTO == null) {
             throw ResponseException.newResponseException(
                     ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD, " ERROR_CODE_INVALID_JOB_FIELD"
@@ -52,7 +53,8 @@ public class JobManager {
 
         Job job = jobMapper.toEntity(jobDTO);
         job.setEmployer(employerRepository.findByUsername(user.getUsername()));
-        jobRepository.save(job);
+
+        return jobMapper.toDomain(jobRepository.save(job));
     }
 
     public List<JobDomain> getEmployeeJobs(JobCriteria jobCriteria, Pageable pageable) {
@@ -61,6 +63,22 @@ public class JobManager {
 
     public List<JobDomain> getEmployerJobs(Pageable pageable) {
         return jobMapper.toDomainList(jobRepository.findAllByEmployerId(userDetailsService.getCurrentUser().getId(), pageable));
+    }
+
+    public JobDomain getJobById(long id) {
+        final User currentUser = userDetailsService.getCurrentUser();
+
+        if (currentUser.getRoleTypeIndex() == PersonRuleType.EMPLOYER) {
+            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED, " ERROR_CODE_ACCESS_NOT_PERMITTED this is only for employee ");
+        }
+
+        final Optional<Job> job = jobRepository.findById(id);
+
+        if (job.isEmpty()) {
+            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_JOB_NOT_FOUND, " Your specific job id not found");
+        }
+
+        return jobMapper.toDomain(job.get());
     }
 
 
@@ -74,7 +92,7 @@ public class JobManager {
         return jobRepository.count();
     }
 
-    public long countEmployerJobs(){
+    public long countEmployerJobs() {
         return jobRepository.countAllByEmployerId(userDetailsService.getCurrentUser().getId());
     }
 }
