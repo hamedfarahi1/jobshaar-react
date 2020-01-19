@@ -33,7 +33,6 @@ public class JobController {
     @GetMapping("/employee")
     public ResponseEntity<List<JobDomain>> getEmployeeJobs(JobCriteria jobCriteria, Pageable pageable) {
         List<JobDomain> jobDomains = jobManager.getEmployeeJobs(jobCriteria, pageable);
-        ResponseEntity<List<JobDomain>> responseEntity = ResponseEntity.ok(jobDomains);
         HttpHeaders headers = new HttpHeaders();
         headers.add("total-count", "" + jobManager.countAll());
         return new ResponseEntity<>(jobDomains, headers, HttpStatus.OK);
@@ -41,7 +40,9 @@ public class JobController {
 
     @GetMapping("/employer")
     public ResponseEntity<List<JobDomain>> getEmployerJobs(Pageable pageable) {
-        return ResponseEntity.ok(jobManager.getEmployerJobs(pageable));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("total-count", "" + jobManager.countEmployerJobs());
+        return new ResponseEntity<>(jobManager.getEmployerJobs(pageable), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping()
