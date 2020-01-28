@@ -49,8 +49,4 @@ public class JobController {
         return ResponseEntity.ok(jobManager.getJobById(id));
     }
 
-    @PostMapping()
-    public ResponseEntity<?> acceptJob(){
-        return null;
-    }
 }
