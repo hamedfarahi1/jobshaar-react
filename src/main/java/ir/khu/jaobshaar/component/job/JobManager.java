@@ -2,14 +2,17 @@ package ir.khu.jaobshaar.component.job;
 
 import ir.khu.jaobshaar.config.jwt.JwtUserDetailsService;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
-import ir.khu.jaobshaar.entity.model.Job;
-import ir.khu.jaobshaar.entity.model.User;
+import ir.khu.jaobshaar.entity.model.*;
+import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployerRepository;
 import ir.khu.jaobshaar.repository.JobRepository;
 import ir.khu.jaobshaar.service.criteria.JobCriteria;
 import ir.khu.jaobshaar.service.domain.JobDomain;
+import ir.khu.jaobshaar.service.domain.ResumeDomain;
 import ir.khu.jaobshaar.service.dto.JobDTO;
 import ir.khu.jaobshaar.service.mapper.JobMapper;
+import ir.khu.jaobshaar.service.mapper.ResumeMapper;
+import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.data.domain.Pageable;
@@ -18,23 +21,29 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class JobManager {
 
     private final JobMapper jobMapper;
     private final JobFiltering jobFiltering;
+    private final EmployeeJobRepository employeeJobRepository;
+    private final ResumeMapper resumeMapper;
     private EmployerRepository employerRepository;
     private JobRepository jobRepository;
     private JwtUserDetailsService userDetailsService;
 
     public JobManager(EmployerRepository employerRepository, JobRepository jobRepository,
-                      JwtUserDetailsService userDetailsService, JobMapper jobMapper, JobFiltering jobFiltering) {
+                      JwtUserDetailsService userDetailsService, JobMapper jobMapper, JobFiltering jobFiltering,
+                      EmployeeJobRepository employeeJobRepository, ResumeMapper resumeMapper) {
         this.employerRepository = employerRepository;
         this.jobRepository = jobRepository;
         this.userDetailsService = userDetailsService;
         this.jobMapper = jobMapper;
         this.jobFiltering = jobFiltering;
+        this.employeeJobRepository = employeeJobRepository;
+        this.resumeMapper = resumeMapper;
     }
 
     public JobDomain addJob(final JobDTO jobDTO) {
@@ -81,11 +90,8 @@ public class JobManager {
         return jobMapper.toDomain(job.get());
     }
 
-
     public List<JobDomain> getAllJobsEmployee() {
-        List<Job> jobs = new ArrayList<>();
-        jobRepository.findAll().forEach(job -> jobs.add(job));
-        return jobMapper.toDomainList(jobs);
+        return jobMapper.toDomainList(jobRepository.findAll());
     }
 
     public long countAll() {
@@ -94,5 +100,15 @@ public class JobManager {
 
     public long countEmployerJobs() {
         return jobRepository.countAllByEmployerId(userDetailsService.getCurrentUser().getId());
+    }
+
+    public List<ResumeDomain> getJobResume(Long jobId) {
+        Optional<Job> job = jobRepository.findById(jobId);
+        if (job.isPresent()) {
+            ValidationUtils.accessToGetResume(employerRepository.findByUsername(userDetailsService.getCurrentUser().getUsername()), job.get());
+            return resumeMapper.toDomainList(employeeJobRepository.findAllById_Job(job.get()).stream().map(EmployeeJobs::getId)
+                    .map(EmployeeJobsId::getEmployee).map(Employee::getResume).collect(Collectors.toList()));
+        }
+        throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD,"can't.find.job");
     }
 }
