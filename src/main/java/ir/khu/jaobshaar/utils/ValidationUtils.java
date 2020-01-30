@@ -2,6 +2,7 @@ package ir.khu.jaobshaar.utils;
 
 import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.Employer;
 import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
@@ -57,5 +58,11 @@ public class ValidationUtils {
             return;
         if (!job.getRequiredGenderTypeIndex().toKey().equals(employee.getGenderType().toKey()))
             throw new ResponseException(ErrorCodes.ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS,"gender.type.not.equal");
+    }
+
+    public static void accessToGetResume(Employer employer,Job job){
+        if (!employer.getJobs().contains(job))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD,"this.id.isn't,in.user's.jobs");
+
     }
 }
