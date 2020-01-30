@@ -3,10 +3,13 @@ package ir.khu.jaobshaar.service.user;
 import ir.khu.jaobshaar.component.authenticate.AuthenticationManager;
 import ir.khu.jaobshaar.component.user.EmployeeManager;
 import ir.khu.jaobshaar.component.user.UserManager;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.domain.UserDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -40,4 +43,14 @@ public class EmployeeController {
         return ResponseEntity.ok().body(userManager.getCurrentUser());
     }
 
+    @GetMapping("/applied-jobs")
+    public ResponseEntity<List<JobDomain>> getAppliedJobs() {
+        return ResponseEntity.ok().body(employeeManager.getAppliedJobs());
+    }
+
+    @PostMapping("/apply-job")
+    public ResponseEntity<?> applyJob(@RequestParam Long jobId) {
+        employeeManager.applyJob(jobId);
+        return ResponseEntity.ok("ok");
+    }
 }

@@ -1,5 +1,8 @@
 package ir.khu.jaobshaar.utils;
 
+import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
+import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
@@ -47,5 +50,12 @@ public class ValidationUtils {
 
     public static boolean isValidURL(final String urlStr) {
         return UrlValidator.getInstance().isValid(urlStr);
+    }
+
+    public static void checkRequiredGender(Job job, Employee employee){
+        if (job.getRequiredGenderTypeIndex().toKey().equals(RequiredGenderType.DONT_CARE.toKey()))
+            return;
+        if (!job.getRequiredGenderTypeIndex().toKey().equals(employee.getGenderType().toKey()))
+            throw new ResponseException(ErrorCodes.ERROR_CODE_REQUIRED_GENDER_NOT_ACCESS,"gender.type.not.equal");
     }
 }
