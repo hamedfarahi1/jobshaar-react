@@ -1,19 +1,26 @@
 package ir.khu.jaobshaar.constants;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StudentsMockData {
-    private static final Map<String, String> studentMap = new HashMap<>();
+    private static final Map<String, List<String>> studentMap = new HashMap<>();
 
     static {
         studentMap.put(
                 "973309300",
-                "123456"
+                Arrays.asList("123456","0")
         );
         studentMap.put(
                 "962023026",
-                "123456"
+                Arrays.asList("123456","0")
+        );
+        studentMap.put(
+                "962023004",
+                Arrays.asList("123456","1")
+        );
+        studentMap.put(
+                "962023011",
+                Arrays.asList("123456","1")
         );
     }
 
@@ -25,9 +32,12 @@ public class StudentsMockData {
             return false;
         }
 
-        final String existPassword = studentMap.get(username);
+        final String existPassword = studentMap.get(username).get(0);
 
         return password.equalsIgnoreCase(existPassword);
     }
 
+    public static Integer getGenderTypeIndex(String username){
+        return Integer.valueOf(studentMap.get(username).get(1));
+    }
 }

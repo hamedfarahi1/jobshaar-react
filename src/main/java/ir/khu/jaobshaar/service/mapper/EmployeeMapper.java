@@ -30,12 +30,13 @@ public abstract class EmployeeMapper implements EntityMapperBase<EmployeeDTO, Em
     @AfterMapping
     void setJobToEmployee(@MappingTarget Employee entity, EmployeeDTO dto) {
         List<EmployeeJobs> employeeJobsList = new ArrayList<>();
-        dto.getJob().stream().forEach(jobs -> {
-            EmployeeJobs employeeJobs = new EmployeeJobs();
-            employeeJobs.getId().setJob(jobMapper.toEntity(jobs));
-            employeeJobs.getId().setEmployee(entity);
-            employeeJobsList.add(employeeJobs);
-        });
+        if (dto.getJob() != null)
+            dto.getJob().stream().forEach(jobs -> {
+                EmployeeJobs employeeJobs = new EmployeeJobs();
+                employeeJobs.getId().setJob(jobMapper.toEntity(jobs));
+                employeeJobs.getId().setEmployee(entity);
+                employeeJobsList.add(employeeJobs);
+            });
         entity.setEmployeeJobs(employeeJobsList);
     }
 

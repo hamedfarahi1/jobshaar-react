@@ -13,6 +13,14 @@ public class EmployeeJobsId implements Serializable {
     @ManyToOne
     private Job job;
 
+    public EmployeeJobsId(Employee employee,Job job) {
+        this.job=job;
+        this.employee=employee;
+    }
+
+    public EmployeeJobsId() {
+    }
+
     public Employee getEmployee() {
         return employee;
     }

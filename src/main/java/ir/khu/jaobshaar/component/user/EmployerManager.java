@@ -9,6 +9,7 @@ import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmployerManager {
@@ -22,6 +23,7 @@ public class EmployerManager {
         this.bcryptEncoder = bcryptEncoder;
     }
 
+    @Transactional
     public void login(final UserDTO userDTO) {
         ValidationUtils.validateUser(userDTO);
 
@@ -34,6 +36,7 @@ public class EmployerManager {
         }
     }
 
+    @Transactional
     public void register(final UserDTO userDTO) {
         ValidationUtils.validateUser(userDTO);
 

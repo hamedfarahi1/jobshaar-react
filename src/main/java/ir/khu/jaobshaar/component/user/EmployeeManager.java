@@ -1,15 +1,28 @@
 package ir.khu.jaobshaar.component.user;
 
+import ir.khu.jaobshaar.component.job.JobManager;
 import ir.khu.jaobshaar.constants.StudentsMockData;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
+import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
 import ir.khu.jaobshaar.entity.model.Employee;
+import ir.khu.jaobshaar.entity.model.EmployeeJobs;
+import ir.khu.jaobshaar.entity.model.EmployeeJobsId;
+import ir.khu.jaobshaar.entity.model.Job;
+import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
+import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
+import ir.khu.jaobshaar.service.mapper.JobMapper;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeManager {
@@ -17,12 +30,22 @@ public class EmployeeManager {
     private EmployeeRepository employeeRepository;
 
     private PasswordEncoder bcryptEncoder;
+    private final JobManager jobManager;
+    private final JobMapper jobMapper;
+    private final UserManager userManager;
+    private final EmployeeJobRepository employeeJobRepository;
 
-    public EmployeeManager(EmployeeRepository employeeRepository, PasswordEncoder bcryptEncoder) {
+    public EmployeeManager(EmployeeRepository employeeRepository, PasswordEncoder bcryptEncoder, JobManager jobManager,
+                           JobMapper jobMapper, UserManager userManager, EmployeeJobRepository employeeJobRepository) {
         this.employeeRepository = employeeRepository;
         this.bcryptEncoder = bcryptEncoder;
+        this.jobManager = jobManager;
+        this.jobMapper = jobMapper;
+        this.userManager = userManager;
+        this.employeeJobRepository = employeeJobRepository;
     }
 
+    @Transactional
     public void login(final UserDTO userDTO) {
         ValidationUtils.validateUser(userDTO);
 
@@ -35,6 +58,7 @@ public class EmployeeManager {
         }
     }
 
+    @Transactional
     public void register(final UserDTO userDTO) {
         ValidationUtils.validateUser(userDTO);
 
@@ -72,9 +96,30 @@ public class EmployeeManager {
                         userDTO.getUsername(),
                         bcryptEncoder.encode(userDTO.getPassword()),
                         userDTO.getEmail(),
-                        PersonRuleType.EMPLOYEE
+                        PersonRuleType.EMPLOYEE,
+                        RequiredGenderType.fromKey(StudentsMockData.getGenderTypeIndex(userDTO.getUsername()))
                 )
         );
     }
 
+    @Transactional
+    public void applyJob(Long jobId) {
+        Job job = jobMapper.domainToTEntity(jobManager.getJobById(jobId));
+        Optional<Employee> optionalEmployee = employeeRepository.findById(userManager.getCurrentUser().getId());
+        if (optionalEmployee.isPresent()) {
+            Employee employee = optionalEmployee.get();
+            if (employee.getResume() != null) {
+                ValidationUtils.checkRequiredGender(job, employee);
+                employeeJobRepository.save(new EmployeeJobs().setId(new EmployeeJobsId(employee, job)));
+            } else
+                throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "first.upload.resume.url");
+        } else
+            throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED,
+                    " ERROR_CODE_ACCESS_NOT_PERMITTED this is only for employee ");
+    }
+
+    public List<JobDomain> getAppliedJobs() {
+        return jobMapper.toDomainList(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername())
+                .getEmployeeJobs().stream().map(EmployeeJobs::getId).map(EmployeeJobsId::getJob).collect(Collectors.toList()));
+    }
 }

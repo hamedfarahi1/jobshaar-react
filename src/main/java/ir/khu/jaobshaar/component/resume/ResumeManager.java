@@ -14,6 +14,7 @@ import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ResumeManager {
@@ -31,6 +32,7 @@ public class ResumeManager {
         this.resumeMapper = resumeMapper;
     }
 
+    @Transactional
     public ResumeDTO addResume(ResumeDTO resumeDTO) {
         validateResume(resumeDTO);
 
@@ -71,6 +73,7 @@ public class ResumeManager {
         }
     }
 
+    @Transactional
     public ResumeDTO updateResume(ResumeDTO resumeDTO) {
         validateResume(resumeDTO);
 

@@ -18,7 +18,8 @@ public class EmployeeJobs {
         return id;
     }
 
-    public void setId(EmployeeJobsId id) {
+    public EmployeeJobs setId(EmployeeJobsId id) {
         this.id = id;
+        return this;
     }
 }
