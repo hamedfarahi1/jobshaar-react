@@ -12,4 +12,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findAllByEmployerId(long employerId, Pageable pageable);
 
     long countAllByEmployerId(Long id);
+
+    Job findJobById(Long id);
 }

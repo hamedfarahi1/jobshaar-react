@@ -18,7 +18,6 @@ import ir.khu.jaobshaar.utils.validation.ResponseException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -110,5 +109,9 @@ public class JobManager {
                     .map(EmployeeJobsId::getEmployee).map(Employee::getResume).collect(Collectors.toList()));
         }
         throw new ResponseException(ErrorCodes.ERROR_CODE_INVALID_JOB_FIELD,"can't.find.job");
+    }
+
+    public Job findJobById(Long id){
+        return jobRepository.findJobById(id);
     }
 }
