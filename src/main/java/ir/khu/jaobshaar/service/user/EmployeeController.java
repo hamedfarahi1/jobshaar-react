@@ -4,6 +4,7 @@ import ir.khu.jaobshaar.component.authenticate.AuthenticationManager;
 import ir.khu.jaobshaar.component.user.EmployeeManager;
 import ir.khu.jaobshaar.component.user.UserManager;
 import ir.khu.jaobshaar.service.domain.JobDomain;
+import ir.khu.jaobshaar.service.domain.ResumeDomain;
 import ir.khu.jaobshaar.service.domain.UserDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +53,10 @@ public class EmployeeController {
     public ResponseEntity<?> applyJob(@RequestParam Long jobId) {
         employeeManager.applyJob(jobId);
         return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/resume")
+    public ResponseEntity<ResumeDomain> getResume(){
+        return ResponseEntity.ok().body(employeeManager.getEmployeeResume());
     }
 }
