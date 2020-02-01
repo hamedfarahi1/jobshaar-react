@@ -48,5 +48,4 @@ public class JobController {
     public ResponseEntity<JobDomain> getJobById(@RequestParam long id) {
         return ResponseEntity.ok(jobManager.getJobById(id));
     }
-
 }
