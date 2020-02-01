@@ -11,8 +11,10 @@ import ir.khu.jaobshaar.entity.model.Job;
 import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
 import ir.khu.jaobshaar.service.domain.JobDomain;
+import ir.khu.jaobshaar.service.domain.ResumeDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.service.mapper.JobMapper;
+import ir.khu.jaobshaar.service.mapper.ResumeMapper;
 import ir.khu.jaobshaar.utils.EmailService;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
@@ -37,9 +39,11 @@ public class EmployeeManager {
     private final UserManager userManager;
     private final EmployeeJobRepository employeeJobRepository;
     private final EmailService emailService;
+    private final ResumeMapper resumeMapper;
 
     public EmployeeManager(EmployeeRepository employeeRepository, PasswordEncoder bcryptEncoder, JobManager jobManager,
-                           JobMapper jobMapper, UserManager userManager, EmployeeJobRepository employeeJobRepository, EmailService emailService) {
+                           JobMapper jobMapper, UserManager userManager, EmployeeJobRepository employeeJobRepository, EmailService emailService,
+                           ResumeMapper resumeMapper) {
         this.employeeRepository = employeeRepository;
         this.bcryptEncoder = bcryptEncoder;
         this.jobManager = jobManager;
@@ -47,6 +51,7 @@ public class EmployeeManager {
         this.userManager = userManager;
         this.employeeJobRepository = employeeJobRepository;
         this.emailService = emailService;
+        this.resumeMapper = resumeMapper;
     }
 
     @Transactional
@@ -132,5 +137,9 @@ public class EmployeeManager {
     public List<JobDomain> getAppliedJobs() {
         return jobMapper.toDomainList(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername())
                 .getEmployeeJobs().stream().map(EmployeeJobs::getId).map(EmployeeJobsId::getJob).collect(Collectors.toList()));
+    }
+
+    public ResumeDomain getEmployeeResume(){
+        return resumeMapper.toDomain(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername()).getResume());
     }
 }
