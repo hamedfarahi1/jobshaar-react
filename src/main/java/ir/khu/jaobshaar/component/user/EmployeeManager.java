@@ -4,14 +4,13 @@ import ir.khu.jaobshaar.component.job.JobManager;
 import ir.khu.jaobshaar.constants.StudentsMockData;
 import ir.khu.jaobshaar.entity.enums.PersonRuleType;
 import ir.khu.jaobshaar.entity.enums.RequiredGenderType;
-import ir.khu.jaobshaar.entity.model.Employee;
-import ir.khu.jaobshaar.entity.model.EmployeeJobs;
-import ir.khu.jaobshaar.entity.model.EmployeeJobsId;
-import ir.khu.jaobshaar.entity.model.Job;
+import ir.khu.jaobshaar.entity.model.*;
 import ir.khu.jaobshaar.repository.EmployeeJobRepository;
 import ir.khu.jaobshaar.repository.EmployeeRepository;
+import ir.khu.jaobshaar.repository.JobRepository;
 import ir.khu.jaobshaar.service.domain.JobDomain;
 import ir.khu.jaobshaar.service.domain.ResumeDomain;
+import ir.khu.jaobshaar.service.domain.UserDomain;
 import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.service.mapper.JobMapper;
 import ir.khu.jaobshaar.service.mapper.ResumeMapper;
@@ -44,10 +43,11 @@ public class EmployeeManager {
     private final EmployeeJobRepository employeeJobRepository;
     private final EmailService emailService;
     private final ResumeMapper resumeMapper;
+    private final JobRepository jobRepository;
 
     public EmployeeManager(EmployeeRepository employeeRepository, PasswordEncoder bcryptEncoder, JobManager jobManager,
                            JobMapper jobMapper, UserManager userManager, EmployeeJobRepository employeeJobRepository, EmailService emailService,
-                           ResumeMapper resumeMapper) {
+                           ResumeMapper resumeMapper, JobRepository jobRepository) {
         this.employeeRepository = employeeRepository;
         this.bcryptEncoder = bcryptEncoder;
         this.jobManager = jobManager;
@@ -56,6 +56,7 @@ public class EmployeeManager {
         this.employeeJobRepository = employeeJobRepository;
         this.emailService = emailService;
         this.resumeMapper = resumeMapper;
+        this.jobRepository = jobRepository;
     }
 
     @Transactional
@@ -150,5 +151,18 @@ public class EmployeeManager {
 
     public ResumeDomain getEmployeeResume() {
         return resumeMapper.toDomain(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername()).getResume());
+    }
+
+    public Boolean isApplied(long jobId){
+        List<EmployeeJobs> employeeJobs=employeeJobRepository.findAllById_Job(jobRepository.getOne(jobId));
+        UserDomain user=userManager.getCurrentUser();
+        Boolean isApplied =false;
+        for (EmployeeJobs em:employeeJobs) {
+            if (em.getId().getEmployee().getId().equals(user.getId())) {
+                isApplied = true;
+                break;
+            }
+        }
+        return isApplied;
     }
 }

@@ -59,4 +59,9 @@ public class EmployeeController {
     public ResponseEntity<ResumeDomain> getResume(){
         return ResponseEntity.ok().body(employeeManager.getEmployeeResume());
     }
+
+    @GetMapping("/is-applied")
+    public ResponseEntity<String> isApplied(@RequestParam long jobId){
+        return ResponseEntity.ok().body(employeeManager.isApplied(jobId).toString());
+    }
 }
