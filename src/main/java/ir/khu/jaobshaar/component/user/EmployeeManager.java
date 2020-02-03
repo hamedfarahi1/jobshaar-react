@@ -16,6 +16,7 @@ import ir.khu.jaobshaar.service.dto.user.UserDTO;
 import ir.khu.jaobshaar.service.mapper.JobMapper;
 import ir.khu.jaobshaar.service.mapper.ResumeMapper;
 import ir.khu.jaobshaar.utils.EmailService;
+import ir.khu.jaobshaar.utils.ThreadUtil;
 import ir.khu.jaobshaar.utils.ValidationUtils;
 import ir.khu.jaobshaar.utils.validation.ErrorCodes;
 import ir.khu.jaobshaar.utils.validation.ResponseException;
@@ -24,8 +25,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Service
@@ -122,12 +126,17 @@ public class EmployeeManager {
                 employeeJobRepository.save(new EmployeeJobs().setId(new EmployeeJobsId(employee, job)));
             } else
                 throw new ResponseException(ErrorCodes.ERROR_CODE_RESUME_IS_NOT_EXIST, "first.upload.resume.url");
-            try {
-                emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getDescription(),
-                        "hi " + job.getEmployer().getUsername()+ "\n someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+
+            ThreadUtil.createThreadAndStart(()->{
+                try {
+                    emailService.sendEmailWithLink(job.getEmployer().getEmail(), job.getTitle(),
+                            "hi " + job.getEmployer().getUsername() + "\n someone send resume for your job please check the blew url resume", employee.getResume().getUrl());
+                    System.out.println("send");
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            });
+
         } else
             throw ResponseException.newResponseException(ErrorCodes.ERROR_CODE_ACCESS_NOT_PERMITTED,
                     " ERROR_CODE_ACCESS_NOT_PERMITTED this is only for employee ");
@@ -139,7 +148,7 @@ public class EmployeeManager {
                 .getEmployeeJobs().stream().map(EmployeeJobs::getId).map(EmployeeJobsId::getJob).collect(Collectors.toList()));
     }
 
-    public ResumeDomain getEmployeeResume(){
+    public ResumeDomain getEmployeeResume() {
         return resumeMapper.toDomain(employeeRepository.findByUsername(userManager.getCurrentUser().getUsername()).getResume());
     }
 }

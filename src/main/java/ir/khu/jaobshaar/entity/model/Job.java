@@ -22,8 +22,11 @@ public class Job extends EntityBase {
     @Column
     private RequiredGenderType requiredGenderTypeIndex;
 
-    @Column(length = 1024)
+    @Column(columnDefinition="TEXT")
     private String description;
+
+    @Column()
+    private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employer_id")
@@ -37,6 +40,14 @@ public class Job extends EntityBase {
     private List<EmployeeJobs> employeeJobs;
 
     public Job() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<EmployeeJobs> getEmployeeJobs() {
