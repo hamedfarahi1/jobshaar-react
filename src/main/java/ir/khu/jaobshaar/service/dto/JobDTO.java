@@ -10,8 +10,17 @@ public class JobDTO extends DTOBase {
 
     private String description;
 
+    private String title;
 
     public JobDTO() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getCategoryTypeIndex() {

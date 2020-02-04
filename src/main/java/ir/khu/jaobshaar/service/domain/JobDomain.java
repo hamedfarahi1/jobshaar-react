@@ -16,6 +16,8 @@ public class JobDomain extends DomainBase {
 
     private CompanyDomain company;
 
+    private String title;
+
     public JobDomain(Long id, Integer categoryType, Integer cooperationType, Integer requiredGender, String description, Date date, CompanyDomain company) {
         this.setId(id);
         this.categoryTypeIndex = categoryType;
@@ -27,6 +29,15 @@ public class JobDomain extends DomainBase {
     }
 
     public JobDomain() {
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getCategoryTypeIndex() {
