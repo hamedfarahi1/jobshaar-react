@@ -24,7 +24,6 @@ function Copyright() {
 				Hamed Farahi
 		</Link>{' '}
 			{new Date().getFullYear()}
-			{'.'}
 		</Typography>
 	);
 }

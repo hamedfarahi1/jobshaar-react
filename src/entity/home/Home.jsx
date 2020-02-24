@@ -27,9 +27,14 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		flexGrow: 1,
 	},
+	link: {
+		textDecoration: 'none'
+	},
 	linkButton: {
 		color: '#f6f6f6',
-		textDecoration: 'none'
+	},
+	appBar: {
+		backgroundColor: '#508cef'
 	}
 }));
 
@@ -38,7 +43,7 @@ function Home() {
 	const classes = useStyles();
 	return (
 		<Router>
-			<AppBar position="static">
+			<AppBar position="static" className={classes.appBar}>
 				<Toolbar>
 					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
 						<MenuIcon />
@@ -46,7 +51,7 @@ function Home() {
 					<Typography variant="h6" className={classes.title}>
 						جابشار
     					</Typography>
-					<Link to="/account/login">
+					<Link className={classes.link} to="/account/login">
 						<Button className={classes.linkButton}>ورود</Button>
 					</Link>
 				</Toolbar>
