@@ -16,6 +16,8 @@ import {
 } from "react-router-dom";
 import './Account.scss';
 
+import { login } from '../../core/services/account/accountService';
+
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -88,7 +90,7 @@ function Login() {
 						control={<Checkbox value="remember" color="primary" />}
 						label="مرا به خاطر بسپار"
 					/>
-					<Button
+					<Button onClick={submitForm()}
 						type="submit"
 						fullWidth
 						variant="contained"
@@ -96,7 +98,7 @@ function Login() {
 						className={classes.submit}
 					>
 						ورود
-			</Button>
+			</Button >
 					<Grid container>
 						<Grid item xs>
 							<Link to="#" variant="body2">
@@ -116,6 +118,15 @@ function Login() {
 			</Box>
 		</Container>
 	);
+}
+
+function submitForm() {
+	login({
+		username: '962023023',
+		password: '123456'
+	}).then((res) => {
+		console.log(res);
+	})
 }
 
 export default Login;
