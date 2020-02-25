@@ -1,5 +1,5 @@
 import './Account.scss';
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,6 +15,8 @@ import Container from '@material-ui/core/Container';
 import {
 	Link
 } from "react-router-dom";
+import { register } from '../../core/services/account/accountService';
+
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -49,6 +51,29 @@ const useStyles = makeStyles(theme => ({
 
 function Register() {
 	const classes = useStyles();
+	const [values, setValues] = useState({ firstName: '', lastName: '', username: '', password: '', allowExtraEmails: false })
+
+	const handleInputChange = e => {
+		const { name, value } = e.target
+		setValues({ ...values, [name]: value })
+	}
+
+	const submitForm = (event) => {
+		register(values).then(() => {
+			//
+		})
+		event.preventDefault();
+
+	}
+
+	const CheckBoxHandleChange = e => {
+		const { checked } = e.target
+		setValues({ ...values, ['allowExtraEmails']: checked })
+	}
+	const isNotValidForm = () => {
+		const { username, password, firstName, lastName } = values;
+		return (!username || !password || !firstName || !lastName);
+	}
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -60,7 +85,7 @@ function Register() {
 				<Typography component="h1" variant="h5">
 					ثبت نام
         </Typography>
-				<form className={classes.form} noValidate>
+				<form className={classes.form} onSubmit={submitForm}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={6}>
 							<TextField
@@ -72,6 +97,7 @@ function Register() {
 								id="firstName"
 								label="نام"
 								autoFocus
+								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -83,6 +109,7 @@ function Register() {
 								label="نام خانوادگی"
 								name="lastName"
 								autoComplete="lname"
+								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -90,10 +117,11 @@ function Register() {
 								variant="outlined"
 								required
 								fullWidth
-								id="email"
-								label="ایمیل"
-								name="email"
-								autoComplete="email"
+								id="username"
+								label="نام کاربری"
+								name="username"
+								autoComplete="username"
+								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -106,11 +134,12 @@ function Register() {
 								type="password"
 								id="password"
 								autoComplete="current-password"
+								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
 							<FormControlLabel
-								control={<Checkbox value="allowExtraEmails" color="primary" />}
+								control={<Checkbox onChange={CheckBoxHandleChange} color="primary" />}
 								label="میخواهم اخبار و رویداد ها به ایمیلم ارسال شود"
 							/>
 						</Grid>
@@ -121,6 +150,7 @@ function Register() {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
+						disabled={isNotValidForm()}
 					>
 						ثبت نام
           </Button>

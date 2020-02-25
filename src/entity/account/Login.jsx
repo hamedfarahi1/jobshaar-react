@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -52,6 +52,33 @@ const useStyles = makeStyles(theme => ({
 
 function Login() {
 	const classes = useStyles();
+	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
+
+	const handleInputChange = e => {
+		const { name, value } = e.target
+		console.log(e.target.checked);
+		setValues({ ...values, [name]: value })
+	}
+
+	const submitForm = (event) => {
+		const { username, password } = values
+		if (!username || !password) return
+		login(values).then(() => {
+			//
+		})
+		event.preventDefault();
+
+	}
+
+	const rememberMeHandleChange = e => {
+		const { checked } = e.target
+		setValues({ ...values, ['rememberMe']: checked })
+	}
+	const isNotValidForm = () => {
+		const { username, password } = values;
+		return (!username || !password);
+	}
+
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -63,17 +90,18 @@ function Login() {
 				<Typography component="h1" variant="h5">
 					ورود به سامانه
 		  </Typography>
-				<form className={classes.form} noValidate>
+				<form onSubmit={submitForm} className={classes.form}>
 					<TextField
 						variant="outlined"
 						margin="normal"
 						required
 						fullWidth
-						id="email"
-						label="ایمیل"
-						name="email"
-						autoComplete="email"
+						id="username"
+						label="نام کاربری"
+						name="username"
 						autoFocus
+						onChange={handleInputChange}
+						value={values.username}
 					/>
 					<TextField
 						variant="outlined"
@@ -84,18 +112,20 @@ function Login() {
 						label="رمز عبور"
 						type="password"
 						id="password"
-						autoComplete="current-password"
+						onChange={handleInputChange}
+						value={values.password}
 					/>
 					<FormControlLabel
-						control={<Checkbox value="remember" color="primary" />}
+						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}
 						label="مرا به خاطر بسپار"
 					/>
-					<Button onClick={submitForm()}
+					<Button
 						type="submit"
 						fullWidth
 						variant="contained"
 						color="primary"
 						className={classes.submit}
+						disabled={isNotValidForm()}
 					>
 						ورود
 			</Button >
@@ -118,15 +148,6 @@ function Login() {
 			</Box>
 		</Container>
 	);
-}
-
-function submitForm() {
-	login({
-		username: '962023023',
-		password: '123456'
-	}).then((res) => {
-		console.log(res);
-	})
 }
 
 export default Login;
