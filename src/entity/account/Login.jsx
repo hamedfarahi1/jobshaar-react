@@ -17,6 +17,7 @@ import {
 import './Account.scss';
 
 import { login } from '../../core/services/account/accountService';
+import Home from '../home/Home';
 
 function Copyright() {
 	return (
@@ -51,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login() {
+	const [isLogin, setIsLogin] = useState(false);
 	const classes = useStyles();
 	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
 
@@ -63,7 +65,7 @@ function Login() {
 		const { username, password } = values
 		if (!username || !password) return
 		login(values).then(res => {
-			alert('Login Successfully');
+			setIsLogin(true);
 		}, () => alert('Login Faild'));
 
 		event.preventDefault();
@@ -80,7 +82,7 @@ function Login() {
 		return (!username || !password);
 	}
 
-
+	if (isLogin) return <Home></Home>
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />

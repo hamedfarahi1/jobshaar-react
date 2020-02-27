@@ -25,8 +25,14 @@ export function getUserToken() {
 }
 
 const setAuthInterceptor = (res) => {
-	const Token = localStorage.setItem("Token", res.data.token);
+	let Token = res.data.token;
+	localStorage.setItem("Token", Token);
 	axios.interceptors.request.use(request => {
 		request.headers['Authorization'] = 'Bearer ' + Token;
+		return request;
 	})
+}
+
+export const getUserInfo = () => {
+	return axios.get("/api/account")
 }
