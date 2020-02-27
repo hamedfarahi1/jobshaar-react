@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { alertActions } from '../../core/_actions';
 import Account from '../account/Account';
 import { makeStyles } from '@material-ui/core/styles';
+import { history } from '../../core/_helpers';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,6 +21,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Home } from '../home/Home';
 import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
+import { useEffect } from 'react';
+
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -42,10 +45,14 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function Main() {
+function Main(props) {
 	const classes = useStyles();
+	useEffect(() => {
+		history.listen(() => props.clearAlerts());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	return (
-		<Router>
+		<Router history={history}>
 			<AppBar position="static" className={classes.appBar}>
 				<Toolbar>
 					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Container, CssBaseline } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -38,5 +39,5 @@ function mapState(state) {
 	return { loggedIn };
 }
 
-const connectedHomePage = connect(mapState, {})(Home);
+const connectedHomePage = withRouter(connect(mapState, {})(Home));
 export { connectedHomePage as Home };

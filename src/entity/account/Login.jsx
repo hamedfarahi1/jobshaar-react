@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {
-	Link, Redirect
+	Link,
+	Redirect
 } from "react-router-dom";
 import './Account.scss';
 import { connect } from 'react-redux';
@@ -57,7 +58,8 @@ function Login(props) {
 		props.logout();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	const { loggedIn } = props;
+
+	const { loggedIn } = props
 	const classes = useStyles();
 	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
 
@@ -84,6 +86,7 @@ function Login(props) {
 		const { username, password } = values;
 		return (!username || !password);
 	}
+
 	if (loggedIn) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">

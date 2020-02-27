@@ -1,5 +1,5 @@
 import './Account.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {
-	Link
+	Link,
+	Redirect
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
@@ -51,8 +52,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Register(props) {
+
+	useEffect(() => {
+		props.logout();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const { loggedIn } = props;
 	const classes = useStyles();
-	const [values, setValues] = useState({ firstName: '', lastName: '', username: '', password: '', allowExtraEmails: false })
+	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false })
 
 	const handleInputChange = e => {
 		const { name, value } = e.target
@@ -71,10 +79,11 @@ function Register(props) {
 		setValues({ ...values, ['allowExtraEmails']: checked })
 	}
 	const isNotValidForm = () => {
-		const { username, password, firstName, lastName } = values;
-		return (!username || !password || !firstName || !lastName);
+		const { username, password, email } = values;
+		return (!username || !password || !email);
 	}
 
+	if (loggedIn) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
@@ -87,28 +96,16 @@ function Register(props) {
         </Typography>
 				<form className={classes.form} onSubmit={submitForm}>
 					<Grid container spacing={2}>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								autoComplete="fname"
-								name="firstName"
-								variant="outlined"
-								required
-								fullWidth
-								id="firstName"
-								label="نام"
-								autoFocus
-								onChange={handleInputChange}
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12} >
 							<TextField
 								variant="outlined"
 								required
 								fullWidth
-								id="lastName"
-								label="نام خانوادگی"
-								name="lastName"
-								autoComplete="lname"
+								id="ema"
+								label="ایمیل"
+								name="email"
+								autoComplete="email"
+								dir="ltr"
 								onChange={handleInputChange}
 							/>
 						</Grid>
@@ -122,6 +119,7 @@ function Register(props) {
 								name="username"
 								autoComplete="username"
 								onChange={handleInputChange}
+								dir="ltr"
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -134,6 +132,7 @@ function Register(props) {
 								type="password"
 								id="password"
 								autoComplete="current-password"
+								dir="ltr"
 								onChange={handleInputChange}
 							/>
 						</Grid>
@@ -171,12 +170,13 @@ function Register(props) {
 }
 
 function mapState(state) {
-	const { registering } = state.registration;
-	return { registering };
+	const { registering, loggedIn } = state.registration;
+	return { registering, loggedIn };
 }
 
 const actionCreators = {
-	register: userActions.register
+	register: userActions.register,
+	logout: userActions.logout
 }
 
 const connectedRegisterPage = connect(mapState, actionCreators)(Register);

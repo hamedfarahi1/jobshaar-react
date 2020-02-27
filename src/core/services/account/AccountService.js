@@ -19,10 +19,14 @@ export function register(credential) {
 	return axios.post('/api/employer/register', {
 		username: credential.username,
 		password: credential.password,
-		firstName: credential.firstName,
-		lastName: credential.lastName,
+		email: credential.email,
 		allowExtraEmails: credential.allowExtraEmails
-	}).then(handleResponse);
+	}).then(handleResponse).then(
+		res => {
+			localStorage.setItem('user', JSON.stringify(res));
+			return res;
+		}
+	);
 }
 
 export function getUserToken() {
