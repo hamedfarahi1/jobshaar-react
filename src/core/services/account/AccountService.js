@@ -1,6 +1,13 @@
 const axios = require('axios').default;
 
-export function login(credential) {
+export const accountService = {
+	login,
+	logout,
+	register,
+	getUserToken,
+	getUserInfo
+}
+function login(credential) {
 	return axios.post('/api/employer/login', {
 		username: credential.username,
 		password: credential.password
@@ -10,12 +17,12 @@ export function login(credential) {
 	});
 }
 
-export function logout() {
+function logout() {
 	// remove user from local storage to log user out
 	localStorage.removeItem('user');
 }
 
-export function register(credential) {
+function register(credential) {
 	return axios.post('/api/employer/register', {
 		username: credential.username,
 		password: credential.password,
@@ -29,20 +36,12 @@ export function register(credential) {
 	);
 }
 
-export function getUserToken() {
+function getUserToken() {
 	return localStorage.getItem("Token");
 }
 
-// const setAuthInterceptor = (res) => {
-// 	let Token = res.data.token;
-// 	localStorage.setItem("Token", Token);
-// 	axios.interceptors.request.use(request => {
-// 		request.headers['Authorization'] = 'Bearer ' + Token;
-// 		return request;
-// 	})
-// }
 
-export const getUserInfo = () => {
+function getUserInfo() {
 	return axios.get("/api/account")
 }
 

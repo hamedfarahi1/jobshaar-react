@@ -10,8 +10,7 @@ import { withRouter } from 'react-router-dom';
 function Home() {
 
 	const getUserProfile = () => {
-		console.log(localStorage.getItem('user'));
-		// getUserInfo();
+		//
 	}
 	return <Container component="main">
 		<CssBaseline />
