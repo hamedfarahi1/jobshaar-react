@@ -51,7 +51,7 @@ function Home() {
 					<Typography variant="h6" className={classes.title}>
 						جابشار
     					</Typography>
-					<Link className={classes.link} to="/account/login">
+					<Link className={classes.link} to="/account">
 						<Button className={classes.linkButton}>ورود</Button>
 					</Link>
 				</Toolbar>

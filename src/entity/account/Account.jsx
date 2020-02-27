@@ -6,8 +6,9 @@ import Register from './Register';
 
 function Account() {
 	return <div className="container">
-		<Redirect exact from="/" to="/account/login" />
 		<Switch>
+			<Redirect exact from="/account" to="/account/login">
+			</Redirect>
 			<Route path="/account/login">
 				<Login></Login>
 			</Route>

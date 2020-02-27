@@ -72,6 +72,7 @@ function Login() {
 
 	const rememberMeHandleChange = e => {
 		const { checked } = e.target
+		// eslint-disable-next-line
 		setValues({ ...values, ['rememberMe']: checked })
 	}
 	const isNotValidForm = () => {

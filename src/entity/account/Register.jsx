@@ -68,6 +68,7 @@ function Register() {
 
 	const CheckBoxHandleChange = e => {
 		const { checked } = e.target
+		// eslint-disable-next-line
 		setValues({ ...values, ['allowExtraEmails']: checked })
 	}
 	const isNotValidForm = () => {
