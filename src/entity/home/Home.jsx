@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Container, CssBaseline } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 
 
@@ -32,4 +33,10 @@ function Home() {
 	</Container>
 }
 
-export default Home;
+function mapState(state) {
+	const { loggedIn } = state.authentication;
+	return { loggedIn };
+}
+
+const connectedHomePage = connect(mapState, {})(Home);
+export { connectedHomePage as Home };

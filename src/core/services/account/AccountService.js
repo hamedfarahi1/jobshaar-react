@@ -1,7 +1,6 @@
 const axios = require('axios').default;
 
 export function login(credential) {
-	console.log(credential);
 	return axios.post('/api/employer/login', {
 		username: credential.username,
 		password: credential.password
@@ -17,7 +16,6 @@ export function logout() {
 }
 
 export function register(credential) {
-	console.log(credential);
 	return axios.post('/api/employer/register', {
 		username: credential.username,
 		password: credential.password,

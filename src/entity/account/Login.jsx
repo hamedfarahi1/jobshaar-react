@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -53,8 +53,11 @@ const useStyles = makeStyles(theme => ({
 
 function Login(props) {
 
-	props.logout();
-	const { loggingIn } = props;
+	useEffect(() => {
+		props.logout();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	const { loggedIn } = props;
 	const classes = useStyles();
 	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
 
@@ -81,8 +84,7 @@ function Login(props) {
 		const { username, password } = values;
 		return (!username || !password);
 	}
-
-	if (loggingIn) return <Redirect to="/home"></Redirect>;
+	if (loggedIn) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
@@ -155,8 +157,8 @@ function Login(props) {
 
 
 function mapState(state) {
-	const { loggingIn } = state.authentication;
-	return { loggingIn };
+	const { loggingIn, loggedIn } = state.authentication;
+	return { loggingIn, loggedIn };
 }
 
 const actionCreators = {

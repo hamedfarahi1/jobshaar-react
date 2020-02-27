@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Home from '../home/Home';
+import { Home } from '../home/Home';
 import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
 
 const useStyles = makeStyles(theme => ({
