@@ -6,8 +6,10 @@ import {
 	Route,
 	Link
 } from "react-router-dom";
-import Account from '../account/Account';
+import { connect } from 'react-redux';
 
+import { alertActions } from '../../core/_actions';
+import Account from '../account/Account';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +19,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Home from '../home/Home';
+import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -39,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-
 function Main() {
 	const classes = useStyles();
 	return (
@@ -52,6 +54,11 @@ function Main() {
 					<Typography variant="h6" className={classes.title}>
 						جابشار
     					</Typography>
+					<div>
+						{alert.message &&
+							<div className={`alert ${alert.type}`}>{alert.message}</div>
+						}
+					</div>
 					<Link className={classes.link} to="/account">
 						<Button className={classes.linkButton}>ورود</Button>
 					</Link>
@@ -61,12 +68,20 @@ function Main() {
 				<Route path="/account">
 					<Account></Account>
 				</Route>
-				<Route path="/home">
-					<Home></Home>
-				</Route>
+				<PrivateRoute path="/home" component={Home} />
 			</Switch>
 		</Router>
 	);
 }
 
-export default Main;
+function mapState(state) {
+	const { alert } = state;
+	return { alert };
+}
+
+const actionCreators = {
+	clearAlerts: alertActions.clear
+};
+
+const connectedApp = connect(mapState, actionCreators)(Main);
+export { connectedApp as Main };

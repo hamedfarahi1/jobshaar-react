@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.scss';
-import Main from './entity/main/Main';
+import { Main } from './entity/main/Main';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
+import { store } from './core/_helpers';
+import { LocalizeProvider } from 'react-localize-redux'
+import { Provider } from 'react-redux';
 
 
 const theme = createMuiTheme({
@@ -33,11 +36,15 @@ function MyStyleProvider(props) {
 }
 function App() {
 	return (
-		<ThemeProvider theme={theme}>
-			<MyStyleProvider>
-				<Main name='hAmed' />
-			</MyStyleProvider>
-		</ThemeProvider>
+		<LocalizeProvider>
+			<Provider store={store}>
+				<ThemeProvider theme={theme}>
+					<MyStyleProvider>
+						<Main name='hAmed' />
+					</MyStyleProvider>
+				</ThemeProvider>
+			</Provider>
+		</LocalizeProvider>
 	);
 }
 

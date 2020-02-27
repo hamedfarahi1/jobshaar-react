@@ -15,8 +15,9 @@ import {
 	Link, Redirect
 } from "react-router-dom";
 import './Account.scss';
+import { connect } from 'react-redux';
 
-import { login } from '../../core/services/account/accountService';
+import { userActions } from '../../core/_actions';
 
 function Copyright() {
 	return (
@@ -50,8 +51,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function Login() {
-	const [isLogin, setIsLogin] = useState(false);
+function Login(props) {
+
+	props.logout();
+	const { loggingIn } = props;
 	const classes = useStyles();
 	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
 
@@ -63,9 +66,7 @@ function Login() {
 	const submitForm = (event) => {
 		const { username, password } = values
 		if (!username || !password) return
-		login(values).then(res => {
-			setIsLogin(true);
-		}, () => alert('Login Faild'));
+		props.login(username, password);
 
 		event.preventDefault();
 
@@ -81,7 +82,7 @@ function Login() {
 		return (!username || !password);
 	}
 
-	if (isLogin) return <Redirect to="/home"></Redirect>;
+	if (loggingIn) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
@@ -152,4 +153,16 @@ function Login() {
 	);
 }
 
-export default Login;
+
+function mapState(state) {
+	const { loggingIn } = state.authentication;
+	return { loggingIn };
+}
+
+const actionCreators = {
+	login: userActions.login,
+	logout: userActions.logout
+};
+
+const connectedLoginPage = connect(mapState, actionCreators)(Login);
+export { connectedLoginPage as Login };

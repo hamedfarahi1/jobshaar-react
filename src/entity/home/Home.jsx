@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Container, CssBaseline } from '@material-ui/core';
-import { getUserInfo } from '../../core/services/account/accountService';
 
 
 
