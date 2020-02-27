@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.scss';
+import './Main.scss';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function Home() {
+function Main() {
 	const classes = useStyles();
 	return (
 		<Router>
@@ -65,4 +65,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default Main;

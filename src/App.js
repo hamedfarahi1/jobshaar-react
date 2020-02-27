@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Home from './entity/home/Home';
+import Main from './entity/main/Main';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
@@ -35,7 +35,7 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<MyStyleProvider>
-				<Home name='hAmed' />
+				<Main name='hAmed' />
 			</MyStyleProvider>
 		</ThemeProvider>
 	);
