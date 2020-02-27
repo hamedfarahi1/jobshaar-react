@@ -13,8 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {
-	Link,
-	Redirect
+	Link
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
@@ -53,12 +52,6 @@ const useStyles = makeStyles(theme => ({
 
 function Register(props) {
 
-	useEffect(() => {
-		props.logout();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const { loggedIn } = props;
 	const classes = useStyles();
 	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false })
 
@@ -83,7 +76,6 @@ function Register(props) {
 		return (!username || !password || !email);
 	}
 
-	if (loggedIn) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
@@ -170,13 +162,12 @@ function Register(props) {
 }
 
 function mapState(state) {
-	const { registering, loggedIn } = state.registration;
-	return { registering, loggedIn };
+	const { registering } = state.registration;
+	return { registering };
 }
 
 const actionCreators = {
-	register: userActions.register,
-	logout: userActions.logout
+	register: userActions.register
 }
 
 const connectedRegisterPage = connect(mapState, actionCreators)(Register);
