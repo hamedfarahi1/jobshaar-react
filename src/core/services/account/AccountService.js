@@ -17,6 +17,7 @@ export function logout() {
 }
 
 export function register(credential) {
+	console.log(credential);
 	return axios.post('/api/employer/register', {
 		username: credential.username,
 		password: credential.password,

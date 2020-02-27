@@ -15,7 +15,8 @@ import Container from '@material-ui/core/Container';
 import {
 	Link
 } from "react-router-dom";
-import { register } from '../../core/services/account/accountService';
+import { connect } from 'react-redux';
+import { userActions } from '../../core/_actions';
 
 function Copyright() {
 	return (
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function Register() {
+function Register(props) {
 	const classes = useStyles();
 	const [values, setValues] = useState({ firstName: '', lastName: '', username: '', password: '', allowExtraEmails: false })
 
@@ -59,9 +60,7 @@ function Register() {
 	}
 
 	const submitForm = (event) => {
-		register(values).then(() => {
-			//
-		})
+		props.register(values);
 		event.preventDefault();
 
 	}
@@ -171,4 +170,14 @@ function Register() {
 	);
 }
 
-export default Register;
+function mapState(state) {
+	const { registering } = state.registration;
+	return { registering };
+}
+
+const actionCreators = {
+	register: userActions.register
+}
+
+const connectedRegisterPage = connect(mapState, actionCreators)(Register);
+export { connectedRegisterPage as Register };

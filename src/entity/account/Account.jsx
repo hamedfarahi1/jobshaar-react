@@ -2,7 +2,7 @@ import React from 'react';
 import './Account.scss';
 import { Login } from './Login'
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Register from './Register';
+import { Register } from './Register';
 
 function Account() {
 	return <div className="container">
