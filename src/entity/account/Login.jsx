@@ -56,16 +56,16 @@ function Login() {
 
 	const handleInputChange = e => {
 		const { name, value } = e.target
-		console.log(e.target.checked);
 		setValues({ ...values, [name]: value })
 	}
 
 	const submitForm = (event) => {
 		const { username, password } = values
 		if (!username || !password) return
-		login(values).then(() => {
-			//
-		})
+		login(values).then(res => {
+			alert('Login Successfully');
+		}, () => alert('Login Faild'));
+
 		event.preventDefault();
 
 	}

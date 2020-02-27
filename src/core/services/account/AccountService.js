@@ -5,6 +5,8 @@ export function login(credential) {
 		username: credential.username,
 		password: credential.password,
 		rememberMe: credential.rememberMe
+	}).then(res => {
+		setAuthInterceptor(res);
 	});
 }
 
@@ -16,4 +18,15 @@ export function register(credential) {
 		lastName: credential.lastName,
 		allowExtraEmails: credential.allowExtraEmails
 	});
+}
+
+export function getUserToken() {
+	return localStorage.getItem("Token");
+}
+
+const setAuthInterceptor = (res) => {
+	const Token = localStorage.setItem("Token", res.data.token);
+	axios.interceptors.request.use(request => {
+		request.headers['Authorization'] = 'Bearer ' + Token;
+	})
 }
