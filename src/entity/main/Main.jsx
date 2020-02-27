@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Home from '../home/Home';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -59,6 +60,9 @@ function Main() {
 			<Switch>
 				<Route path="/account">
 					<Account></Account>
+				</Route>
+				<Route path="/home">
+					<Home></Home>
 				</Route>
 			</Switch>
 		</Router>

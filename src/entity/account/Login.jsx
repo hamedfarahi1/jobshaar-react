@@ -12,12 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {
-	Link
+	Link, Redirect
 } from "react-router-dom";
 import './Account.scss';
 
 import { login } from '../../core/services/account/accountService';
-import Home from '../home/Home';
 
 function Copyright() {
 	return (
@@ -82,7 +81,7 @@ function Login() {
 		return (!username || !password);
 	}
 
-	if (isLogin) return <Home></Home>
+	if (isLogin) return <Redirect to="/home"></Redirect>;
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />

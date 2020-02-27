@@ -9,7 +9,8 @@ import { getUserInfo } from '../../core/services/account/accountService';
 function Home() {
 
 	const getUserProfile = () => {
-		getUserInfo();
+		console.log(localStorage.getItem('user'));
+		// getUserInfo();
 	}
 	return <Container component="main">
 		<CssBaseline />
@@ -30,7 +31,6 @@ function Home() {
 		</div>
 
 	</Container>
-
 }
 
 export default Home;

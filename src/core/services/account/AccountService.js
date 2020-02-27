@@ -3,10 +3,10 @@ const axios = require('axios').default;
 export function login(credential) {
 	return axios.post('/api/employer/login', {
 		username: credential.username,
-		password: credential.password,
-		rememberMe: credential.rememberMe
+		password: credential.password
 	}).then(res => {
 		setAuthInterceptor(res);
+		return { token: res.data.token }
 	});
 }
 
