@@ -4,7 +4,8 @@ import {
 	Router,
 	Switch,
 	Route,
-	Link
+	Link,
+	Redirect
 } from "react-router-dom";
 import { connect } from 'react-redux';
 
@@ -72,6 +73,7 @@ function Main(props) {
 				</Toolbar>
 			</AppBar>
 			<Switch>
+				<Redirect exact from="/" to="/home"></Redirect>
 				<Route path="/account">
 					<Account></Account>
 				</Route>

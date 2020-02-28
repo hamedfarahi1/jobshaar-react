@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Container, CssBaseline, Grid } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { jobService } from '../../core/services/job/jobService';
@@ -15,19 +27,40 @@ const useStyles = makeStyles(theme => ({
 		alignItems: 'center',
 	},
 	list: {
-		width: '70%', // Fix IE 11 issue.
+		width: '85%',
 		marginLeft: 'auto',
-		marginRight: '30px',
 		marginTop: theme.spacing(3),
 	},
 	item: {
-		height: '150px',
-		marginTop: theme.spacing(1),
-		backgroundColor: '#e6e4e4'
+		width: '100%',
+		marginTop: theme.spacing(2)
 	}
 }));
 
-// this component is provided for testing interceptors
+const useCardStyles = makeStyles(theme => ({
+	root: {
+		maxWidth: 345,
+	},
+	media: {
+		height: 0,
+		paddingTop: '56.25%', // 16:9
+	},
+	expand: {
+		transform: 'rotate(0deg)',
+		marginLeft: 'auto',
+		transition: theme.transitions.create('transform', {
+			duration: theme.transitions.duration.shortest,
+		}),
+	},
+	expandOpen: {
+		transform: 'rotate(180deg)',
+	},
+	avatar: {
+		backgroundColor: red[500],
+	},
+}));
+
+
 function Home() {
 
 	useEffect(() => {
@@ -37,23 +70,78 @@ function Home() {
 
 	const classes = useStyles();
 	const [jobs, setJobs] = useState([]);
+
+
 	const getJobs = () => {
-		jobService.getJobs(0, 10, []).then(res => {
-			if (res) setJobs(res.data);
-		})
+		jobService.getJobs(0, 10, []).then(res => res ? setJobs(res.data) : null);
 	}
-	return <Container component="main">
-		<CssBaseline />
-		<div className={classes.paper}>
-			<div className={classes.list}>
-				<Grid container spacing={2}>
-					{
-						jobs.map(item => <Grid className={classes.item} item xs={12}> {item.title} </Grid>)
+
+
+	function Item(props) {
+		return (
+			<Grid className={classes.item} item xs={4}>
+				<MyCard item={props.item}></MyCard>
+			</Grid>);
+	}
+
+
+	function MyCard(props) {
+		const cardClasses = useCardStyles();
+		const item = props.item;
+		return (
+			<Card className={cardClasses.root}>
+				<CardHeader
+					avatar={
+						<Avatar aria-label="recipe" className={cardClasses.avatar}>
+							R
+				</Avatar>
 					}
-				</Grid>
+					action={
+						<IconButton aria-label="settings">
+							<MoreVertIcon />
+						</IconButton>
+					}
+					title={item.title}
+					subheader={item.company.name}
+				/>
+				<CardMedia
+					className={cardClasses.media}
+					image="/assets/images/2.png"
+					title="Paella dish"
+				/>
+				<CardContent>
+					<Typography variant="body2" color="textSecondary" component="p">
+						{item.company.bio}
+					</Typography>
+				</CardContent>
+				<CardActions disableSpacing>
+					<IconButton aria-label="add to favorites">
+						<FavoriteIcon />
+					</IconButton>
+					<IconButton aria-label="share">
+						<ShareIcon />
+					</IconButton>
+				</CardActions>
+
+			</Card>
+		);
+	}
+
+
+	return (
+		<Container component="main">
+			<CssBaseline />
+			<div className={classes.paper}>
+				<div className={classes.list}>
+					<Grid container spacing={2}>
+						{
+							jobs.map(item => <Item key={item.id} item={item}></Item>)
+						}
+					</Grid>
+				</div>
 			</div>
-		</div>
-	</Container>
+		</Container>
+	);
 }
 
 function mapState(state) {
