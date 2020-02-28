@@ -5,7 +5,8 @@ export const accountService = {
 	logout,
 	register,
 	getUserToken,
-	getUserInfo
+	getUserInfo,
+	setAuthInterceptor
 }
 function login(credential) {
 	return axios.post('/api/employer/login', {
@@ -34,6 +35,17 @@ function register(credential) {
 			return res;
 		}
 	);
+}
+
+function setAuthInterceptor() {
+	const user = JSON.parse(localStorage.getItem("user"));
+	if (user && user.token) {
+		const Token = user.token;
+		axios.interceptors.request.use(request => {
+			request.headers['Authorization'] = 'Bearer ' + Token;
+			return request;
+		})
+	}
 }
 
 function getUserToken() {

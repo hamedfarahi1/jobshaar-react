@@ -90,6 +90,7 @@ function Register(props) {
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
 							<TextField
+								dir="ltr"
 								variant="outlined"
 								required
 								fullWidth
@@ -97,12 +98,12 @@ function Register(props) {
 								label="ایمیل"
 								name="email"
 								autoComplete="email"
-								dir="ltr"
 								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								dir="ltr"
 								variant="outlined"
 								required
 								fullWidth
@@ -111,11 +112,11 @@ function Register(props) {
 								name="username"
 								autoComplete="username"
 								onChange={handleInputChange}
-								dir="ltr"
 							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								dir="ltr"
 								variant="outlined"
 								required
 								fullWidth
@@ -124,7 +125,6 @@ function Register(props) {
 								type="password"
 								id="password"
 								autoComplete="current-password"
-								dir="ltr"
 								onChange={handleInputChange}
 							/>
 						</Grid>

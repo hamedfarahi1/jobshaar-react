@@ -97,6 +97,7 @@ function Login(props) {
 		  </Typography>
 				<form onSubmit={submitForm} className={classes.form}>
 					<TextField
+						dir="ltr"
 						variant="outlined"
 						margin="normal"
 						required
@@ -109,6 +110,7 @@ function Login(props) {
 						value={values.username}
 					/>
 					<TextField
+						dir="ltr"
 						variant="outlined"
 						margin="normal"
 						required
