@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { Main } from './entity/main/Main';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -26,7 +26,9 @@ function MyStyleProvider(props) {
 	);
 }
 function App() {
-	interceptorsSetter();
+	useEffect(() => {
+		interceptorsSetter();
+	}, [])
 	return (
 		<LocalizeProvider>
 			<Provider store={store}>

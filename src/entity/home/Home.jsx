@@ -3,7 +3,6 @@ import { Container, CssBaseline, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { jobService } from '../../core/services/job/jobService';
-import { accountService } from '../../core/services/account/accountService';
 import { makeStyles } from '@material-ui/core/styles';
 import { MyCard } from './MyCard';
 
@@ -30,7 +29,6 @@ const useStyles = makeStyles(theme => ({
 function Home() {
 
 	useEffect(() => {
-		accountService.setAuthInterceptor();
 		getJobs();
 	}, []);
 
