@@ -1,6 +1,6 @@
 import { uiActions } from '../_actions';
 import { store } from '../_helpers';
-
+import { errorConstants } from '../_constants'
 
 export const errorHandlerInterceptor = (error) => {
 
@@ -12,19 +12,19 @@ export const errorHandlerInterceptor = (error) => {
 const createErrorMessage = (statusCode) => {
 	switch (statusCode) {
 		case 504:
-			showErrorMessage("خطا در اتصال به سرور");
+			showErrorMessage(errorConstants.SERVER_ERROR);
 			break;
 		case 601:
-			showErrorMessage("پسوورد اشتباه وارد شده است");
+			showErrorMessage(errorConstants.INVALID_PASSWORD);
 			break;
 		case 604:
-			showErrorMessage("نام کاربری نا معتبر است");
+			showErrorMessage(errorConstants.INVALID_USERNAME);
 			break;
 		case 401:
-			showErrorMessage("احراز هویت با موفقیت انجام نشد");
+			showErrorMessage(errorConstants.UNAUTHORITY);
 			break;
 		default:
-			showErrorMessage("خطا");
+			showErrorMessage(errorConstants.ERROR);
 	}
 }
 
