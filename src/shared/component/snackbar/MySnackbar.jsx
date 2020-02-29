@@ -5,15 +5,22 @@ import IconButton from "@material-ui/core/IconButton";
 import { Icon } from "@material-ui/core";
 import { uiActions } from "../../../core/_actions/ui.actions";
 import { store } from '../../../core/_helpers';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
 
 export default function MySnackbar() {
 
-	const { successSnackbarMessage, successSnackbarOpen } = useSelector(
+	const { errorSnackbarMessage, errorSnackbarOpen } = useSelector(
 		state => state.ui
 	);
 
+	function Alert(props) {
+		return <MuiAlert
+			elevation={6} variant="filled" {...props} />;
+	}
 	function handleClose() {
-		store.dispatch(uiActions.clear());
+		store.dispatch(uiActions.clearSnackbar());
 	}
 
 	return (
@@ -22,26 +29,12 @@ export default function MySnackbar() {
 				vertical: "top",
 				horizontal: "center"
 			}}
-			open={successSnackbarOpen}
-			autoHideDuration={4000}
 			onClose={handleClose}
+			autoHideDuration={4000}
+			open={errorSnackbarOpen}
 			aria-describedby="client-snackbar"
-			message={
-				<span id="client-snackbar">
-					<Icon>check_circle</Icon>
-					{successSnackbarMessage}
-				</span>
-			}
-			action={[
-				<IconButton
-					key="close"
-					aria-label="close"
-					color="inherit"
-					onClick={handleClose}
-				>
-					<Icon>close</Icon>
-				</IconButton>
-			]}
-		/>
+		>
+			<Alert severity="error">{errorSnackbarMessage}</Alert>
+		</Snackbar>
 	);
 }

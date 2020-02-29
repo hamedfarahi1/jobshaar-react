@@ -3,8 +3,19 @@ import { store } from '../_helpers';
 
 
 export const errorHandlerInterceptor = (error) => {
-	store.dispatch(uiActions.success('fuck uuu'))
+
 	const statusCode = error.response.status;
-	console.log(statusCode);
+	switch (statusCode) {
+		case 504:
+			errorMessage("خطا در اتصال به سرور")
+			break;
+		default:
+			errorMessage("خطا")
+
+	}
 	return Promise.reject({ ...error })
+}
+
+const errorMessage = (message) => {
+	store.dispatch(uiActions.errorSnackbar(message))
 }

@@ -1,21 +1,28 @@
 import { uiConstants } from '../_constants';
 
 export const uiActions = {
-	success,
-	error,
-	clear
+	successSnackbar,
+	errorSnackbar,
+	clearSnackbar
 };
 
-function success(message) {
+function successSnackbar(message) {
 	return dispatch => {
-		dispatch({ type: uiConstants.SUCCESS, message });
+		dispatch({ type: uiConstants.SNACKBAR_SUCCESS, message });
 	};
 };
 
-function clear() {
+function errorSnackbar(message) {
 	return dispatch => {
-		dispatch({ type: uiConstants.CLEAR });
+		dispatch({ type: uiConstants.SNACKBAR_ERROR, message });
 	};
-};
+}
 
-function error() { }
+function clearSnackbar() {
+	return dispatch => {
+		dispatch({ type: uiConstants.SNACKBAR_CLEAR });
+	};
+}
+
+
+

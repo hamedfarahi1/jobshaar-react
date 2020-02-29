@@ -13,18 +13,7 @@ import MySnackbar from './shared/component/snackbar/MySnackbar';
 
 
 const theme = createMuiTheme({
-	direction: 'rtl',
-	typography: {
-		fontFamily: [
-			'IRANSans',
-			'"IRANSans"',
-			'Nunito',
-			'Roboto',
-			'"Helvetica Neue"',
-			'Arial',
-			'sans-serif'
-		].join(',')
-	}
+	direction: 'rtl'
 });
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
