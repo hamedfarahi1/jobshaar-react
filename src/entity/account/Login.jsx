@@ -70,9 +70,7 @@ function Login(props) {
 		const { username, password } = values
 		if (!username || !password) return
 		props.login(username, password);
-
 		event.preventDefault();
-
 	}
 
 	const rememberMeHandleChange = e => {

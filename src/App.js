@@ -8,6 +8,8 @@ import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import { store } from './core/_helpers';
 import { LocalizeProvider } from 'react-localize-redux'
 import { Provider } from 'react-redux';
+import { interceptorsSetter } from './core/interceptors/interceptorsSetter';
+import MySnackbar from './shared/component/snackbar/MySnackbar';
 
 
 const theme = createMuiTheme({
@@ -35,11 +37,13 @@ function MyStyleProvider(props) {
 	);
 }
 function App() {
+	interceptorsSetter();
 	return (
 		<LocalizeProvider>
 			<Provider store={store}>
 				<ThemeProvider theme={theme}>
 					<MyStyleProvider>
+						<MySnackbar></MySnackbar>
 						<Main name='hAmed' />
 					</MyStyleProvider>
 				</ThemeProvider>
