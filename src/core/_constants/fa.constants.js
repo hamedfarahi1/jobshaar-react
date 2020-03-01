@@ -27,5 +27,5 @@ export const accountPropConstants = {
 	REGISTER: "ثبت نام",
 	LOGIN_IN_SITE: "ورود به سامانه",
 	FORGOT_PASSWORD: "فراموشی رمز عبور",
-	ALLOW_EXTRA_EMAILS: "میخواهم اخبار و رویداد ها به ایمیلم ارسال شود"
+	ALLOW_EXTRA_EMAILS: "میخواهم اخبار و رویداد ها به ایمیلم ارسال شود",
 }

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Main.scss';
 import {
 	Router,
 	Switch,
 	Route,
-	Link,
 	Redirect
 } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -17,13 +16,17 @@ import { history } from '../../core/_helpers';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon'
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Home } from '../home/Home';
 import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
-import { useEffect } from 'react';
-import { accountPropConstants, mainConstants } from '../../core/_constants';
+import { mainConstants, accountConstants } from '../../core/_constants';
+import Grow from '@material-ui/core/Grow';
+import Popper from '@material-ui/core/Popper';
+import { PaperMenu } from './PaperMenu';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -44,6 +47,13 @@ const useStyles = makeStyles(theme => ({
 	},
 	appBar: {
 		backgroundColor: '#508cef'
+	},
+	paper: {
+		minWidth: '140px'
+	},
+	itemText: {
+		marginLeft: 'auto',
+		fontSize: 'smaller'
 	}
 }));
 
@@ -53,6 +63,60 @@ function Main(props) {
 		history.listen(() => props.clearAlerts());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+	const anchorRef = useRef(null);
+
+	const handleToggle = () => {
+		setOpen(prevOpen => !prevOpen);
+	};
+	const [open, setOpen] = useState(false);
+
+
+	const handleClose = (event) => {
+		if (anchorRef.current && anchorRef.current.contains(event.target)) {
+			return;
+		}
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			setOpen(false);
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
+
+	function Menu() {
+
+		return (
+			<Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+				{({ TransitionProps, placement }) => (
+					<Grow
+						{...TransitionProps}
+						style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+					>
+						<PaperMenu
+							handleClose={handleClose}
+							handleListKeyDown={handleListKeyDown}
+							setOpen={setOpen}
+							open={open}
+						></PaperMenu>
+					</Grow>
+				)}
+			</Popper>
+		)
+	}
+
+
 	return (
 		<Router history={history}>
 			<AppBar position="static" className={classes.appBar}>
@@ -68,13 +132,19 @@ function Main(props) {
 							<div className={`alert ${alert.type}`}>{alert.message}</div>
 						}
 					</div>
-					<Link className={classes.link} to="/account">
-						<Button className={classes.linkButton}>{accountPropConstants.LOGIN}</Button>
-					</Link>
+					<Button
+						ref={anchorRef}
+						aria-controls={open ? 'menu-list-grow' : undefined}
+						aria-haspopup="true"
+						onClick={handleToggle}
+						className={classes.linkButton}>
+						<Icon>account_box</Icon>
+					</Button>
+					<Menu></Menu>
 				</Toolbar>
 			</AppBar>
 			<Switch>
-				<Redirect exact from="/" to="/home"></Redirect>
+				<Redirect exact from="/" to="/home"> </Redirect>
 				<Route path="/account">
 					<Account></Account>
 				</Route>
