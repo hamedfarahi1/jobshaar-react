@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
+import { accountPropConstants, userFieldConstants } from '../../core/_constants';
 
 function Copyright() {
 	return (
@@ -84,8 +85,8 @@ function Register(props) {
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					ثبت نام
-        </Typography>
+					{accountPropConstants.REGISTER_IN_SITE}
+				</Typography>
 				<form className={classes.form} onSubmit={submitForm}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
@@ -95,7 +96,7 @@ function Register(props) {
 								required
 								fullWidth
 								id="ema"
-								label="ایمیل"
+								label={userFieldConstants.EMAIL}
 								name="email"
 								autoComplete="email"
 								onChange={handleInputChange}
@@ -108,7 +109,7 @@ function Register(props) {
 								required
 								fullWidth
 								id="username"
-								label="نام کاربری"
+								label={userFieldConstants.USERNAME}
 								name="username"
 								autoComplete="username"
 								onChange={handleInputChange}
@@ -121,7 +122,7 @@ function Register(props) {
 								required
 								fullWidth
 								name="password"
-								label="رمز عبور"
+								label={userFieldConstants.PASSWORD}
 								type="password"
 								id="password"
 								autoComplete="current-password"
@@ -131,7 +132,7 @@ function Register(props) {
 						<Grid item xs={12}>
 							<FormControlLabel
 								control={<Checkbox onChange={CheckBoxHandleChange} color="primary" />}
-								label="میخواهم اخبار و رویداد ها به ایمیلم ارسال شود"
+								label={accountPropConstants.ALLOW_EXTRA_EMAILS}
 							/>
 						</Grid>
 					</Grid>
@@ -143,13 +144,13 @@ function Register(props) {
 						className={classes.submit}
 						disabled={isNotValidForm()}
 					>
-						ثبت نام
-          </Button>
+						{accountPropConstants.REGISTER}
+					</Button>
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to="/account/login" variant="body2">
-								ورود به سامانه
-              </Link>
+								{accountPropConstants.LOGIN_IN_SITE}
+							</Link>
 						</Grid>
 					</Grid>
 				</form>

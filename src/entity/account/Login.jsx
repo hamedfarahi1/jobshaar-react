@@ -18,6 +18,7 @@ import './Account.scss';
 import { connect } from 'react-redux';
 
 import { userActions } from '../../core/_actions';
+import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 
 function Copyright() {
 	return (
@@ -91,8 +92,8 @@ function Login(props) {
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					ورود به سامانه
-		  </Typography>
+					{accountPropConstants.LOGIN_IN_SITE}
+				</Typography>
 				<form onSubmit={submitForm} className={classes.form}>
 					<TextField
 						dir="ltr"
@@ -101,7 +102,7 @@ function Login(props) {
 						required
 						fullWidth
 						id="username"
-						label="نام کاربری"
+						label={userFieldConstants.USERNAME}
 						name="username"
 						autoFocus
 						onChange={handleInputChange}
@@ -114,7 +115,7 @@ function Login(props) {
 						required
 						fullWidth
 						name="password"
-						label="رمز عبور"
+						label={userFieldConstants.PASSWORD}
 						type="password"
 						id="password"
 						onChange={handleInputChange}
@@ -122,7 +123,7 @@ function Login(props) {
 					/>
 					<FormControlLabel
 						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}
-						label="مرا به خاطر بسپار"
+						label={accountPropConstants.REMEMBER_ME}
 					/>
 					<Button
 						type="submit"
@@ -132,17 +133,17 @@ function Login(props) {
 						className={classes.submit}
 						disabled={isNotValidForm()}
 					>
-						ورود
-			</Button >
+						{accountPropConstants.LOGIN}
+					</Button >
 					<Grid container>
 						<Grid item xs>
 							<Link to="#" variant="body2">
-								فراموشی رمز عبور
-				</Link>
+								{accountPropConstants.FORGOT_PASSWORD}
+							</Link>
 						</Grid>
 						<Grid item>
 							<Link to="/account/register" variant="body2">
-								{"ثبت نام در سایت"}
+								{accountPropConstants.REGISTER_IN_SITE}
 							</Link>
 						</Grid>
 					</Grid>

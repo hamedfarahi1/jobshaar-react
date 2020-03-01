@@ -23,6 +23,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Home } from '../home/Home';
 import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
 import { useEffect } from 'react';
+import { accountPropConstants, mainConstants } from '../../core/_constants';
 
 
 const useStyles = makeStyles(theme => ({
@@ -60,15 +61,15 @@ function Main(props) {
 						<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" className={classes.title}>
-						جابشار
-    					</Typography>
+						{mainConstants.JOBSHAAR}
+					</Typography>
 					<div>
 						{alert.message &&
 							<div className={`alert ${alert.type}`}>{alert.message}</div>
 						}
 					</div>
 					<Link className={classes.link} to="/account">
-						<Button className={classes.linkButton}>ورود</Button>
+						<Button className={classes.linkButton}>{accountPropConstants.LOGIN}</Button>
 					</Link>
 				</Toolbar>
 			</AppBar>
