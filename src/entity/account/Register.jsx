@@ -49,6 +49,9 @@ const useStyles = makeStyles(theme => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	allowExtraEmails: {
+		fontSize: 'small'
+	}
 }));
 
 function Register(props) {
@@ -132,7 +135,7 @@ function Register(props) {
 						<Grid item xs={12}>
 							<FormControlLabel
 								control={<Checkbox onChange={CheckBoxHandleChange} color="primary" />}
-								label={accountPropConstants.ALLOW_EXTRA_EMAILS}
+								label={<Typography className={classes.allowExtraEmails}>{accountPropConstants.ALLOW_EXTRA_EMAILS}</Typography>}
 							/>
 						</Grid>
 					</Grid>

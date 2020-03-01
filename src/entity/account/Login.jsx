@@ -50,6 +50,9 @@ const useStyles = makeStyles(theme => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	rememberMe: {
+		fontSize: 'small'
+	}
 }));
 
 function Login(props) {
@@ -123,7 +126,7 @@ function Login(props) {
 					/>
 					<FormControlLabel
 						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}
-						label={accountPropConstants.REMEMBER_ME}
+						label={<Typography className={classes.rememberMe}>{accountPropConstants.REMEMBER_ME}</Typography>}
 					/>
 					<Button
 						type="submit"
