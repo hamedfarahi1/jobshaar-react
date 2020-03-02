@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	itemText: {
 		marginLeft: 'auto',
-		fontSize: 'smaller'
+		fontSize: 'small'
 	},
 	link: {
 		textDecoration: 'none',

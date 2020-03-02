@@ -7,12 +7,11 @@ import {
 	Redirect
 } from "react-router-dom";
 import { connect } from 'react-redux';
-
 import { alertActions } from '../../core/_actions';
 import Account from '../account/Account';
 import { makeStyles } from '@material-ui/core/styles';
 import { history } from '../../core/_helpers';
-
+import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -26,15 +25,34 @@ import { mainConstants } from '../../core/_constants';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import { PaperMenu } from './PaperMenu';
+import Side from './Side';
 
-
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		flexGrow: 1,
 	},
+	appBar: {
+		backgroundColor: '#508cef',
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+	},
+	appBarShift: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	},
 	menuButton: {
 		marginRight: theme.spacing(2),
+	},
+	hide: {
+		display: 'none',
 	},
 	title: {
 		flexGrow: 1,
@@ -44,9 +62,6 @@ const useStyles = makeStyles(theme => ({
 	},
 	linkButton: {
 		color: '#f6f6f6',
-	},
-	appBar: {
-		backgroundColor: '#508cef'
 	},
 	paper: {
 		minWidth: '140px'
@@ -69,6 +84,7 @@ function Main(props) {
 		setOpen(prevOpen => !prevOpen);
 	};
 	const [open, setOpen] = useState(false);
+	const [openSide, setOpenSide] = React.useState(false);
 
 
 	const handleClose = (event) => {
@@ -84,6 +100,14 @@ function Main(props) {
 			setOpen(false);
 		}
 	}
+
+	const handleDrawerOpen = () => {
+		setOpenSide(true);
+	};
+
+	const handleDrawerClose = () => {
+		setOpenSide(false);
+	};
 
 	// return focus to the button when we transitioned from !open -> open
 	const prevOpen = useRef(open);
@@ -119,11 +143,18 @@ function Main(props) {
 
 	return (
 		<Router history={history}>
-			<AppBar position="static" className={classes.appBar}>
+			<AppBar position="static" className={clsx(classes.appBar, {
+				[classes.appBarShift]: openSide,
+			})}>
 				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-						<MenuIcon />
-					</IconButton>
+					{props.loggedIn ?
+						<IconButton
+							onClick={handleDrawerOpen}
+							edge="start"
+							className={clsx(classes.menuButton, openSide && classes.hide)}
+							color="inherit" aria-label="menu">
+							<MenuIcon />
+						</IconButton> : ''}
 					<Typography variant="h6" className={classes.title}>
 						{mainConstants.JOBSHAAR}
 					</Typography>
@@ -143,20 +174,23 @@ function Main(props) {
 					<Menu></Menu>
 				</Toolbar>
 			</AppBar>
-			<Switch>
-				<Redirect exact from="/" to="/home"> </Redirect>
-				<Route path="/account">
-					<Account></Account>
-				</Route>
-				<PrivateRoute path="/home" component={Home} />
-			</Switch>
+			<Side openSide={openSide} handleDrawerClose={handleDrawerClose}>
+				<Switch>
+					<Redirect exact from="/" to="/home"> </Redirect>
+					<Route path="/account">
+						<Account></Account>
+					</Route>
+					<PrivateRoute path="/home" component={Home} />
+				</Switch>
+			</Side>
 		</Router>
 	);
 }
 
 function mapState(state) {
 	const { alert } = state;
-	return { alert };
+	const { loggedIn } = state.authentication
+	return { alert, loggedIn };
 }
 
 const actionCreators = {
