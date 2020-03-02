@@ -8,7 +8,6 @@ import {
 import { connect } from 'react-redux';
 import { alertActions } from '../../core/_actions';
 import Account from '../account/Account';
-import { makeStyles } from '@material-ui/core/styles';
 import { history } from '../../core/_helpers';
 import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';

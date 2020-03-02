@@ -13,7 +13,6 @@ import Container from '@material-ui/core/Container';
 import {
 	Link
 } from "react-router-dom";
-import './Account.scss';
 import { connect } from 'react-redux';
 
 import { userActions } from '../../core/_actions';
