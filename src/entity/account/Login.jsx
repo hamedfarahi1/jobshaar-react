@@ -18,18 +18,8 @@ import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
 import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
-
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{'Copyright © '}
-			<Link color="inherit" to="#">
-				Hamed Farahi
-		</Link>{' '}
-			{new Date().getFullYear()}
-		</Typography>
-	);
-}
+import Copyright from '../../shared/component/copyright/Copyright';
+import MyTextField from '../../shared/component/my-text-field/MyTextField';
 
 function Login(props) {
 
@@ -74,31 +64,19 @@ function Login(props) {
 					{accountPropConstants.LOGIN_IN_SITE}
 				</Typography>
 				<form onSubmit={submitForm} className={classes.loginForm}>
-					<TextField
-						dir="ltr"
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="username"
+					<MyTextField
+						field='username'
 						label={userFieldConstants.USERNAME}
-						name="username"
-						autoFocus
 						onChange={handleInputChange}
-						value={values.username}
+						autoFocus={true}
+						margin='normal'
 					/>
-					<TextField
-						dir="ltr"
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						name="password"
+					<MyTextField
+						field='password'
 						label={userFieldConstants.PASSWORD}
-						type="password"
-						id="password"
 						onChange={handleInputChange}
-						value={values.password}
+						type='password'
+						margin='normal'
 					/>
 					<FormControlLabel
 						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}

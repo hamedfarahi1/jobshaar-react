@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
@@ -17,20 +16,8 @@ import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
 import { accountPropConstants, userFieldConstants } from '../../core/_constants';
 import { useStyles } from './styles';
-
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{'Copyright © '}
-			<Link color="inherit" to="#">
-				Hamed Farahi
-      </Link>{' '}
-			{new Date().getFullYear()}
-		</Typography>
-	);
-}
-
-
+import MyTextField from '../../shared/component/my-text-field/MyTextField';
+import Copyright from '../../shared/component/copyright/Copyright';
 
 function Register(props) {
 
@@ -71,42 +58,25 @@ function Register(props) {
 				<form className={classes.registerForm} onSubmit={submitForm}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
-							<TextField
-								dir="ltr"
-								variant="outlined"
-								required
-								fullWidth
-								id="ema"
+							<MyTextField
+								field='email'
 								label={userFieldConstants.EMAIL}
-								name="email"
-								autoComplete="email"
 								onChange={handleInputChange}
+								autoFocus={true}
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								dir="ltr"
-								variant="outlined"
-								required
-								fullWidth
-								id="username"
+							<MyTextField
+								field='username'
 								label={userFieldConstants.USERNAME}
-								name="username"
-								autoComplete="username"
 								onChange={handleInputChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<TextField
-								dir="ltr"
-								variant="outlined"
-								required
-								fullWidth
-								name="password"
+							<MyTextField
+								field='password'
+								type='password'
 								label={userFieldConstants.PASSWORD}
-								type="password"
-								id="password"
-								autoComplete="current-password"
 								onChange={handleInputChange}
 							/>
 						</Grid>
