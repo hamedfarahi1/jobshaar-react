@@ -3,29 +3,9 @@ import { Container, CssBaseline, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { jobService } from '../../core/services/job/jobService';
-import { makeStyles } from '@material-ui/core/styles';
 import { MyCard } from './MyCard';
 import { useMediaQuery } from 'react-responsive'
-
-const useStyles = makeStyles(theme => ({
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	list: {
-		marginTop: theme.spacing(3),
-	},
-	deskList: {
-		width: '85%',
-		marginTop: theme.spacing(3),
-	},
-	item: {
-		width: '100%',
-	}
-}));
-
+import { useHomeStyles } from './styles';
 
 function Home() {
 
@@ -36,7 +16,7 @@ function Home() {
 	const isDesktopOrLaptop = useMediaQuery({
 		query: '(min-device-width: 1224px)'
 	})
-	const classes = useStyles();
+	const classes = useHomeStyles();
 	const [jobs, setJobs] = useState([]);
 
 

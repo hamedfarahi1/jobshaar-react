@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './Main.scss';
 import {
 	Router,
 	Switch,
@@ -26,54 +25,10 @@ import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import { PaperMenu } from './PaperMenu';
 import Side from './Side';
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-	root: {
-		flexGrow: 1,
-	},
-	appBar: {
-		backgroundColor: '#508cef',
-		transition: theme.transitions.create(['margin', 'width'], {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-	},
-	appBarShift: {
-		width: `calc(100% - ${drawerWidth}px)`,
-		marginLeft: drawerWidth,
-		transition: theme.transitions.create(['margin', 'width'], {
-			easing: theme.transitions.easing.easeOut,
-			duration: theme.transitions.duration.enteringScreen,
-		}),
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	hide: {
-		display: 'none',
-	},
-	title: {
-		flexGrow: 1,
-	},
-	link: {
-		textDecoration: 'none'
-	},
-	linkButton: {
-		color: '#f6f6f6',
-	},
-	paper: {
-		minWidth: '140px'
-	},
-	itemText: {
-		marginLeft: 'auto',
-		fontSize: 'smaller'
-	}
-}));
+import { useMainStyles } from './styles';
 
 function Main(props) {
-	const classes = useStyles();
+	const classes = useMainStyles();
 	useEffect(() => {
 		history.listen(() => props.clearAlerts());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +42,7 @@ function Main(props) {
 	const [openSide, setOpenSide] = React.useState(false);
 
 
-	const handleClose = (event) => {
+	const handlePaperClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
 			return;
 		}
@@ -129,7 +84,7 @@ function Main(props) {
 						style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
 					>
 						<PaperMenu
-							handleClose={handleClose}
+							handlePaperClose={handlePaperClose}
 							handleListKeyDown={handleListKeyDown}
 							setOpen={setOpen}
 							open={open}

@@ -11,29 +11,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
-
-const useCardStyles = makeStyles(theme => ({
-	media: {
-		height: 0,
-		paddingTop: '56.25%', // 16:9
-		backgroundSize: '40%',
-		margin: 'auto'
-	},
-	expand: {
-		transform: 'rotate(0deg)',
-		marginLeft: 'auto',
-		transition: theme.transitions.create('transform', {
-			duration: theme.transitions.duration.shortest,
-		}),
-	},
-	expandOpen: {
-		transform: 'rotate(180deg)',
-	}
-}));
+import { useCardStyles } from './styles';
 
 function MyCard(props) {
-
-
 
 	const cardClasses = useCardStyles();
 	const item = props.item;
