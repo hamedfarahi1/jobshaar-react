@@ -23,7 +23,7 @@ import { mainConstants } from '../../core/_constants';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import { PaperMenu } from './PaperMenu';
-import Side from './Side';
+import { Side } from './Side';
 import { useMainStyles } from './styles';
 
 function Main(props) {

@@ -39,6 +39,24 @@ export const useDrawerStyles = makeStyles(theme => ({
 		}),
 		marginLeft: 0,
 	},
+	userInfo: {
+		textAlign: 'center',
+		marginTop: '1rem',
+		marginBottom: '1rem',
+		fontSize: 'large',
+	},
+	userAvatar: {
+		width: theme.spacing(7),
+		height: theme.spacing(7),
+		margin: 'auto'
+	},
+	username: {
+		marginTop: theme.spacing(1)
+	},
+	userType: {
+		marginTop: theme.spacing(1),
+		fontSize: 'x-small'
+	}
 }));
 
 export const usePaperMenuStyles = makeStyles(theme => ({

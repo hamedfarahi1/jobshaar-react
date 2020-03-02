@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,13 +13,21 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Typography } from '@material-ui/core';
+import { Typography, Container, Avatar } from '@material-ui/core';
 import { mainConstants } from '../../core/_constants';
 import { useDrawerStyles } from './styles';
+import { connect } from 'react-redux';
 
-export default function Side(props) {
+function Side(props) {
 	const classes = useDrawerStyles();
 	const theme = useTheme();
+	const [username, setUsername] = useState('');
+	const [userType, setUserType] = useState(1);
+
+	useEffect(() => {
+		setUsername(props.user.username)
+		setUserType(props.user.roleTypeIndex)
+	}, [])
 
 	const handleDrawerClose = () => {
 		props.handleDrawerClose();
@@ -44,6 +52,11 @@ export default function Side(props) {
 						{theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
+				<Container className={classes.userInfo}>
+					<Avatar className={classes.userAvatar}></Avatar>
+					<Typography className={classes.username}> {username} </Typography>
+					<Typography className={classes.userType}> {userType ? 'کارجو' : 'کارفرما'} </Typography>
+				</Container>
 				<Divider />
 				<List>
 					{['مشاهده کار ها', 'کار های من', 'تنظیمات', 'کمپانی ها'].map((text, index) => (
@@ -73,3 +86,11 @@ export default function Side(props) {
 		</div>
 	);
 }
+
+function mapState(state) {
+	const { user } = state.authentication
+	return { user }
+}
+
+const connectedSidePage = connect(mapState, {})(Side)
+export { connectedSidePage as Side }
