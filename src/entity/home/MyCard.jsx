@@ -7,19 +7,17 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useCardStyles = makeStyles(theme => ({
-	root: {
-		maxWidth: 345,
-	},
 	media: {
 		height: 0,
 		paddingTop: '56.25%', // 16:9
+		backgroundSize: '40%',
+		margin: 'auto'
 	},
 	expand: {
 		transform: 'rotate(0deg)',
@@ -30,34 +28,32 @@ const useCardStyles = makeStyles(theme => ({
 	},
 	expandOpen: {
 		transform: 'rotate(180deg)',
-	},
-	avatar: {
-		backgroundColor: red[500],
-	},
+	}
 }));
 
 function MyCard(props) {
+
+
+
 	const cardClasses = useCardStyles();
 	const item = props.item;
 	return (
 		<Card className={cardClasses.root}>
 			<CardHeader
 				avatar={
-					<Avatar aria-label="recipe" className={cardClasses.avatar}>
-						R
-			</Avatar>
+					<Avatar aria-label="recipe" src={require('../../assest/images/' + item.company.id + '.png')} />
 				}
 				action={
 					<IconButton aria-label="settings">
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title={item.title}
+				title={<Typography style={{ fontSize: 'small' }}>{item.title}</Typography>}
 				subheader={item.company.name}
 			/>
 			<CardMedia
 				className={cardClasses.media}
-				image="/assets/images/2.png"
+				image={require('../../assest/images/' + item.company.id + '.png')}
 				title="Paella dish"
 			/>
 			<CardContent>

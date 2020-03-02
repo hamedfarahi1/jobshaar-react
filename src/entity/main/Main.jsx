@@ -22,7 +22,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Home } from '../home/Home';
 import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute';
-import { mainConstants, accountConstants } from '../../core/_constants';
+import { mainConstants } from '../../core/_constants';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import { PaperMenu } from './PaperMenu';

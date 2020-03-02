@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { jobService } from '../../core/services/job/jobService';
 import { makeStyles } from '@material-ui/core/styles';
 import { MyCard } from './MyCard';
-
+import { useMediaQuery } from 'react-responsive'
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -15,8 +15,10 @@ const useStyles = makeStyles(theme => ({
 		alignItems: 'center',
 	},
 	list: {
+		marginTop: theme.spacing(3),
+	},
+	deskList: {
 		width: '85%',
-		marginLeft: 'auto',
 		marginTop: theme.spacing(3),
 	},
 	item: {
@@ -32,32 +34,41 @@ function Home() {
 		getJobs();
 	}, []);
 
+	const isDesktopOrLaptop = useMediaQuery({
+		query: '(min-device-width: 1224px)'
+	})
 	const classes = useStyles();
 	const [jobs, setJobs] = useState([]);
 
 
 	const getJobs = () => {
-		jobService.getJobs(0, 10, []).then(res => res ? setJobs(res.data) : null);
+		jobService.getJobs(0, 12, []).then(res => res ? setJobs(res.data) : null);
 	}
 
 
 	function Item(props) {
 		return (
-			<Grid className={classes.item} item xs={4}>
+			<Grid className={classes.item} item xs={12} sm={6} md={4}>
 				<MyCard item={props.item}></MyCard>
-			</Grid>);
+			</Grid>)
+	}
+
+	function MyGrid() {
+		return (
+			<Grid container spacing={2}>
+				{
+					jobs.map(item => <Item key={item.id} item={item}></Item>)
+				}
+			</Grid>
+		)
 	}
 
 	return (
 		<Container component="main">
 			<CssBaseline />
 			<div className={classes.paper}>
-				<div className={classes.list}>
-					<Grid container spacing={2}>
-						{
-							jobs.map(item => <Item key={item.id} item={item}></Item>)
-						}
-					</Grid>
+				<div className={isDesktopOrLaptop ? classes.deskList : classes.list}>
+					<MyGrid />
 				</div>
 			</div>
 		</Container>
