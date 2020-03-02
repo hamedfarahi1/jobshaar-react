@@ -4,7 +4,6 @@ export const accountService = {
 	login,
 	logout,
 	register,
-	getUserToken,
 	getUserInfo,
 	setAuthInterceptor
 }
@@ -13,14 +12,14 @@ function login(credential) {
 		username: credential.username,
 		password: credential.password
 	}).then(handleResponse).then(res => {
-		localStorage.setItem('user', JSON.stringify(res));
-		return res;
+		return submitUser(res)
 	});
 }
 
 function logout() {
 	// remove user from local storage to log user out
 	localStorage.removeItem('user');
+	localStorage.removeItem('auth');
 }
 
 function register(credential) {
@@ -31,27 +30,30 @@ function register(credential) {
 		allowExtraEmails: credential.allowExtraEmails
 	}).then(handleResponse).then(
 		res => {
-			localStorage.setItem('user', JSON.stringify(res));
-			return res;
+			return submitUser(res)
 		}
 	);
 }
 
+function submitUser(res) {
+	localStorage.setItem('auth', JSON.stringify(res));
+	setAuthInterceptor()
+	return getUserInfo().then(res => {
+		localStorage.setItem('user', JSON.stringify(res.data));
+		return res.data
+	});
+}
+
 function setAuthInterceptor() {
-	const user = JSON.parse(localStorage.getItem("user"));
-	if (user && user.token) {
-		const Token = user.token;
+	const auth = JSON.parse(localStorage.getItem("auth"));
+	if (auth && auth.token) {
+		const Token = auth.token;
 		axios.interceptors.request.use(request => {
 			request.headers['Authorization'] = 'Bearer ' + Token;
 			return request;
 		})
 	}
 }
-
-function getUserToken() {
-	return localStorage.getItem("Token");
-}
-
 
 function getUserInfo() {
 	return axios.get("/api/account")
