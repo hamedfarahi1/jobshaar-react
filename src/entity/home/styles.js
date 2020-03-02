@@ -26,13 +26,6 @@ export const useHomeStyles = makeStyles(theme => ({
 		flexDirection: 'column',
 		alignItems: 'center',
 	},
-	list: {
-		marginTop: theme.spacing(3),
-	},
-	deskList: {
-		width: '85%',
-		marginTop: theme.spacing(3),
-	},
 	item: {
 		width: '100%',
 	}

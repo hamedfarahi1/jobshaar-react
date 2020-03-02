@@ -4,18 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { jobService } from '../../core/services/job/jobService';
 import { MyCard } from './MyCard';
-import { useMediaQuery } from 'react-responsive'
 import { useHomeStyles } from './styles';
 
-function Home() {
+function Home(props) {
 
 	useEffect(() => {
 		getJobs();
 	}, []);
 
-	const isDesktopOrLaptop = useMediaQuery({
-		query: '(min-device-width: 1224px)'
-	})
 	const classes = useHomeStyles();
 	const [jobs, setJobs] = useState([]);
 
@@ -46,17 +42,15 @@ function Home() {
 		<Container component="main">
 			<CssBaseline />
 			<div className={classes.paper}>
-				<div className={isDesktopOrLaptop ? classes.deskList : classes.list}>
-					<MyGrid />
-				</div>
+				<MyGrid />
 			</div>
 		</Container>
 	);
 }
 
 function mapState(state) {
-	const { loggedIn } = state.authentication;
-	return { loggedIn };
+	const { loggedIn, user } = state.authentication;
+	return { loggedIn, user };
 }
 
 const connectedHomePage = withRouter(connect(mapState, {})(Home));

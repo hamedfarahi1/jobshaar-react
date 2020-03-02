@@ -3,7 +3,6 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	console.log(rest)
 	return (
 		<Route {...rest} render={props => (
 			rest.loggedIn
@@ -14,8 +13,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 }
 
 function mapState(state) {
-	const { loggedIn, user } = state.authentication;
-	return { loggedIn, user }
+	const { loggedIn } = state.authentication;
+	return { loggedIn }
 }
 
 const connectedPrivateRoutePage = connect(mapState, {})(PrivateRoute)
