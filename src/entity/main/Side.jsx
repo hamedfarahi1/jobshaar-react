@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,11 +21,6 @@ import { connect } from 'react-redux';
 function Side(props) {
 	const classes = useDrawerStyles();
 	const theme = useTheme();
-
-	const [user] = useState({
-		username: props.user ? props.user.username : 'Guest',
-		roleTypeIndex: props.user ? props.user.roleTypeIndex : 'Guest'
-	});
 
 	const handleDrawerClose = () => {
 		props.handleDrawerClose();
@@ -52,8 +47,11 @@ function Side(props) {
 				</div>
 				<Container className={classes.userInfo}>
 					<Avatar className={classes.userAvatar}></Avatar>
-					<Typography className={classes.username}> {user.username} </Typography>
-					<Typography className={classes.userType}> {user.roleTypeIndex ? 'کارجو' : 'کارفرما'} </Typography>
+					<Typography className={classes.username}> {props.user ? props.user.username : ''} </Typography>
+					{props.user !== undefined ?
+						<Typography className={classes.userType}> {props.user.roleTypeIndex ? 'کارجو' : 'کارفرما'} </Typography>
+						: ''
+					}
 				</Container>
 				<Divider />
 				<List>

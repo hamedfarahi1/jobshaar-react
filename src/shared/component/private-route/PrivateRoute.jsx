@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { userActions } from '../../../core/_actions';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 	const isRightRole = () => {
 		if (rest.roleFlag)
-			return rest.roleTypeIndex == rest.user.roleTypeIndex
+			return rest.roleTypeIndex === rest.user.roleTypeIndex
 		return true;
 	}
 	return (
-		<Route {...rest} render={props => (
-			rest.loggedIn && isRightRole()
-				? <Component {...props} />
-				: <Redirect to={{ pathname: '/account/login', state: { from: props.location } }} />
-		)} />
+		<Route {...rest} render={props => {
+			if (rest.loggedIn && isRightRole())
+				return <Component {...props} />
+			else if (rest.loggedIn)
+				return <Redirect to={{ pathname: '/home', state: { from: props.location } }} />
+			else
+				return <Redirect to={{ pathname: '/account/login', state: { from: props.location } }} />
+		}} />
 	)
 }
 

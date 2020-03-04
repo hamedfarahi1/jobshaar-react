@@ -29,3 +29,16 @@ export const accountPropConstants = {
 	FORGOT_PASSWORD: "فراموشی رمز عبور",
 	ALLOW_EXTRA_EMAILS: "میخواهم اخبار و رویداد ها به ایمیلم ارسال شود",
 }
+
+export const companyFieldContants = {
+	COMPANY_NAME: 'نام شرکت',
+	CATEGORY_TYPE: 'دسته ی شغلی',
+	BIO: 'درباره',
+	ADDRESS: 'آدرس'
+}
+
+export const companyFormConstants = {
+	ADD_COMPANY: 'اضافه کردن  شرکت',
+	SUBMIT_COMPANY: 'تایید شرکت',
+	COMPANY_INFO: 'اطلاعات کمپانی'
+}

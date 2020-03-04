@@ -46,7 +46,9 @@ function register(user) {
 				(user) => {
 					dispatch(success(user));
 					dispatch(alertActions.success('Registration successful'));
-					history.push('/home');
+					dispatch(logout());
+					dispatch(autoLogin(user));
+					history.push('/company/add');
 				},
 				error => {
 					dispatch(failure(error.toString()));
@@ -57,6 +59,7 @@ function register(user) {
 
 	function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
 	function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
+	function autoLogin(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
 	function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 

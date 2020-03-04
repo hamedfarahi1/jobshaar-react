@@ -17,5 +17,12 @@ export const useStyles = makeStyles(theme => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
-	}
+	},
+	selectFormControl: {
+		margin: theme.spacing(1, 0, 0, 0),
+		minWidth: 120,
+	},
+	selectEmpty: {
+		marginTop: theme.spacing(2),
+	},
 }));

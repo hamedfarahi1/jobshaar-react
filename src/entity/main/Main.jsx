@@ -135,7 +135,7 @@ function Main(props) {
 					<Route path="/account">
 						<Account></Account>
 					</Route>
-					<PrivateRoute path="/company" roleFlag roleTypeIndex={0} component={Company} />
+					<PrivateRoute path="/company" roleFlag roleTypeIndex={'0'} component={Company} />
 					<PrivateRoute path="/home" component={Home} />
 					<Redirect exact from="*" to="/home"> </Redirect>
 				</Switch>
