@@ -1,11 +1,42 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { userActions } from '../../core/_actions';
 import { companyActions } from '../../core/_actions/company.actions';
+import { connect } from 'react-redux';
+import { useStyles } from './styles';
 
 function AddCompany() {
+
+	// const classes = useStyles();
+	// const [values, setValues] = useState({
+	// 	username: '',
+	// 	password: '',
+	// 	rememberMe: false
+	// })
+
+	// const handleInputChange = e => {
+	// 	const { name, value } = e.target
+	// 	setValues({ ...values, [name]: value })
+	// }
+
+	// const submitForm = (event) => {
+	// 	const { username, password } = values
+	// 	if (!username || !password) return
+	// 	props.login(username, password);
+	// 	event.preventDefault();
+	// }
+
+	// const rememberMeHandleChange = e => {
+	// 	const { checked } = e.target
+	// 	// eslint-disable-next-line
+	// 	setValues({ ...values, ['rememberMe']: checked })
+	// }
+	// const isNotValidForm = () => {
+	// 	const { username, password } = values;
+	// 	return (!username || !password);
+	// }
+
 	return (
-		<Container></Container>
+		<Container> fuck</Container>
 	)
 }
 

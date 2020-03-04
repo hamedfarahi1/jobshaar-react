@@ -25,6 +25,7 @@ import Popper from '@material-ui/core/Popper';
 import { PaperMenu } from './PaperMenu';
 import { Side } from './Side';
 import { useMainStyles } from './styles';
+import Company from '../company/Company';
 
 function Main(props) {
 	const classes = useMainStyles();
@@ -134,7 +135,9 @@ function Main(props) {
 					<Route path="/account">
 						<Account></Account>
 					</Route>
+					<PrivateRoute path="/company" roleFlag roleTypeIndex={0} component={Company} />
 					<PrivateRoute path="/home" component={Home} />
+					<Redirect exact from="*" to="/home"> </Redirect>
 				</Switch>
 			</Side>
 		</Router>

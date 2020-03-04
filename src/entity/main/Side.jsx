@@ -21,7 +21,11 @@ import { connect } from 'react-redux';
 function Side(props) {
 	const classes = useDrawerStyles();
 	const theme = useTheme();
-	const [user] = useState({ username: props.user.username, roleTypeIndex: props.user.roleTypeIndex });
+
+	const [user] = useState({
+		username: props.user ? props.user.username : 'Guest',
+		roleTypeIndex: props.user ? props.user.roleTypeIndex : 'Guest'
+	});
 
 	const handleDrawerClose = () => {
 		props.handleDrawerClose();
