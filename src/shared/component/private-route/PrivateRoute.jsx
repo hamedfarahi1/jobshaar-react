@@ -3,9 +3,10 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+	console.log(rest)
 	const isRightRole = () => {
 		if (rest.roleFlag)
-			return rest.roleTypeIndex === rest.user.roleTypeIndex
+			return +rest.roleTypeIndex === +rest.user.roleTypeIndex
 		return true;
 	}
 	return (

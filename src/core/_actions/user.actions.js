@@ -10,14 +10,14 @@ export const userActions = {
 	delete: _delete
 };
 
-function login(username, password) {
+function login(user) {
 	return dispatch => {
-		dispatch(request({ username }));
-
-		accountService.login({ username: username, password: password })
+		dispatch(request({ username: user.username }));
+		const credential = { username: user.username, roleTypeIndex: user.roleTypeIndex }
+		accountService.login(user)
 			.then(
-				user => {
-					dispatch(success(user));
+				() => {
+					dispatch(success(credential));
 					history.push('/home');
 				},
 				error => {
@@ -40,14 +40,13 @@ function logout() {
 function register(user) {
 	return dispatch => {
 		dispatch(request(user));
-
+		const userInfo = { username: user.username, roleTypeIndex: user.roleTypeIndex }
 		accountService.register(user)
 			.then(
-				(user) => {
-					dispatch(success(user));
+				() => {
+					dispatch(success());
 					dispatch(alertActions.success('Registration successful'));
-					dispatch(logout());
-					dispatch(autoLogin(user));
+					dispatch(login(userInfo));
 					history.push('/company/add');
 				},
 				error => {
@@ -58,8 +57,8 @@ function register(user) {
 	};
 
 	function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-	function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-	function autoLogin(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+	function success() { return { type: userConstants.REGISTER_SUCCESS } }
+	function login(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
 	function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 

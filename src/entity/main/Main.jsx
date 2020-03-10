@@ -99,14 +99,14 @@ function Main(props) {
 	return (
 		<Router history={history}>
 			<AppBar position="static" className={clsx(classes.appBar, {
-				[classes.appBarShift]: openSide,
+				[classes.appBarShift]: openSide && props.loggedIn,
 			})}>
 				<Toolbar>
 					{props.loggedIn ?
 						<IconButton
 							onClick={handleDrawerOpen}
 							edge="start"
-							className={clsx(classes.menuButton, openSide && classes.hide)}
+							className={clsx(classes.menuButton, openSide && props.loggedIn && classes.hide)}
 							color="inherit" aria-label="menu">
 							<MenuIcon />
 						</IconButton> : ''}

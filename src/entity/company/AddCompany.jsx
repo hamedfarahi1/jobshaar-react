@@ -35,15 +35,20 @@ function AddCompany(props) {
 	}
 
 	const submitForm = (event) => {
-		const { username, password } = values
-		if (!username || !password) return
-		props.login(username, password);
+		if (isNotValidForm()) return
+		props.addCompany(values);
 		event.preventDefault();
 	}
 
+	const selectHandleChange = e => {
+		const { value } = e.target
+		// eslint-disable-next-line
+		setValues({ ...values, ['categoryTypeIndex']: value })
+	}
+
 	const isNotValidForm = () => {
-		const { username, password } = values;
-		return (!username || !password);
+		const { name, categoryTypeIndex, bio, address } = values
+		return (!name || !categoryTypeIndex || !bio || !address)
 	}
 
 	return (
@@ -72,7 +77,7 @@ function AddCompany(props) {
 							labelId="select-outlined-label"
 							id="select-outlined"
 							value={values.categoryTypeIndex}
-							onChange={handleInputChange}
+							onChange={selectHandleChange}
 							labelWidth={labelWidth}
 						>
 							{companyCategoryTypeMenuItems.map(

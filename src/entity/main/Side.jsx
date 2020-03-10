@@ -33,7 +33,7 @@ function Side(props) {
 				className={classes.drawer}
 				variant="persistent"
 				anchor="left"
-				open={props.openSide}
+				open={props.openSide && props.user !== undefined}
 				classes={{
 					paper: classes.drawerPaper,
 				}}
@@ -49,7 +49,7 @@ function Side(props) {
 					<Avatar className={classes.userAvatar}></Avatar>
 					<Typography className={classes.username}> {props.user ? props.user.username : ''} </Typography>
 					{props.user !== undefined ?
-						<Typography className={classes.userType}> {props.user.roleTypeIndex ? 'کارجو' : 'کارفرما'} </Typography>
+						<Typography className={classes.userType}> {+props.user.roleTypeIndex ? 'کارجو' : 'کارفرما'} </Typography>
 						: ''
 					}
 				</Container>
@@ -74,7 +74,7 @@ function Side(props) {
 			</Drawer>
 			<main
 				className={clsx(classes.content, {
-					[classes.contentShift]: props.openSide,
+					[classes.contentShift]: props.openSide && props.user,
 				})}
 			>
 				{props.children}

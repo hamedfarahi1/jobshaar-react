@@ -12,12 +12,16 @@ function login(credential) {
 		username: credential.username,
 		password: credential.password
 	}).then(handleResponse).then(res => {
-		return submitUser(res)
+		return submitUser(res, credential)
 	});
 }
 
 function logout() {
 	// remove user from local storage to log user out
+	axios.interceptors.request.use(request => {
+		request.headers['Authorization'] = undefined;
+		return request;
+	})
 	localStorage.removeItem('user');
 	localStorage.removeItem('auth');
 }
@@ -30,18 +34,17 @@ function register(credential) {
 		allowExtraEmails: credential.allowExtraEmails
 	}).then(handleResponse).then(
 		res => {
-			return submitUser(res)
+			return submitUser(res, credential)
 		}
 	);
 }
 
-function submitUser(res) {
+function submitUser(res, credential) {
+	const user = { username: credential.username, roleTypeIndex: credential.roleTypeIndex }
 	localStorage.setItem('auth', JSON.stringify(res));
-	setAuthInterceptor()
-	return getUserInfo().then(res => {
-		localStorage.setItem('user', JSON.stringify(res.data));
-		return res.data
-	});
+	localStorage.setItem('user', JSON.stringify(user));
+	setAuthInterceptor();
+	return
 }
 
 function setAuthInterceptor() {

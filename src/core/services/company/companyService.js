@@ -5,5 +5,5 @@ export const companyService = {
 }
 
 function addCompany(company) {
-	return axios.post('api/company', company)
+	return axios.post('/api/company', company)
 }

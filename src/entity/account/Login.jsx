@@ -28,7 +28,7 @@ function Login(props) {
 	}, []);
 
 	const classes = useStyles();
-	const [values, setValues] = useState({ username: '', password: '', rememberMe: false })
+	const [values, setValues] = useState({ username: '', password: '', rememberMe: false, roleTypeIndex: '0' })
 
 	const handleInputChange = e => {
 		const { name, value } = e.target
@@ -38,7 +38,7 @@ function Login(props) {
 	const submitForm = (event) => {
 		const { username, password } = values
 		if (!username || !password) return
-		props.login(username, password);
+		props.login(values);
 		event.preventDefault();
 	}
 

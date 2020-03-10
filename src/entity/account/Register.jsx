@@ -22,7 +22,7 @@ import Copyright from '../../shared/component/copyright/Copyright';
 function Register(props) {
 
 	const classes = useStyles();
-	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false })
+	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false, roleTypeIndex: '0' })
 
 	const handleInputChange = e => {
 		const { name, value } = e.target
