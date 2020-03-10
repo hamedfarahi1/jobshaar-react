@@ -17,11 +17,12 @@ import { Typography, Container, Avatar } from '@material-ui/core';
 import { mainConstants } from '../../core/_constants';
 import { useDrawerStyles } from './styles';
 import { connect } from 'react-redux';
+import { useMediaQuery } from 'react-responsive'
 
 function Side(props) {
 	const classes = useDrawerStyles();
 	const theme = useTheme();
-
+	const shouldShift = !useMediaQuery({ maxWidth: 900 })
 	const handleDrawerClose = () => {
 		props.handleDrawerClose();
 	};
@@ -73,9 +74,9 @@ function Side(props) {
 				</List>
 			</Drawer>
 			<main
-				className={clsx(classes.content, {
-					[classes.contentShift]: props.openSide && props.user,
-				})}
+				className={clsx(classes.content, shouldShift ? {
+					[classes.contentShift]: props.openSide && props.user
+				} : {})}
 			>
 				{props.children}
 			</main>
