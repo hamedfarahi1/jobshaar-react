@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -17,7 +16,6 @@ import { connect } from 'react-redux';
 import { userActions } from '../../core/_actions';
 import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
-import Copyright from '../../shared/component/copyright/Copyright';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 
 function Login(props) {
@@ -105,9 +103,6 @@ function Login(props) {
 					</Grid>
 				</form>
 			</div>
-			<Box mt={8}>
-				<Copyright />
-			</Box>
 		</Container>
 	);
 }
