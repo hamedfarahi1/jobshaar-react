@@ -98,7 +98,7 @@ function Main(props) {
 
 	return (
 		<Router history={history}>
-			<AppBar position="static" className={clsx(classes.appBar, {
+			<AppBar position="sticky" className={clsx(classes.appBar, {
 				[classes.appBarShift]: openSide && props.loggedIn,
 			})}>
 				<Toolbar>

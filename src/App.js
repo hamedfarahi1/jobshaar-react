@@ -11,7 +11,6 @@ import { Provider } from 'react-redux';
 import { interceptorsSetter } from './core/interceptors/interceptorsSetter';
 import MySnackbar from './shared/component/snackbar/MySnackbar';
 
-
 const theme = createMuiTheme({
 	direction: 'rtl'
 });

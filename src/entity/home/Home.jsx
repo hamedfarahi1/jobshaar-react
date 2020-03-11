@@ -2,8 +2,9 @@ import React from 'react';
 import { Container, CssBaseline } from '@material-ui/core';
 import { useHomeStyles } from './styles';
 import { JobsGrid } from './jobs-grid/JobsGrid';
+import { JobsSwiper } from './jobs-swiper/JobsSwiper';
 
-function Home(props) {
+function Home() {
 
 	const classes = useHomeStyles();
 
@@ -11,6 +12,7 @@ function Home(props) {
 		<Container component="main">
 			<CssBaseline />
 			<div className={classes.paper}>
+				<JobsSwiper />
 				<JobsGrid />
 			</div>
 		</Container>

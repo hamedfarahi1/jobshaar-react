@@ -4,7 +4,7 @@ import { jobService } from '../../../core/services/job/jobService';
 import { MyCard } from './MyCard';
 import { useJobsGridStyles } from '../styles';
 
-function JobsGrid(props) {
+function JobsGrid() {
 
 	useEffect(() => {
 		getJobs();
