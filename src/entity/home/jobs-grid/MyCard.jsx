@@ -10,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useCardStyles } from './styles';
+import { useCardStyles } from '../styles';
+
 
 function MyCard(props) {
 
@@ -20,7 +21,7 @@ function MyCard(props) {
 		<Card className={cardClasses.root}>
 			<CardHeader
 				avatar={
-					<Avatar aria-label="recipe" src={require('../../assest/images/' + item.company.id + '.png')} />
+					<Avatar aria-label="recipe" src={require('../../../assest/images/' + item.company.id + '.png')} />
 				}
 				action={
 					<IconButton aria-label="settings">
@@ -32,7 +33,7 @@ function MyCard(props) {
 			/>
 			<CardMedia
 				className={cardClasses.media}
-				image={require('../../assest/images/' + item.company.id + '.png')}
+				image={require('../../../assest/images/' + item.company.id + '.png')}
 				title="Paella dish"
 			/>
 			<CardContent>

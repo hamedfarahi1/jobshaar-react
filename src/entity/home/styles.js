@@ -25,8 +25,11 @@ export const useHomeStyles = makeStyles(theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-	},
+	}
+}));
+
+export const useJobsGridStyles = makeStyles(() => ({
 	item: {
 		width: '100%',
 	}
-}));
+}))
