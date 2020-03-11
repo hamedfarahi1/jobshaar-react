@@ -114,3 +114,31 @@ export const useMainStyles = makeStyles(theme => ({
 		fontSize: 'smaller'
 	}
 }));
+
+
+export const userFooterStyles = makeStyles((theme) => ({
+	footer: {
+		width: '100%',
+		height: '22rem',
+		backgroundColor: '#4175cb',
+		marginBottom: 0,
+		marginTop: '5rem'
+	},
+	footerContainer: {
+		paddingTop: '3rem'
+	},
+	title: {
+		textAlign: 'center',
+		padding: '2rem',
+		fontSize: 'x-large',
+		fontWeight: 700,
+		color: '#fafafa',
+	},
+	links: {
+		fontSize: '90%',
+		textAlign: 'center',
+		'& span': {
+			padding: '2%'
+		}
+	}
+}))

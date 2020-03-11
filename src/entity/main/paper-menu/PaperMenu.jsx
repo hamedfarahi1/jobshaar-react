@@ -8,8 +8,8 @@ import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon'
 import { connect } from 'react-redux';
-import { userActions } from '../../core/_actions';
-import { usePaperMenuStyles } from './styles';
+import { userActions } from '../../../core/_actions';
+import { usePaperMenuStyles } from '../styles';
 
 
 function PaperMenu(props) {

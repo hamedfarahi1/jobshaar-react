@@ -14,8 +14,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { Typography, Container, Avatar } from '@material-ui/core';
-import { mainConstants } from '../../core/_constants';
-import { useDrawerStyles } from './styles';
+import { mainConstants } from '../../../core/_constants';
+import { useDrawerStyles } from '../styles';
 import { connect } from 'react-redux';
 import { useMediaQuery } from 'react-responsive'
 

@@ -22,10 +22,11 @@ import { PrivateRoute } from '../../shared/component/private-route/PrivateRoute'
 import { mainConstants } from '../../core/_constants';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
-import { PaperMenu } from './PaperMenu';
-import { Side } from './Side';
+import { PaperMenu } from './paper-menu/PaperMenu';
+import { Side } from './side/Side';
 import { useMainStyles } from './styles';
 import Company from '../company/Company';
+import { Footer } from './footer/Footer';
 
 function Main(props) {
 	const classes = useMainStyles();
@@ -140,6 +141,7 @@ function Main(props) {
 					<Redirect exact from="*" to="/home"> </Redirect>
 				</Switch>
 			</Side>
+			<Footer />
 		</Router>
 	);
 }
