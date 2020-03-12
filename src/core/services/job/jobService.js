@@ -17,6 +17,6 @@ function getJobs(pageIndex, pageSize, filter) {
 	return axios.get('/api/jobs/employee', { params: params })
 }
 
-function getJobById() {
-
+function getJobById(id) {
+	return axios.get(`/api/jobs?id=${id}`);
 }

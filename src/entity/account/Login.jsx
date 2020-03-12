@@ -26,7 +26,7 @@ function Login(props) {
 	}, []);
 
 	const classes = useStyles();
-	const [values, setValues] = useState({ username: '', password: '', rememberMe: false, roleTypeIndex: '0' })
+	const [values, setValues] = useState({ username: '', password: '', rememberMe: false, roleTypeIndex: '1' })
 
 	const handleInputChange = e => {
 		const { name, value } = e.target

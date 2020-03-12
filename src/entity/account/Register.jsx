@@ -20,7 +20,7 @@ import MyTextField from '../../shared/component/my-text-field/MyTextField';
 function Register(props) {
 
 	const classes = useStyles();
-	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false, roleTypeIndex: '0' })
+	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false, roleTypeIndex: '1' })
 
 	const handleInputChange = e => {
 		const { name, value } = e.target
