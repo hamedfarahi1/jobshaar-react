@@ -144,8 +144,8 @@ function Main(props) {
 					<PrivateRoute path="/home" component={Home} />
 					<Redirect exact from="*" to="/home"> </Redirect>
 				</Switch>
+				<Footer />
 			</Side>
-			<Footer />
 		</Router>
 	);
 }

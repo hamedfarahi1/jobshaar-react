@@ -20,11 +20,28 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		padding: theme.spacing(8)
+		padding: theme.spacing(8),
+		marginTop: '-20rem'
 	},
 	item: {
 		width: '100%',
 		height: '100%',
 		padding: theme.spacing(2)
+	},
+	backImg: {
+		width: '96%',
+		height: '350px',
+		margin: 'auto',
+		marginTop: '3rem',
+		backgroundColor: '#e7ecf4'
+	},
+	attache: {
+		width: '45px',
+		marginTop: '-72px'
+	},
+	title: {
+		fontSize: 'calc(1vw + 12px)',
+		padding: '30px',
+		marginLeft: '105px'
 	}
 }));
