@@ -1,12 +1,8 @@
 
-export const jobKevalues = {
-	genderKeyValue,
-	jobCategoryKeyValue,
-	cooperationTypeKeyValue,
-	companyCategoryTypeKeyValue
-}
 
-const genderKeyValue = () => Promise.apply([
+const a = new Map()
+a.set()
+const genderKeyValue = [
 	{
 		key: 0,
 		value: 'خانم'
@@ -14,10 +10,14 @@ const genderKeyValue = () => Promise.apply([
 	{
 		key: 1,
 		value: 'آقا'
+	},
+	{
+		key: 2,
+		value: 'مهم نیست'
 	}
-]);
+]
 
-const jobCategoryKeyValue = () => Promise.apply([
+const jobCategoryKeyValue = [
 	{
 		key: 0,
 		value: 'Backend Developer'
@@ -94,9 +94,9 @@ const jobCategoryKeyValue = () => Promise.apply([
 		key: 18,
 		value: 'روانشناسی'
 	}
-])
+]
 
-const cooperationTypeKeyValue = () => Promise.apply([
+const cooperationTypeKeyValue = [
 	{
 		key: 0,
 		value: 'پاره وقت'
@@ -113,9 +113,9 @@ const cooperationTypeKeyValue = () => Promise.apply([
 		key: 3,
 		value: 'دورکاری'
 	}
-])
+]
 
-const companyCategoryTypeKeyValue = () => Promise.apply([{
+const companyCategoryTypeKeyValue = [{
 	key: 0,
 	value: 'IT'
 },
@@ -159,4 +159,11 @@ const companyCategoryTypeKeyValue = () => Promise.apply([{
 	key: 10,
 	value: 'روانشناسی'
 }
-])
+]
+
+export const jobKeyValues = {
+	genderKeyValue,
+	jobCategoryKeyValue,
+	cooperationTypeKeyValue,
+	companyCategoryTypeKeyValue
+}

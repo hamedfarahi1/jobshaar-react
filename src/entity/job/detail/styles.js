@@ -23,6 +23,10 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		padding: theme.spacing(8),
 		marginTop: '-20rem'
 	},
+	decresePadding: {
+		padding: theme.spacing(2),
+		marginTop: '-17rem'
+	},
 	item: {
 		width: '100%',
 		height: '100%',
@@ -43,5 +47,27 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		fontSize: 'calc(1vw + 12px)',
 		padding: '30px',
 		marginLeft: '105px'
+	}
+}));
+
+
+export const useChipsStyles = makeStyles(theme => ({
+	chipContainer: {
+		marginTop: theme.spacing(2),
+		'& p': {
+			fontSize: 'smaller'
+		}
+	},
+	chipRow1: {
+		display: 'flex',
+		marginTop: theme.spacing(2),
+	},
+	chipRow2: {
+		display: 'flex',
+		marginTop: theme.spacing(4),
+	},
+	item: {
+		width: '50%',
+		marginLeft: '15%'
 	}
 }));

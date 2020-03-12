@@ -21,7 +21,6 @@ function PaperMenu(props) {
 	}
 	return <Paper className={classes.paper} >
 		<ClickAwayListener onClickAway={props.handlePaperClose}>
-
 			{
 				props.loggedIn ?
 					<MenuList autoFocusItem={props.open} id="menu-list-grow" onKeyDown={props.handleListKeyDown}>
