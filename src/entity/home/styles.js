@@ -16,6 +16,12 @@ export const useCardStyles = makeStyles(theme => ({
 	},
 	expandOpen: {
 		transform: 'rotate(180deg)',
+	},
+	root: {
+		'& a': {
+			textDecoration: 'none',
+			color: '#4c4c4c'
+		}
 	}
 }));
 

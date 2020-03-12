@@ -18,6 +18,7 @@ import { mainConstants } from '../../../core/_constants';
 import { useDrawerStyles } from '../styles';
 import { connect } from 'react-redux';
 import { useMediaQuery } from 'react-responsive'
+import { Link } from 'react-router-dom';
 
 function Side(props) {
 	const classes = useDrawerStyles();
@@ -56,11 +57,18 @@ function Side(props) {
 				</Container>
 				<Divider />
 				<List>
-					{['مشاهده کار ها', 'کار های من', 'تنظیمات', 'کمپانی ها'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
+					{[
+						{ title: 'صفحه ی اصلی', link: '/home' }
+						, { title: 'کار های من', link: '#' }
+						, { title: 'مشاهده کار ها', link: '#' }
+						, { title: 'افزودن کار', link: '/job/add' }
+					].map((text, index) => (
+						<Link key={index} to={text.link}>
+							<ListItem button>
+								<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+								<ListItemText primary={text.title} />
+							</ListItem>
+						</Link>
 					))}
 				</List>
 				<Divider />

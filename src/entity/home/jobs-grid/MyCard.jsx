@@ -11,31 +11,38 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useCardStyles } from '../styles';
+import { Link } from 'react-router-dom';
 
 
 function MyCard(props) {
 
 	const cardClasses = useCardStyles();
 	const item = props.item;
+
+	const onMoreOption = (e) => {
+		e.preventDefault();
+	}
 	return (
 		<Card className={cardClasses.root}>
-			<CardHeader
-				avatar={
-					<Avatar aria-label="recipe" src={require('../../../assest/images/' + item.company.id + '.png')} />
-				}
-				action={
-					<IconButton aria-label="settings">
-						<MoreVertIcon />
-					</IconButton>
-				}
-				title={<Typography style={{ fontSize: 'small' }}>{item.title}</Typography>}
-				subheader={item.company.name}
-			/>
-			<CardMedia
-				className={cardClasses.media}
-				image={require('../../../assest/images/' + item.company.id + '.png')}
-				title="Paella dish"
-			/>
+			<Link to={"/job/" + item.id}>
+				<CardHeader
+					avatar={
+						<Avatar aria-label="recipe" src={require('../../../assest/images/' + item.company.id + '.png')} />
+					}
+					action={
+						<IconButton onClick={onMoreOption} aria-label="settings">
+							<MoreVertIcon />
+						</IconButton>
+					}
+					title={<Typography style={{ fontSize: 'small' }}>{item.title}</Typography>}
+					subheader={item.company.name}
+				/>
+				<CardMedia
+					className={cardClasses.media}
+					image={require('../../../assest/images/' + item.company.id + '.png')}
+					title="Paella dish"
+				/>
+			</Link>
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
 					{item.company.bio}

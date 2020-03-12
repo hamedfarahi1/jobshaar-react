@@ -9,6 +9,10 @@ export const useDrawerStyles = makeStyles(theme => ({
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
+		'& a': {
+			textDecoration: 'none',
+			color: '#4c4c4c'
+		}
 	},
 	drawerPaper: {
 		width: drawerWidth,

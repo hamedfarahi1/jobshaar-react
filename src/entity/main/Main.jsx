@@ -27,6 +27,7 @@ import { Side } from './side/Side';
 import { useMainStyles } from './styles';
 import Company from '../company/Company';
 import { Footer } from './footer/Footer';
+import { Job } from '../job/Job';
 
 function Main(props) {
 	const classes = useMainStyles();
@@ -135,6 +136,9 @@ function Main(props) {
 					<Redirect exact from="/" to="/home"> </Redirect>
 					<Route path="/account">
 						<Account></Account>
+					</Route>
+					<Route path="/job">
+						<Job></Job>
 					</Route>
 					<PrivateRoute path="/company" roleFlag roleTypeIndex={'0'} component={Company} />
 					<PrivateRoute path="/home" component={Home} />
