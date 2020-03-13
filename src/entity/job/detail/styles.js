@@ -47,6 +47,27 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	},
 	userInfoItem: {
 		padding: theme.spacing(1)
+	},
+	resumeTitle: {
+		textAlign: 'center',
+		padding: '22px',
+		fontSize: '2vw',
+		color: '#508cef',
+		marginTop: '45px'
+	},
+	resumeSubmit: {
+		display: ' flex',
+		justifyContent: 'center',
+		padding: theme.spacing(3),
+		'& button': {
+			width: '100%'
+		}
+	},
+	resumeAlert: {
+		color: '#fc7b45',
+		textAlign: 'center',
+		padding: '18px',
+		fontSize: 'small'
 	}
 }));
 

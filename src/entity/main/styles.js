@@ -122,6 +122,10 @@ export const useMainStyles = makeStyles(theme => ({
 		justifyContent: 'space-between',
 		height: '18rem',
 		backgroundColor: '#508cef',
+		transition: theme.transitions.create(['margin', 'width'], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
 		boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
 	},
 	appBarBodyImg: {

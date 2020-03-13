@@ -15,7 +15,7 @@ function JobsGrid() {
 
 
 	const getJobs = () => {
-		jobService.getJobs(0, 12, []).then(res => res ? setJobs(res.data) : null);
+		jobService.getJobs(0, 12, []).then(res => res ? setJobs(res) : null);
 	}
 
 
