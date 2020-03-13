@@ -13,8 +13,6 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	},
 	side: {
 		width: '100%',
-		height: '600px',
-		margin: 'auto',
 	},
 	paper: {
 		display: 'flex',
@@ -29,7 +27,7 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	},
 	item: {
 		width: '100%',
-		height: '100%',
+		minHeight: '600px',
 		padding: theme.spacing(2)
 	},
 	backImg: {
@@ -47,6 +45,15 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		fontSize: 'calc(1vw + 12px)',
 		padding: '30px',
 		marginLeft: '105px'
+	},
+	description: {
+		padding: '3%'
+	},
+	userInfo: {
+		marginTop: theme.spacing(2)
+	},
+	userInfoItem: {
+		padding: theme.spacing(1)
 	}
 }));
 
@@ -54,6 +61,7 @@ export const useJobDetailStyles = makeStyles(theme => ({
 export const useChipsStyles = makeStyles(theme => ({
 	chipContainer: {
 		marginTop: theme.spacing(2),
+		marginBottom: theme.spacing(4),
 		'& p': {
 			fontSize: 'smaller'
 		}

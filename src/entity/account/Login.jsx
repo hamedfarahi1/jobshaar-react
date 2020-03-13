@@ -62,6 +62,7 @@ function Login(props) {
 				</Typography>
 				<form onSubmit={submitForm} className={classes.loginForm}>
 					<MyTextField
+						required={true}
 						field='username'
 						label={userFieldConstants.USERNAME}
 						onChange={handleInputChange}
@@ -69,6 +70,7 @@ function Login(props) {
 						margin='normal'
 					/>
 					<MyTextField
+						required={true}
 						field='password'
 						label={userFieldConstants.PASSWORD}
 						onChange={handleInputChange}

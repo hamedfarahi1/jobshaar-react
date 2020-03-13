@@ -3,10 +3,14 @@ import TextField from '@material-ui/core/TextField';
 
 function MyTextField(props) {
 	return <TextField
-		dir="ltr"
-		variant="outlined"
-		required
+		className={props.className}
+		dir={props.dir ? props.dir : 'ltr'}
+		variant={props.variant ? props.variant : 'outlined'}
+		disabled={props.disabled}
+		required={props.required}
 		fullWidth
+		value={props.value}
+		inputProps={{ style: props.style }}
 		id={props.field}
 		type={props.type ? props.type : 'text'}
 		label={props.label}

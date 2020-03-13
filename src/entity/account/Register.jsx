@@ -57,6 +57,7 @@ function Register(props) {
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
 							<MyTextField
+								required={true}
 								field='email'
 								label={userFieldConstants.EMAIL}
 								onChange={handleInputChange}
@@ -65,6 +66,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								required={true}
 								field='username'
 								label={userFieldConstants.USERNAME}
 								onChange={handleInputChange}
@@ -72,6 +74,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								required={true}
 								field='password'
 								type='password'
 								label={userFieldConstants.PASSWORD}
