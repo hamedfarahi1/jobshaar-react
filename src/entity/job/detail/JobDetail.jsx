@@ -7,11 +7,11 @@ import { jobService } from '../../../core/services/job/jobService';
 import { Typography } from "@material-ui/core";
 import './styles.scss'
 import { Chips } from './Chips';
-import classNames from 'classnames/bind';
 import { useMediaQuery } from 'react-responsive';
 import MyTextField from '../../../shared/component/my-text-field/MyTextField';
 import { userFieldConstants } from '../../../core/_constants';
 import { accountService } from '../../../core/services/account/accountService';
+import clsx from 'clsx';
 
 
 function JobDetail() {
@@ -35,7 +35,7 @@ function JobDetail() {
 			<Paper elevation={3} className={'backImgAnimate'}>
 				<Typography className={classes.title} variant='h5'>{job.title}</Typography>
 			</Paper>
-			<div className={classNames(classes.paper, { [classes.decresePadding]: shouldDecrese })}>
+			<div className={clsx(classes.paper, { [classes.decresePadding]: shouldDecrese })}>
 				<Grid container spacing={2}>
 					<Grid className={classes.side} item xs={12} md={8}>
 						<Paper className={classes.item} elevation={3}>

@@ -27,7 +27,7 @@ function logout() {
 }
 
 function register(credential) {
-	return axios.post('/api/employer/register', {
+	return axios.post('/api/employee/register', {
 		username: credential.username,
 		password: credential.password,
 		email: credential.email,

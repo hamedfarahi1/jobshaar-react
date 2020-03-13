@@ -116,6 +116,39 @@ export const useMainStyles = makeStyles(theme => ({
 	itemText: {
 		marginLeft: 'auto',
 		fontSize: 'smaller'
+	},
+	appBarBody: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		height: '18rem',
+		backgroundColor: '#508cef',
+		boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
+	},
+	appBarBodyImg: {
+		height: '90%',
+		float: 'right'
+	},
+	appBarText: {
+		padding: '8rem',
+		color: 'white'
+	},
+	marginAuto: {
+		margin: 'auto'
+	},
+	buttonGroup: {
+		display: 'block',
+		padding: theme.spacing(4),
+		'& span': {
+			color: '#ffffff',
+			fontWeight: '400'
+		}
+	},
+	bookImg1: {
+		width: '30%',
+		transform: 'scaleX(-1)'
+	},
+	bookImg2: {
+		width: '15%'
 	}
 }));
 

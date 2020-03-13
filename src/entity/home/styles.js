@@ -27,7 +27,7 @@ export const useCardStyles = makeStyles(theme => ({
 
 export const useHomeStyles = makeStyles(theme => ({
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(5),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',

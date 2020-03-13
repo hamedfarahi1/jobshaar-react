@@ -23,6 +23,9 @@ const createErrorMessage = (statusCode) => {
 		case 401:
 			showErrorMessage(errorConstants.UNAUTHORITY);
 			break;
+		case 607:
+			showErrorMessage(errorConstants.STUDENT_DOES_NOT_EXIST);
+			break;
 		default:
 			showErrorMessage(errorConstants.ERROR);
 	}

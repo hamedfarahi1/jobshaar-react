@@ -28,9 +28,15 @@ import { useMainStyles } from './styles';
 import Company from '../company/Company';
 import { Footer } from './footer/Footer';
 import { Job } from '../job/Job';
+import { useMediaQuery } from 'react-responsive';
+import { ButtonGroup } from '@material-ui/core';
 
 function Main(props) {
+
 	const classes = useMainStyles();
+	const isMobile = useMediaQuery({ maxWidth: 500 })
+	const isTablet = useMediaQuery({ maxWidth: 800 })
+
 	useEffect(() => {
 		history.listen(() => props.clearAlerts());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,13 +103,12 @@ function Main(props) {
 		)
 	}
 
-
 	return (
 		<Router history={history}>
 			<AppBar position="sticky" className={clsx(classes.appBar, {
 				[classes.appBarShift]: openSide && props.loggedIn,
 			})}>
-				<Toolbar>
+				<Toolbar className={classes.toolBar}>
 					{props.loggedIn ?
 						<IconButton
 							onClick={handleDrawerOpen}
@@ -131,6 +136,29 @@ function Main(props) {
 					<Menu></Menu>
 				</Toolbar>
 			</AppBar>
+			{
+				history.location.pathname === '/home' && !isMobile ? (
+					<div className={clsx(classes.appBarBody, {
+						[classes.appBarShift]: openSide && props.loggedIn
+					})}>
+						{!isTablet ? <div>
+
+							<ButtonGroup className={classes.buttonGroup} variant="text" size="large">
+								<Button>صفحه ی اصلی</Button>
+								<Button>لیست سرویس ها</Button>
+								<Button>بلاگ</Button>
+								<Button>درباره ما</Button>
+							</ButtonGroup>
+							{/* <Typography>
+								بیش از 2000 شرکت معتبر در جاشار فعالیت میکنند
+							</Typography> */}
+							{/* <img className={classes.bookImg1} alt='' src={require('../../assest/images/book1.png')} />
+							<img className={classes.bookImg2} alt='' src={require('../../assest/images/book2.png')} /> */}
+						</div> : ''}
+						<img className={clsx(classes.appBarBodyImg, { [classes.marginAuto]: isTablet && !isMobile })} alt='' src={require('../../assest/images/poster.png')} />
+					</div>
+				) : ''
+			}
 			<Side openSide={openSide} handleDrawerClose={handleDrawerClose}>
 				<Switch>
 					<Redirect exact from="/" to="/home"> </Redirect>
