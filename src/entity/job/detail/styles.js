@@ -30,13 +30,6 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		minHeight: '600px',
 		padding: theme.spacing(2)
 	},
-	backImg: {
-		width: '96%',
-		height: '350px',
-		margin: 'auto',
-		marginTop: '3rem',
-		backgroundColor: '#e7ecf4'
-	},
 	attache: {
 		width: '45px',
 		marginTop: '-72px'
