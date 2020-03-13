@@ -1,11 +1,15 @@
 import { uiActions } from '../_actions';
 import { store } from '../_helpers';
 import { errorConstants } from '../_constants'
+import { accountService } from '../services/account/accountService';
 
 export const errorHandlerInterceptor = (error) => {
-
 	const statusCode = error.response.status;
 	createErrorMessage(statusCode);
+	if (statusCode === 401 || statusCode === 604) {
+		accountService.logout();
+		window.location.reload(true);
+	}
 	return Promise.reject({ ...error })
 }
 
