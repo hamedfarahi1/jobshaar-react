@@ -16,6 +16,7 @@ import { userActions } from '../../core/_actions';
 import { accountPropConstants, userFieldConstants } from '../../core/_constants';
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
+import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 
 function Register(props) {
 
@@ -25,6 +26,10 @@ function Register(props) {
 	const handleInputChange = e => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
+	}
+
+	const handleToggleInputChange = (e, value) => {
+		setValues({ ...values, roleTypeIndex: value })
 	}
 
 	const submitForm = (event) => {
@@ -88,6 +93,10 @@ function Register(props) {
 							/>
 						</Grid>
 					</Grid>
+					<ToggleButtonGroup className={classes.buttonGroupe} value={values.roleTypeIndex} exclusive onChange={handleToggleInputChange}>
+						<ToggleButton key='0' value='0'>کارفرما</ToggleButton>
+						<ToggleButton key='1' value='1'>کارجو</ToggleButton>
+					</ToggleButtonGroup>
 					<Button
 						type="submit"
 						fullWidth

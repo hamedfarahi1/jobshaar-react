@@ -17,6 +17,7 @@ import { userActions } from '../../core/_actions';
 import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
+import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 
 function Login(props) {
 
@@ -28,9 +29,13 @@ function Login(props) {
 	const classes = useStyles();
 	const [values, setValues] = useState({ username: '', password: '', rememberMe: false, roleTypeIndex: '1' })
 
-	const handleInputChange = e => {
+	const handleInputChange = (e) => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
+	}
+
+	const handleToggleInputChange = (e, value) => {
+		setValues({ ...values, roleTypeIndex: value })
 	}
 
 	const submitForm = (event) => {
@@ -81,6 +86,10 @@ function Login(props) {
 						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}
 						label={<Typography className={classes.rememberMe}>{accountPropConstants.REMEMBER_ME}</Typography>}
 					/>
+					<ToggleButtonGroup className={classes.buttonGroupe} value={values.roleTypeIndex} exclusive onChange={handleToggleInputChange}>
+						<ToggleButton key='0' value='0'>کارفرما</ToggleButton>
+						<ToggleButton key='1' value='1'>کارجو</ToggleButton>
+					</ToggleButtonGroup>
 					<Button
 						type="submit"
 						fullWidth

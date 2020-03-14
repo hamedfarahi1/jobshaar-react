@@ -6,7 +6,7 @@ import { accountService } from '../services/account/accountService';
 export const errorHandlerInterceptor = (error) => {
 	const statusCode = error.response.status;
 	createErrorMessage(statusCode);
-	if (statusCode === 401 || statusCode === 604) {
+	if (statusCode === 401) {
 		accountService.logout();
 		window.location.reload(true);
 	}

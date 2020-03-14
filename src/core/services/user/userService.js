@@ -4,7 +4,8 @@ export const userService = {
 	getResume,
 	uploadResume,
 	sendResume,
-	isAppliedResume
+	isAppliedResume,
+	getResumes
 }
 
 function getResume() {
@@ -21,5 +22,9 @@ function sendResume(jobId) {
 
 function isAppliedResume(jobId) {
 	return axios.get(`/api/employee/is-applied?jobId=${jobId}`)
+}
+
+function getResumes(jobId) {
+	return axios.get(`/api/employer/resume?jobId=${jobId}`)
 }
 

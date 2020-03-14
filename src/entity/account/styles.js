@@ -34,5 +34,8 @@ export const useStyles = makeStyles(theme => ({
 	},
 	rememberMe: {
 		fontSize: 'small'
+	},
+	buttonGroupe: {
+		float: 'right'
 	}
 }));

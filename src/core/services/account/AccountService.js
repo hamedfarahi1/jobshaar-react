@@ -8,7 +8,7 @@ export const accountService = {
 	setAuthInterceptor
 }
 function login(credential) {
-	return axios.post('/api/employee/login', {
+	return axios.post(`/api/${+credential.roleTypeIndex === 1 ? 'employee' : 'employer'}/login`, {
 		username: credential.username,
 		password: credential.password
 	}).then(res => {
@@ -27,7 +27,7 @@ function logout() {
 }
 
 function register(credential) {
-	return axios.post('/api/employee/register', {
+	return axios.post(`/api/${+credential.roleTypeIndex === 1 ? 'employee' : 'employer'}/register11`, {
 		username: credential.username,
 		password: credential.password,
 		email: credential.email,

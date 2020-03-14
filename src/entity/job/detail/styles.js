@@ -63,11 +63,16 @@ export const useJobDetailStyles = makeStyles(theme => ({
 			width: '100%'
 		}
 	},
-	resumeAlert: {
-		color: '#fc7b45',
+	resumeMessage: {
 		textAlign: 'center',
 		padding: '18px',
 		fontSize: 'small'
+	},
+	resumeAlert: {
+		color: '#fc7b45',
+	},
+	resumesShow: {
+		color: 'black',
 	}
 }));
 

@@ -165,9 +165,7 @@ function Main(props) {
 					<Route path="/account">
 						<Account></Account>
 					</Route>
-					<Route path="/job">
-						<Job></Job>
-					</Route>
+					<PrivateRoute path="/job" component={Job} />
 					<PrivateRoute path="/company" roleFlag roleTypeIndex={'0'} component={Company} />
 					<PrivateRoute path="/home" component={Home} />
 					<Redirect exact from="*" to="/home"> </Redirect>

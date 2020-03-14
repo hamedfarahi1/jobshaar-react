@@ -13,6 +13,7 @@ import { userFieldConstants } from '../../../core/_constants';
 import { accountService } from '../../../core/services/account/accountService';
 import clsx from 'clsx';
 import { userService } from '../../../core/services/user/userService';
+import { ResumeDialog } from './ResumeDialog';
 
 
 function JobDetail() {
@@ -24,21 +25,35 @@ function JobDetail() {
 	const [resume, setResume] = useState('')
 	const [resumeExist, setResumeExist] = useState(false);
 	const [resumeApplied, setResumeApplied] = useState(false);
+	const [resumeList, setResumeList] = useState([]);
+	const [dialogState, setDialogState] = useState(false);
 
 	useEffect(() => {
-		accountService.getUserInfo().then(res => setUser(res))
+		accountService.getUserInfo().then(res => {
+			setUser(res)
+			if (+res.roleTypeIndex === 1)
+				getResume()
+		})
 		jobService.getJobById(id).then(res => {
 			setJob(res);
 			userService.isAppliedResume(res.id).then((rs) => setResumeApplied(rs))
 		})
+
+	}, [id])
+
+	function getResume() {
 		userService.getResume().then(res => {
 			if (res.url) {
 				setResume(res.url)
 				setResumeExist(true)
 			}
 		})
-	}, [id])
+	}
 
+	function getResumes() {
+		userService.getResumes(job.id).then(res => setResumeList(res))
+		setDialogState(true)
+	}
 	const handleInputChange = e => {
 		const { value } = e.target
 		setResume(value)
@@ -56,6 +71,7 @@ function JobDetail() {
 	}
 	return (
 		<div>
+			<ResumeDialog handleClose={() => setDialogState(false)} resumeList={resumeList} open={dialogState} />
 			<Paper elevation={3} className={'backImgAnimate'}>
 				<Typography className={classes.title} variant='h5'>{job.title}</Typography>
 			</Paper>
@@ -89,19 +105,30 @@ function JobDetail() {
 							<div>
 								<Typography className={classes.resumeTitle}>رزومه</Typography>
 								{
-									!resumeExist ? <Typography className={classes.resumeAlert}>
-										شما برای ما رزومه ای ارسال نکرده اید، لطفا آدرس فایل رزومه ی خود را در کادر زیر وارد کنید
+									+user.roleTypeIndex === 0 ?
+										<Typography className={clsx(classes.resumeMessage, classes.resumesShow)}>
+											برای مشاهده ی رزومه ها بر روی دکمه ی زیر کلیک کنید
+									</Typography> :
+										!resumeExist ?
+											<Typography className={clsx(classes.resumeMessage, classes.resumeAlert)}>
+												شما برای ما رزومه ای ارسال نکرده اید، لطفا آدرس فایل رزومه ی خود را در کادر زیر وارد کنید
 									</Typography> : ''
 								}
-								<MyTextField
-									onChange={handleInputChange}
-									style={{ textAlign: 'center' }}
-									value={resume}
-									disabled={resumeExist}
-									label={'رزومه'} />
+								{
+									+user.roleTypeIndex === 1 ?
+										<MyTextField
+											onChange={handleInputChange}
+											style={{ textAlign: 'center' }}
+											value={resume}
+											disabled={resumeExist}
+											label={'رزومه'} /> : ''
+								}
 								<div className={classes.resumeSubmit}>
-									<Button disabled={resumeApplied} onClick={resumeExist ? sendResume : uploadResume} size='large' variant="contained" color="primary">
-										{resumeApplied ? 'رزومه ارسال شده' : resumeExist ? 'ارسال رزومه' : 'آپلود رزومه'}
+									<Button disabled={resumeApplied} onClick={+user.roleTypeIndex === 0 ? getResumes : resumeExist ? sendResume : uploadResume} size='large' variant="contained" color="primary">
+										{
+											+user.roleTypeIndex === 0 ? 'مشاهده ی رزومه ها' :
+												resumeApplied ? 'رزومه ارسال شده' :
+													resumeExist ? 'ارسال رزومه' : 'آپلود رزومه'}
 									</Button>
 								</div>
 							</div>
