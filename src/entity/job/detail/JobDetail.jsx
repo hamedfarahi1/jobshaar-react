@@ -29,18 +29,19 @@ function JobDetail() {
 	const [dialogState, setDialogState] = useState(false);
 
 	useEffect(() => {
-		accountService.getUserInfo().then(res => {
-			setUser(res)
-			if (+res.roleTypeIndex === 1)
+		accountService.getUserInfo().then(usr => {
+			setUser(usr)
+			if (+usr.roleTypeIndex === 1) {
 				getResume()
-		})
-		jobService.getJobById(id).then(res => {
-			setJob(res);
-			userService.isAppliedResume(res.id).then((rs) => setResumeApplied(rs))
-		})
+				console.log(usr.roleTypeIndex)
 
+			}
+			jobService.getJobById(id).then(res => {
+				setJob(res);
+				if (+usr.roleTypeIndex === 1) userService.isAppliedResume(res.id).then((rs) => setResumeApplied(rs))
+			})
+		})
 	}, [id])
-
 	function getResume() {
 		userService.getResume().then(res => {
 			if (res.url) {

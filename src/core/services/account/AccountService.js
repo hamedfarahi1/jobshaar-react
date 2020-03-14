@@ -27,7 +27,7 @@ function logout() {
 }
 
 function register(credential) {
-	return axios.post(`/api/${+credential.roleTypeIndex === 1 ? 'employee' : 'employer'}/register11`, {
+	return axios.post(`/api/${+credential.roleTypeIndex === 1 ? 'employee' : 'employer'}/register`, {
 		username: credential.username,
 		password: credential.password,
 		email: credential.email,

@@ -47,7 +47,7 @@ function register(user) {
 					dispatch(success());
 					dispatch(alertActions.success('Registration successful'));
 					dispatch(login(userInfo));
-					history.push('/company/add');
+					history.push(+user.roleTypeIndex === 1 ? '/home' : '/company/add');
 				},
 				error => {
 					dispatch(failure(error.toString()));

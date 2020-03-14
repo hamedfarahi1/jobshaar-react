@@ -3,29 +3,29 @@ import { useChipsStyles } from './styles'
 import { Typography, Chip } from '@material-ui/core'
 import { jobKeyValues } from '../../../shared/key-value/job-key-value'
 
-function Chips(props) {
+function Chips({ job }) {
 	const [keyValues] = useState(jobKeyValues)
 	const classes = useChipsStyles()
 
-	const GetValueByNameAndKey = (prop) => {
-		if (!props.job.id)
+	const GetValueByNameAndKey = ({ type }) => {
+		if (!job.id)
 			return ''
-		switch (prop.type) {
+		switch (type) {
 			case 1:
 				return <Typography>
-					{keyValues.cooperationTypeKeyValue.find(({ key }) => key === props.job.cooperationTypeIndex).value}
+					{keyValues.cooperationTypeObj[job.cooperationTypeIndex]}
 				</Typography>
 			case 2:
 				return <Typography>
-					{keyValues.jobCategoryKeyValue.find(({ key }) => key === props.job.categoryTypeIndex).value}
+					{keyValues.jobCategoryObj[job.categoryTypeIndex]}
 				</Typography>
 			case 3:
 				return <Typography>
-					{keyValues.genderKeyValue.find(({ key }) => key === props.job.requiredGenderTypeIndex).value}
+					{keyValues.genderObj[job.requiredGenderTypeIndex]}
 				</Typography>
 			case 4:
 				return <Typography>
-					{keyValues.companyCategoryTypeKeyValue.find(({ key }) => key === props.job.company.categoryTypeIndex).value}
+					{keyValues.companyTypeObj[job.company.categoryTypeIndex]}
 				</Typography>
 			default:
 				return ''

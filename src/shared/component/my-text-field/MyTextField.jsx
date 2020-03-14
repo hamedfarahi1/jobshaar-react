@@ -1,24 +1,38 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 
-function MyTextField(props) {
+function MyTextField({
+	className,
+	dir,
+	variant,
+	disabled,
+	required,
+	value,
+	style,
+	type,
+	label,
+	field,
+	onChange,
+	autoFocus,
+	margin
+}) {
 	return <TextField
-		className={props.className}
-		dir={props.dir ? props.dir : 'ltr'}
-		variant={props.variant ? props.variant : 'outlined'}
-		disabled={props.disabled}
-		required={props.required}
+		className={className}
+		dir={dir ? dir : 'ltr'}
+		variant={variant ? variant : 'outlined'}
+		disabled={disabled}
+		required={required}
 		fullWidth
-		value={props.value}
-		inputProps={{ style: props.style }}
-		id={props.field}
-		type={props.type ? props.type : 'text'}
-		label={props.label}
-		name={props.field}
-		autoComplete={props.field}
-		onChange={props.onChange}
-		autoFocus={props.autoFocus}
-		margin={props.margin}
+		value={value}
+		inputProps={{ style: style }}
+		id={field}
+		type={type ? type : 'text'}
+		label={label}
+		name={field}
+		autoComplete={field}
+		onChange={onChange}
+		autoFocus={autoFocus}
+		margin={margin}
 	/>
 }
 

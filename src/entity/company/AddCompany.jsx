@@ -80,8 +80,8 @@ function AddCompany(props) {
 							onChange={selectHandleChange}
 							labelWidth={labelWidth}
 						>
-							{companyCategoryTypeMenuItems.map(
-								item => <MenuItem key={item.key} value={item.key}>{item.value}</MenuItem>
+							{Object.keys(companyCategoryTypeMenuItems).map(
+								key => <MenuItem key={key} value={key}>{companyCategoryTypeMenuItems[key]}</MenuItem>
 							)}
 						</Select>
 					</FormControl>
