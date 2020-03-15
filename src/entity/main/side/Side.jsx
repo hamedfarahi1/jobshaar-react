@@ -64,7 +64,7 @@ function Side(props) {
 						, { title: 'افزودن کار', link: '/job/add' }
 					].map((text, index) => (
 						<Link key={index} to={text.link}>
-							<ListItem button>
+							<ListItem onClick={props.handleDrawerClose} button>
 								<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 								<ListItemText primary={text.title} />
 							</ListItem>
