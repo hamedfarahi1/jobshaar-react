@@ -91,6 +91,18 @@ function JobDetail() {
 							<img className={classes.attache} alt='' src={require('../../../assest/attache-png-6.png')} />
 							<Chips job={job} />
 							<Divider />
+							<Typography className={classes.companyInfo}>
+								{'اطلاعات شرکت'}
+							</Typography>
+							<Typography className={classes.companyInfoItem}>
+								{'بیو: '}
+								{job.id ? job.company.bio : ''}
+							</Typography>
+							<Typography className={clsx(classes.companyInfoItem, classes.companyAddress)}>
+								{'آدرس: '}
+								{job.id ? job.company.address : ''}
+							</Typography>
+							<Divider />
 							<div className={classes.description} dangerouslySetInnerHTML={createMarkUp()}></div>
 						</Paper>
 					</Grid>

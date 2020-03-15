@@ -73,6 +73,19 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	},
 	resumesShow: {
 		color: 'black',
+	},
+	companyInfoItem: {
+		paddingLeft: '50px',
+		fontSize: 'small',
+		fontWeight: '500',
+	},
+	companyAddress: {
+		marginBottom: '16px'
+	},
+	companyInfo: {
+		padding: '12px',
+		fontSize: 'medium',
+		fontWeight: '500'
 	}
 }));
 
