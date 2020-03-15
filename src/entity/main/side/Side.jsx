@@ -74,7 +74,7 @@ function Side(props) {
 				<Divider />
 				<List>
 					{['سرویس ویژه', 'پشتیبانی', 'رزومه'].map((text, index) => (
-						<ListItem button key={text}>
+						<ListItem onClick={props.handleDrawerClose} button key={text}>
 							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 							<ListItemText primary={text} />
 						</ListItem>
