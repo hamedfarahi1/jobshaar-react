@@ -24,7 +24,7 @@ function MyTextField({
 		required={required}
 		fullWidth
 		value={value}
-		inputProps={{ style: { ...style, textAlign: 'right' } }}
+		inputProps={{ style: { textAlign: 'right', ...style } }}
 		id={field}
 		type={type ? type : 'text'}
 		label={label}

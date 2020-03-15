@@ -67,6 +67,7 @@ function Login(props) {
 				</Typography>
 				<form onSubmit={submitForm} className={classes.loginForm}>
 					<MyTextField
+						style={{ textAlign: 'left' }}
 						required={true}
 						field='username'
 						label={userFieldConstants.USERNAME}
@@ -75,6 +76,7 @@ function Login(props) {
 						margin='normal'
 					/>
 					<MyTextField
+						style={{ textAlign: 'left' }}
 						required={true}
 						field='password'
 						label={userFieldConstants.PASSWORD}

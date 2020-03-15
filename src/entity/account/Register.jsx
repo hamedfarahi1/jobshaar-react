@@ -62,6 +62,7 @@ function Register(props) {
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
 							<MyTextField
+								style={{ textAlign: 'left' }}
 								required={true}
 								field='email'
 								label={userFieldConstants.EMAIL}
@@ -71,6 +72,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								style={{ textAlign: 'left' }}
 								required={true}
 								field='username'
 								label={userFieldConstants.USERNAME}
@@ -79,6 +81,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								style={{ textAlign: 'left' }}
 								required={true}
 								field='password'
 								type='password'
