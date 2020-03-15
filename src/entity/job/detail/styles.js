@@ -111,3 +111,8 @@ export const useChipsStyles = makeStyles(theme => ({
 		marginLeft: '15%'
 	}
 }));
+
+export const useResumeDialogStyle = makeStyles((theme) => ({
+	container: {
+	}
+}))
