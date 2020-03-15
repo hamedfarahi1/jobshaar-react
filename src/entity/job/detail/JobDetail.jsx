@@ -14,6 +14,8 @@ import { accountService } from '../../../core/services/account/accountService';
 import clsx from 'clsx';
 import { userService } from '../../../core/services/user/userService';
 import { ResumeDialog } from './ResumeDialog';
+import { store } from '../../../core/_helpers';
+import { uiActions } from '../../../core/_actions';
 
 
 function JobDetail() {
@@ -61,11 +63,17 @@ function JobDetail() {
 	}
 
 	function uploadResume() {
-		userService.uploadResume(resume).then(() => setResumeExist(true))
+		userService.uploadResume(resume).then(() => {
+			setResumeExist(true)
+			store.dispatch(uiActions.successSnackbar('رزومه با موفقیت آپلود شد'));
+		})
 	}
 
 	function sendResume() {
-		userService.sendResume(job.id).then(() => setResumeApplied(true))
+		userService.sendResume(job.id).then(() => {
+			setResumeApplied(true);
+			store.dispatch(uiActions.successSnackbar('رزومه با موفقیت ارسال شد'));
+		})
 	}
 	function createMarkUp() {
 		return { __html: job.description }

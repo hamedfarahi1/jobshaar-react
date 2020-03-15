@@ -47,8 +47,8 @@ function AddCompany(props) {
 	}
 
 	const isNotValidForm = () => {
-		const { name, categoryTypeIndex, bio, address } = values
-		return (!name || !categoryTypeIndex || !bio || !address)
+		const { name, bio, address } = values
+		return (!name || !bio || !address)
 	}
 
 	return (

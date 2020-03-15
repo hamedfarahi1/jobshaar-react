@@ -11,7 +11,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
 import { jobService } from '../../../core/services/job/jobService';
 import './styles.scss'
-import { history } from '../../../core/_helpers';
+import { history, store } from '../../../core/_helpers';
+import { uiActions } from '../../../core/_actions';
 
 function AddJob() {
 	const classes = useAddJobStyles()
@@ -57,7 +58,10 @@ function AddJob() {
 
 	const addJob = () => {
 		if (!isNotValidForm())
-			jobService.addJob(values).then((res) => history.push('/job/' + res.id))
+			jobService.addJob(values).then((res) => {
+				store.dispatch(uiActions.successSnackbar('عملیات ثبت شغل با موفقیت انجام شد'));
+				history.push('/job/' + res.id);
+			})
 	}
 
 	function MySelect({ name, value, label, list }) {
@@ -84,7 +88,7 @@ function AddJob() {
 			<Paper className={classes.paper}>
 				<Grid container spacing={3}>
 					<Grid item sm={6} xs={12} md={6}>
-						<MyTextField style={{ textAlign: 'right' }} onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
+						<MyTextField onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
 					</Grid>
 					<Grid item sm={6} xs={12} md={6}>
 						<MySelect name={'categoryTypeIndex'} value={values.categoryTypeIndex} label={'دسته شغلی'} list={jobKeyValue.jobCategoryObj} />

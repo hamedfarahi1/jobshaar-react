@@ -9,7 +9,12 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 export default function MySnackbar() {
 
-	const { errorSnackbarMessage, errorSnackbarOpen } = useSelector(
+	const {
+		errorSnackbarMessage,
+		errorSnackbarOpen,
+		successSnackbarOpen,
+		successSnackbarMessage
+	} = useSelector(
 		state => state.ui
 	);
 
@@ -29,10 +34,10 @@ export default function MySnackbar() {
 			}}
 			onClose={handleClose}
 			autoHideDuration={4000}
-			open={errorSnackbarOpen}
+			open={errorSnackbarOpen || successSnackbarOpen}
 			aria-describedby="client-snackbar"
 		>
-			<Alert severity="error">{errorSnackbarMessage}</Alert>
+			<Alert severity={errorSnackbarOpen ? 'error' : 'success'}>{errorSnackbarMessage || successSnackbarMessage}</Alert>
 		</Snackbar>
 	);
 }

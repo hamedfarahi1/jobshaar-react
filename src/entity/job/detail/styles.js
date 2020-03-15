@@ -41,7 +41,6 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	},
 	description: {
 		padding: '3%',
-		direction: 'rtl'
 	},
 	userInfo: {
 		marginTop: theme.spacing(2)
