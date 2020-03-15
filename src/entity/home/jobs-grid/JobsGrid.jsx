@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { jobService } from '../../../core/services/job/jobService';
 import { MyCard } from './MyCard';
 import { useJobsGridStyles } from '../styles';
+import Pagination from '@material-ui/lab/Pagination';
+
 
 function JobsGrid() {
 
+	const [page, setPage] = useState(0);
+	const [pageCount, setPageCount] = useState(0);
+
 	useEffect(() => {
-		getJobs();
-	}, []);
+		setTimeout(() => getJobs(page), 500);
+	}, [page]);
 
 	const classes = useJobsGridStyles();
 	const [jobs, setJobs] = useState([]);
 
 
-	const getJobs = () => {
-		jobService.getJobs(0, 12, []).then(res => res ? setJobs(res) : null);
+	const getJobs = (pageIndex) => {
+		jobService.getJobs(+pageIndex - 1, 12, []).then(res => {
+			setJobs(res.data);
+			const getPageCount = (e) => e % 12 === 0 ? parseInt(e / 12) : parseInt(e / 12) + 1
+			setPageCount(getPageCount(res.totalCount));
+		});
 	}
 
+	const handleChange = (event, value) => {
+		setPage(value)
+	}
 
 	function Item(props) {
 		return (
@@ -37,7 +49,12 @@ function JobsGrid() {
 	}
 
 	return (
-		<MyGrid />
+		<Container>
+			<MyGrid />
+			<div className={classes.paginatorContainer}>
+				<Pagination onChange={handleChange} size="large" className={classes.paginator} count={pageCount} color="primary" />
+			</div>
+		</Container>
 	);
 }
 

@@ -34,8 +34,16 @@ export const useHomeStyles = makeStyles(theme => ({
 	}
 }));
 
-export const useJobsGridStyles = makeStyles(() => ({
+export const useJobsGridStyles = makeStyles((theme) => ({
 	item: {
 		width: '100%',
+	},
+	paginator: {
+		direction: 'rtl',
+		margin: 'auto'
+	},
+	paginatorContainer: {
+		display: 'flex',
+		marginTop: theme.spacing(5)
 	}
 }))
