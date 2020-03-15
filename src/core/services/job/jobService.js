@@ -5,7 +5,8 @@ const axios = require('axios').default;
 
 export const jobService = {
 	getJobs,
-	getJobById
+	getJobById,
+	addJob
 }
 
 function getJobs(pageIndex, pageSize, filter) {
@@ -21,4 +22,8 @@ function getJobs(pageIndex, pageSize, filter) {
 
 function getJobById(id) {
 	return axios.get(`/api/jobs?id=${id}`);
+}
+
+function addJob(job) {
+	return axios.post('/api/jobs', job)
 }

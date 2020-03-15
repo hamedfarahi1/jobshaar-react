@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Grid, Select, InputLabel, FormControl, MenuItem } from '@material-ui/core';
+import { Paper, Grid, Select, InputLabel, FormControl, MenuItem, Typography, Button } from '@material-ui/core';
 import { useAddJobStyles } from './styles'
 import MyTextField from '../../../shared/component/my-text-field/MyTextField';
 import { useRef } from 'react';
@@ -9,6 +9,9 @@ import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+import { jobService } from '../../../core/services/job/jobService';
+import './styles.scss'
+import { history } from '../../../core/_helpers';
 
 function AddJob() {
 	const classes = useAddJobStyles()
@@ -47,6 +50,16 @@ function AddJob() {
 		setValues({ ...values, [name]: value })
 	}
 
+	const isNotValidForm = () => {
+		const { description, title } = values;
+		return (!description || !title) || description.length <= 500;
+	}
+
+	const addJob = () => {
+		if (!isNotValidForm())
+			jobService.addJob(values).then((res) => history.push('/job/' + res.id))
+	}
+
 	function MySelect({ name, value, label, list }) {
 		return <FormControl fullWidth variant="outlined">
 			<InputLabel ref={inputLabel} id="select-outlined-label">
@@ -82,6 +95,7 @@ function AddJob() {
 					<Grid item sm={6} xs={12} md={6}>
 						<MySelect name={'cooperationTypeIndex'} value={values.cooperationTypeIndex} label={'تایم کاری'} list={jobKeyValue.cooperationTypeObj} />
 					</Grid>
+					<Typography className={classes.editorTitle}>در ویرایشگر متنی زیر زیر اطلاعات مربوطه به شغل مورد نظر و شرکت خود را وارد نمایید</Typography>
 					<Grid className={classes.editor} item sm={12} xs={12} md={12}>
 						<Editor
 							toolbar={
@@ -95,11 +109,11 @@ function AddJob() {
 							onEditorStateChange={handleEditorChange}
 						/>
 					</Grid>
+					<Grid item sm={12} xs={12} md={12}>
+						<Button disabled={isNotValidForm()} variant="contained" onClick={addJob}>ثبت شغل</Button>
+					</Grid>
 				</Grid>
 			</Paper>
-			<div>
-				fuckkkkkkkkkkk
-			</div>
 		</div>
 	)
 }
