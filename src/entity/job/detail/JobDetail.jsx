@@ -145,7 +145,7 @@ function JobDetail() {
 											label={'رزومه'} /> : ''
 								}
 								<div className={classes.resumeSubmit}>
-									<Button disabled={resumeApplied} onClick={+user.roleTypeIndex === 0 ? getResumes : resumeExist ? sendResume : uploadResume} size='large' variant="contained" color="primary">
+									<Button disabled={resumeApplied} onClick={+user.roleTypeIndex === 0 ? getResumes : resumeExist ? sendResume : uploadResume} size='large' variant="contained" color="secondary">
 										{
 											+user.roleTypeIndex === 0 ? 'مشاهده ی رزومه ها' :
 												resumeApplied ? 'رزومه ارسال شده' :

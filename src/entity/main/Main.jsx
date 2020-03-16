@@ -126,6 +126,7 @@ function Main(props) {
 						}
 					</div>
 					<Button
+						color='secondary'
 						ref={anchorRef}
 						aria-controls={open ? 'menu-list-grow' : undefined}
 						aria-haspopup="true"

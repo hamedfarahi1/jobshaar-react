@@ -70,6 +70,7 @@ function AddJob() {
 				{label}
 			</InputLabel>
 			<Select
+				color='secondary'
 				labelId="select-outlined-label"
 				id="select-outlined"
 				name={name}
@@ -114,7 +115,7 @@ function AddJob() {
 						/>
 					</Grid>
 					<Grid item sm={12} xs={12} md={12}>
-						<Button disabled={isNotValidForm()} variant="contained" onClick={addJob}>ثبت شغل</Button>
+						<Button color='secondary' disabled={isNotValidForm()} variant="contained" onClick={addJob}>ثبت شغل</Button>
 					</Grid>
 				</Grid>
 			</Paper>

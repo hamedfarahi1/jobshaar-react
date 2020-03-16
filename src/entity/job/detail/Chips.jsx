@@ -37,21 +37,21 @@ function Chips({ job }) {
 			<div className={classes.chipRow1}>
 				<div className={classes.item}>
 					<div>نوع بازه زمانی</div>
-					<div><Chip size="small" label={<GetValueByNameAndKey type={1}></GetValueByNameAndKey>} /></div>
+					<div><Chip color='secondary' size="small" label={<GetValueByNameAndKey type={1}></GetValueByNameAndKey>} /></div>
 				</div>
 				<div className={classes.item}>
 					<div>دسته بندی شغلی</div>
-					<div><Chip size="small" label={<GetValueByNameAndKey type={2}></GetValueByNameAndKey>} /></div>
+					<div><Chip color='secondary' size="small" label={<GetValueByNameAndKey type={2}></GetValueByNameAndKey>} /></div>
 				</div>
 			</div>
 			<div className={classes.chipRow2}>
 				<div className={classes.item}>
 					<div>جنسیت</div>
-					<div><Chip size="small" label={<GetValueByNameAndKey type={3}></GetValueByNameAndKey>} /></div>
+					<div><Chip color='secondary' size="small" label={<GetValueByNameAndKey type={3}></GetValueByNameAndKey>} /></div>
 				</div>
 				<div className={classes.item}	>
 					<div>دسته بندی شرکت</div>
-					<div><Chip size="small" label={<GetValueByNameAndKey type={4}></GetValueByNameAndKey>} /></div>
+					<div><Chip color='secondary' size="small" label={<GetValueByNameAndKey type={4}></GetValueByNameAndKey>} /></div>
 				</div>
 			</div>
 		</div>

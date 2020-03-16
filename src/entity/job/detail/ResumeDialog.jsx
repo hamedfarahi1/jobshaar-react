@@ -1,9 +1,9 @@
 import React from 'react';
-import { Dialog, TableHead, TableContainer, Table, TableRow, TableCell, TableBody, withStyles, Button } from '@material-ui/core';
+import { Dialog, TableHead, TableContainer, Table, TableRow, TableCell, TableBody, withStyles, Button, DialogTitle } from '@material-ui/core';
 import { useResumeDialogStyle } from './styles';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 
-const StyledDialog = withStyles((theme) => ({
+const StyledDialog = withStyles(() => ({
 	paperWidthSm: {
 		maxWidth: '700px'
 	}
@@ -17,13 +17,14 @@ const StyledTableCellBody = withStyles(() => ({
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
-		backgroundColor: '#508cef',
+		backgroundColor: theme.palette.primary.main,
 		color: theme.palette.common.white,
+		fontSize: 'calc(0.9vw + 3px)'
 	},
 	body: {
 		fontSize: 14
 	}
-}))(StyledTableCellBody);
+}))(TableCell);
 
 
 function ResumeDialog(props) {
@@ -32,13 +33,14 @@ function ResumeDialog(props) {
 	const { resumeList, open, handleClose } = props
 	return (
 		<StyledDialog className={classes.container} onClose={handleClose} open={open}>
+			<DialogTitle className={classes.title}>رزومه های ارسالی</DialogTitle>
 			<TableContainer>
 				<Table>
 					<TableHead>
 						<TableRow>
-							<StyledTableCell align="right">Email</StyledTableCell>
-							<StyledTableCell align="right">Url</StyledTableCell>
-							<StyledTableCell align="right">Actions</StyledTableCell>
+							<StyledTableCell align="left">ایمیل</StyledTableCell>
+							<StyledTableCell align="left">آدرس</StyledTableCell>
+							<StyledTableCell align="center">دانلود</StyledTableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -49,7 +51,7 @@ function ResumeDialog(props) {
 									<StyledTableCellBody>{resume.email}</StyledTableCellBody>
 									<StyledTableCellBody>{resume.url}</StyledTableCellBody>
 									<StyledTableCellBody align="center">
-										<Button>
+										<Button color='secondary'>
 											<ArrowDownwardIcon color='primary'></ArrowDownwardIcon>
 										</Button>
 									</StyledTableCellBody>

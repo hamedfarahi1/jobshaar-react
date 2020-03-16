@@ -81,7 +81,7 @@ export const useMainStyles = makeStyles(theme => ({
 		flexGrow: 1,
 	},
 	appBar: {
-		backgroundColor: '#508cef',
+		backgroundColor: theme.palette.primary.main,
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
@@ -121,12 +121,12 @@ export const useMainStyles = makeStyles(theme => ({
 		display: 'flex',
 		justifyContent: 'space-between',
 		height: '18rem',
-		backgroundColor: '#508cef',
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
 		}),
-		boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)'
+		boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)',
+		backgroundColor: theme.palette.primary.main
 	},
 	appBarBodyImg: {
 		height: '90%',
@@ -161,7 +161,7 @@ export const userFooterStyles = makeStyles((theme) => ({
 	footer: {
 		width: '100%',
 		height: '22rem',
-		backgroundColor: '#4175cb',
+		backgroundColor: theme.palette.primary.dark,
 		marginBottom: 0,
 		marginTop: '5rem'
 	},

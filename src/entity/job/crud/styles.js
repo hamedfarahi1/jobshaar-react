@@ -17,6 +17,6 @@ export const useAddJobStyles = makeStyles((theme) => ({
 	editorTitle: {
 		padding: '20px',
 		fontSize: 'calc(1vw + 3px)',
-		color: '#508cef'
+		color: theme.palette.primary.main
 	}
 }))

@@ -52,7 +52,7 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		textAlign: 'center',
 		padding: '22px',
 		fontSize: '2vw',
-		color: '#508cef',
+		color: theme.palette.primary.main,
 		marginTop: '45px'
 	},
 	resumeSubmit: {
@@ -113,6 +113,9 @@ export const useChipsStyles = makeStyles(theme => ({
 }));
 
 export const useResumeDialogStyle = makeStyles((theme) => ({
-	container: {
+	title: {
+		backgroundColor: theme.palette.primary.main,
+		color: 'white',
+		textAlign: 'center'
 	}
 }))
