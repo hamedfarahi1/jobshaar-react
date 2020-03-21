@@ -11,9 +11,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { Typography, Container, Avatar } from '@material-ui/core';
+import { Typography, Container, Avatar, Icon } from '@material-ui/core';
 import { mainConstants } from '../../../core/_constants';
 import { useDrawerStyles } from '../styles';
 import { connect } from 'react-redux';
@@ -58,25 +56,25 @@ function Side(props) {
 				<Divider />
 				<List>
 					{[
-						{ title: 'صفحه ی اصلی', link: '/home' }
-						, { title: 'کار های من', link: '#' }
-						, { title: 'مشاهده کار ها', link: '#' }
-						, { title: 'افزودن کار', link: '/job/add' }
-					].map((text, index) => (
-						<Link key={index} to={text.link}>
+						{ title: 'صفحه ی اصلی', link: '/home', icon: 'home' }
+						, { title: 'کار های من', link: '#', icon: 'work' }
+						, { title: 'مشاهده کار ها', link: '#', icon: 'format_list_numbered_ltr' }
+						, { title: 'افزودن کار', link: '/job/add', icon: 'add' }
+					].map((item, index) => (
+						<Link key={index} to={item.link}>
 							<ListItem onClick={props.handleDrawerClose} button>
-								<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-								<ListItemText primary={text.title} />
+								<ListItemIcon><Icon>{item.icon}</Icon></ListItemIcon>
+								<ListItemText primary={item.title} />
 							</ListItem>
 						</Link>
 					))}
 				</List>
 				<Divider />
 				<List>
-					{['سرویس ویژه', 'پشتیبانی', 'رزومه'].map((text, index) => (
-						<ListItem onClick={props.handleDrawerClose} button key={text}>
-							<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-							<ListItemText primary={text} />
+					{['سرویس ویژه'].map((item, index) => (
+						<ListItem onClick={props.handleDrawerClose} button key={item}>
+							<ListItemIcon><Icon>settings_applications</Icon></ListItemIcon>
+							<ListItemText primary={item} />
 						</ListItem>
 					))}
 				</List>
