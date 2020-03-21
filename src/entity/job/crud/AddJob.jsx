@@ -13,10 +13,13 @@ import { jobService } from '../../../core/services/job/jobService';
 import './styles.scss'
 import { history, store } from '../../../core/_helpers';
 import { uiActions } from '../../../core/_actions';
+import { useMediaQuery } from 'react-responsive';
+import clsx from 'clsx';
 
 function AddJob() {
 	const classes = useAddJobStyles()
 
+	const isMobile = useMediaQuery({ maxWidth: 500 })
 	const [values, setValues] = useState({
 		title: '',
 		categoryTypeIndex: '0',
@@ -86,7 +89,8 @@ function AddJob() {
 	}
 	return (
 		<div className={classes.container}>
-			<Paper className={classes.paper}>
+			<Paper className={clsx(classes.paper
+				, { [classes.paperChange]: isMobile })}>
 				<Grid container spacing={3}>
 					<Grid item sm={6} xs={12} md={6}>
 						<MyTextField onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
