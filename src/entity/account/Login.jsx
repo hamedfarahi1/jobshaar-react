@@ -21,14 +21,14 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 
 function Login(props) {
 
+	const { userName, pass } = props.location.state
+
 	useEffect(() => {
 		props.logout();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	const classes = useStyles();
-	const [values, setValues] = useState({ username: '', password: '', rememberMe: false, roleTypeIndex: '1' })
-
+	const [values, setValues] = useState({ username: userName ? userName : '', password: pass ? pass : '', rememberMe: false, roleTypeIndex: '1' })
 	const handleInputChange = (e) => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
@@ -67,6 +67,7 @@ function Login(props) {
 				</Typography>
 				<form onSubmit={submitForm} className={classes.loginForm}>
 					<MyTextField
+						value={values.username}
 						style={{ textAlign: 'left' }}
 						required={true}
 						field='username'
@@ -76,6 +77,7 @@ function Login(props) {
 						margin='normal'
 					/>
 					<MyTextField
+						value={values.password}
 						style={{ textAlign: 'left' }}
 						required={true}
 						field='password'
@@ -100,6 +102,7 @@ function Login(props) {
 						className={classes.submit}
 						disabled={isNotValidForm()}
 					>
+
 						{accountPropConstants.LOGIN}
 					</Button >
 					<Grid container>
@@ -109,7 +112,15 @@ function Login(props) {
 							</Link>
 						</Grid>
 						<Grid item>
-							<Link to="/account/register" variant="body2">
+							<Link
+								to={location => ({
+									...location,
+									pathname: "/account/register",
+									state: {
+										userName: values.username,
+										pass: values.password
+									}
+								})} variant="body2">
 								{accountPropConstants.REGISTER_IN_SITE}
 							</Link>
 						</Grid>

@@ -10,12 +10,8 @@ function Account() {
 		<Switch>
 			<Redirect exact from="/account" to="/account/login">
 			</Redirect>
-			<Route path="/account/login">
-				<Login></Login>
-			</Route>
-			<Route path="/account/register">
-				<Register></Register>
-			</Route>
+			<Route path="/account/login" render={props => <Login {...props}></Login>} />
+			<Route path="/account/register" render={props => <Register {...props}></Register>} />
 		</Switch>
 	</div>
 }

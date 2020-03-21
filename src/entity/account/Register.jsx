@@ -21,8 +21,8 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 function Register(props) {
 
 	const classes = useStyles();
-	const [values, setValues] = useState({ email: '', username: '', password: '', allowExtraEmails: false, roleTypeIndex: '1' })
-
+	const { userName, pass } = props.location.state
+	const [values, setValues] = useState({ email: '', username: userName ? userName : '', password: pass ? pass : '', allowExtraEmails: false, roleTypeIndex: '1' })
 	const handleInputChange = e => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
@@ -62,6 +62,7 @@ function Register(props) {
 					<Grid container spacing={2}>
 						<Grid item xs={12} >
 							<MyTextField
+								value={values.email}
 								style={{ textAlign: 'left' }}
 								required={true}
 								field='email'
@@ -72,6 +73,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								value={values.username}
 								style={{ textAlign: 'left' }}
 								required={true}
 								field='username'
@@ -81,6 +83,7 @@ function Register(props) {
 						</Grid>
 						<Grid item xs={12}>
 							<MyTextField
+								value={values.password}
 								style={{ textAlign: 'left' }}
 								required={true}
 								field='password'
@@ -112,7 +115,14 @@ function Register(props) {
 					</Button>
 					<Grid container justify="flex-end">
 						<Grid item>
-							<Link to="/account/login" variant="body2">
+							<Link to={location => ({
+								...location,
+								pathname: "/account/login",
+								state: {
+									userName: values.username,
+									pass: values.password
+								}
+							})} variant="body2">
 								{accountPropConstants.LOGIN_IN_SITE}
 							</Link>
 						</Grid>
