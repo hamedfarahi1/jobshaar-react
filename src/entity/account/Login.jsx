@@ -22,14 +22,14 @@ import { LinearProgress } from '@material-ui/core';
 
 function Login(props) {
 
-	const { userName, pass } = props.location.state
+	const state = props.location.state
 
 	useEffect(() => {
 		props.logout();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const classes = useStyles();
-	const [values, setValues] = useState({ username: userName ? userName : '', password: pass ? pass : '', rememberMe: false, roleTypeIndex: '1' })
+	const [values, setValues] = useState({ username: state && state.userName ? state.userName : '', password: state && state.pass ? state.pass : '', rememberMe: false, roleTypeIndex: '1' })
 	const handleInputChange = (e) => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })

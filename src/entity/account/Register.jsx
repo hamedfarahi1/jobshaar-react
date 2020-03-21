@@ -22,8 +22,8 @@ import { LinearProgress } from '@material-ui/core';
 function Register(props) {
 
 	const classes = useStyles();
-	const { userName, pass } = props.location.state
-	const [values, setValues] = useState({ email: '', username: userName ? userName : '', password: pass ? pass : '', allowExtraEmails: false, roleTypeIndex: '1' })
+	const state = props.location.state
+	const [values, setValues] = useState({ email: '', username: state && state.userName ? state && state.userName : '', password: state.pass ? state.pass : '', allowExtraEmails: false, roleTypeIndex: '1' })
 	const handleInputChange = e => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
