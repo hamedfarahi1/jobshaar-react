@@ -18,6 +18,7 @@ import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
+import { CircularProgress, LinearProgress } from '@material-ui/core';
 
 function Login(props) {
 
@@ -100,11 +101,13 @@ function Login(props) {
 						variant="contained"
 						color="secondary"
 						className={classes.submit}
-						disabled={isNotValidForm()}
+						disabled={isNotValidForm() || props.loggingIn}
 					>
 
 						{accountPropConstants.LOGIN}
+
 					</Button >
+					{props.loggingIn && <LinearProgress />}
 					<Grid container>
 						<Grid item xs>
 							<Link to="#" variant="body2">

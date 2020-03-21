@@ -17,6 +17,7 @@ import { accountPropConstants, userFieldConstants } from '../../core/_constants'
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
+import { LinearProgress } from '@material-ui/core';
 
 function Register(props) {
 
@@ -109,10 +110,11 @@ function Register(props) {
 						variant="contained"
 						color="secondary"
 						className={classes.submit}
-						disabled={isNotValidForm()}
+						disabled={isNotValidForm() || props.registering}
 					>
 						{accountPropConstants.REGISTER}
 					</Button>
+					{props.registering && <LinearProgress />}
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to={location => ({

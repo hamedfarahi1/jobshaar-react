@@ -109,14 +109,14 @@ function Main(props) {
 				[classes.appBarShift]: openSide && props.loggedIn,
 			})}>
 				<Toolbar className={classes.toolBar}>
-					{props.loggedIn ?
+					{props.loggedIn &&
 						<IconButton
 							onClick={handleDrawerOpen}
 							edge="start"
 							className={clsx(classes.menuButton, openSide && props.loggedIn && classes.hide)}
 							color="inherit" aria-label="menu">
 							<MenuIcon />
-						</IconButton> : ''}
+						</IconButton>}
 					<Typography variant="h6" className={classes.title}>
 						{mainConstants.JOBSHAAR}
 					</Typography>
@@ -138,11 +138,11 @@ function Main(props) {
 				</Toolbar>
 			</AppBar>
 			{
-				history.location.pathname === '/home' && !isMobile ? (
+				history.location.pathname === '/home' && !isMobile && (
 					<div className={clsx(classes.appBarBody, {
 						[classes.appBarShift]: openSide && props.loggedIn
 					})}>
-						{!isTablet ? <div>
+						{!isTablet && <div>
 
 							<ButtonGroup className={classes.buttonGroup} variant="text" size="large">
 								<Button>صفحه ی اصلی</Button>
@@ -155,10 +155,10 @@ function Main(props) {
 							</Typography> */}
 							{/* <img className={classes.bookImg1} alt='' src={require('../../assest/images/book1.png')} />
 							<img className={classes.bookImg2} alt='' src={require('../../assest/images/book2.png')} /> */}
-						</div> : ''}
+						</div>}
 						<img className={clsx(classes.appBarBodyImg, { [classes.marginAuto]: isTablet && !isMobile })} alt='' src={require('../../assest/images/poster.png')} />
 					</div>
-				) : ''
+				)
 			}
 			<Side openSide={openSide} handleDrawerClose={handleDrawerClose}>
 				<Switch>
