@@ -18,7 +18,7 @@ import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
-import { CircularProgress, LinearProgress } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 
 function Login(props) {
 
