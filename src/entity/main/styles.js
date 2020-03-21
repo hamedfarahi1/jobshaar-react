@@ -163,7 +163,7 @@ export const userFooterStyles = makeStyles((theme) => ({
 		height: '22rem',
 		backgroundColor: theme.palette.primary.dark,
 		marginBottom: 0,
-		marginTop: '5rem'
+		marginTop: '7rem'
 	},
 	footerContainer: {
 		paddingTop: '3rem'

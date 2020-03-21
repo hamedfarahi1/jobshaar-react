@@ -10,13 +10,13 @@ function Footer() {
 	return <div className={classes.footer}>
 		<div className={classes.footerContainer}>
 			<p className={classes.title}>University Job Community Service</p>
-			<div className={classes.links}>
+			{/* <div className={classes.links}>
 				<span>Repository</span>
 				<span>Repository</span>
 				<span>Repository</span>
 				<span>Repository</span>
 				<span>Repository</span>
-			</div>
+			</div> */}
 			<Box mt={8}>
 				<Copyright />
 			</Box>
