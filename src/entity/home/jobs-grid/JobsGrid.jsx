@@ -8,7 +8,7 @@ import Pagination from '@material-ui/lab/Pagination';
 
 function JobsGrid() {
 
-	const [page, setPage] = useState(0);
+	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(0);
 
 	useEffect(() => {

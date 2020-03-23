@@ -19,7 +19,7 @@ function login(credential) {
 function logout() {
 	// remove user from local storage to log user out
 	axios.interceptors.request.use(request => {
-		request.headers['Authorization'] = undefined;
+		request.headers['Authorization'] = null;
 		return request;
 	})
 	localStorage.removeItem('user');
