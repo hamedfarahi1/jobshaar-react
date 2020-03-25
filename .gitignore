@@ -10,7 +10,7 @@
 
 # production
 /build
-
+~/.vscode-root
 # misc
 .DS_Store
 .env.local
