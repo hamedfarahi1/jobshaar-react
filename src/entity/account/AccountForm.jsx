@@ -20,17 +20,17 @@ import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab'
 import { LinearProgress } from '@material-ui/core';
 
-function Login(props) {
-
-	const state = props.location.state
+function AccountForm(props) {
 
 	useEffect(() => {
 		props.logout();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	const classes = useStyles();
-	const [values, setValues] = useState({ username: state && state.userName ? state.userName : '', password: state && state.pass ? state.pass : '', rememberMe: false, roleTypeIndex: '1' })
-	const handleInputChange = (e) => {
+	const { isLoginForm } = props
+	const [values, setValues] = useState({ email: '', username: '', password: '', roleTypeIndex: '1' })
+	const handleInputChange = e => {
 		const { name, value } = e.target
 		setValues({ ...values, [name]: value })
 	}
@@ -40,20 +40,25 @@ function Login(props) {
 	}
 
 	const submitForm = (event) => {
-		const { username, password } = values
-		if (!username || !password) return
-		props.login(values);
+		isLoginForm ?
+			props.login(values) :
+			props.register(values);
 		event.preventDefault();
+
 	}
 
-	const rememberMeHandleChange = e => {
+	const CheckBoxHandleChange = e => {
 		const { checked } = e.target
 		// eslint-disable-next-line
-		setValues({ ...values, ['rememberMe']: checked })
+		setValues({
+			...values, [`${isLoginForm ? 'rememberMe' : 'allowExtraEmails'}`]: checked,
+			[`${!isLoginForm ? 'rememberMe' : 'allowExtraEmails'}`]: undefined
+		})
 	}
+
 	const isNotValidForm = () => {
-		const { username, password } = values;
-		return (!username || !password);
+		const { username, password, email } = values;
+		return (!username || !password || (!isLoginForm && !email));
 	}
 
 	return (
@@ -64,9 +69,27 @@ function Login(props) {
 					<LockOutlinedIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					{accountPropConstants.LOGIN_IN_SITE}
+					{
+						isLoginForm ?
+							accountPropConstants.LOGIN_IN_SITE :
+							accountPropConstants.REGISTER_IN_SITE
+					}
 				</Typography>
-				<form onSubmit={submitForm} className={classes.loginForm}>
+				<form className={classes.form} onSubmit={submitForm}>
+					{
+						!isLoginForm &&
+						<MyTextField
+							value={values.email}
+							style={{ textAlign: 'left' }}
+							required={true}
+							field='email'
+							label={userFieldConstants.EMAIL}
+							onChange={handleInputChange}
+							autoFocus={true}
+							margin='normal'
+
+						/>
+					}
 					<MyTextField
 						value={values.username}
 						style={{ textAlign: 'left' }}
@@ -74,22 +97,27 @@ function Login(props) {
 						field='username'
 						label={userFieldConstants.USERNAME}
 						onChange={handleInputChange}
-						autoFocus={true}
 						margin='normal'
+
 					/>
 					<MyTextField
 						value={values.password}
 						style={{ textAlign: 'left' }}
 						required={true}
 						field='password'
+						type='password'
 						label={userFieldConstants.PASSWORD}
 						onChange={handleInputChange}
-						type='password'
 						margin='normal'
+
 					/>
 					<FormControlLabel
-						control={<Checkbox onChange={rememberMeHandleChange} color="primary" />}
-						label={<Typography className={classes.rememberMe}>{accountPropConstants.REMEMBER_ME}</Typography>}
+						control={<Checkbox onChange={CheckBoxHandleChange} color="primary" />}
+						label={<Typography className={classes.checkBox}>{
+							isLoginForm ?
+								accountPropConstants.REMEMBER_ME :
+								accountPropConstants.ALLOW_EXTRA_EMAILS
+						}</Typography>}
 					/>
 					<ToggleButtonGroup className={classes.buttonGroupe} value={values.roleTypeIndex} exclusive onChange={handleToggleInputChange}>
 						<ToggleButton key='0' value='0'>کارفرما</ToggleButton>
@@ -101,30 +129,32 @@ function Login(props) {
 						variant="contained"
 						color="secondary"
 						className={classes.submit}
-						disabled={isNotValidForm() || props.loggingIn}
+						disabled={isNotValidForm() || props.registering || props.loggingIn}
 					>
-
-						{accountPropConstants.LOGIN}
-
-					</Button >
-					{props.loggingIn && <LinearProgress />}
-					<Grid container>
-						<Grid item xs>
-							<Link to="#" variant="body2">
-								{accountPropConstants.FORGOT_PASSWORD}
-							</Link>
-						</Grid>
+						{
+							isLoginForm ?
+								accountPropConstants.LOGIN :
+								accountPropConstants.REGISTER
+						}
+					</Button>
+					{(props.registering || props.loggingIn) && <LinearProgress />}
+					<Grid className={classes.link} container justify="flex-end">
+						{
+							isLoginForm &&
+							<Grid item xs>
+								<Link to="#" variant="body2">
+									{accountPropConstants.FORGOT_PASSWORD}
+								</Link>
+							</Grid>
+						}
 						<Grid item>
 							<Link
-								to={location => ({
-									...location,
-									pathname: "/account/register",
-									state: {
-										userName: values.username,
-										pass: values.password
-									}
-								})} variant="body2">
-								{accountPropConstants.REGISTER_IN_SITE}
+								to={isLoginForm ? "/account/register" : "/account/login"} variant="body2">
+								{
+									isLoginForm ?
+										accountPropConstants.REGISTER_IN_SITE :
+										accountPropConstants.LOGIN_IN_SITE
+								}
 							</Link>
 						</Grid>
 					</Grid>
@@ -132,18 +162,21 @@ function Login(props) {
 			</div>
 		</Container>
 	);
-}
 
+}
 
 function mapState(state) {
 	const { loggingIn } = state.authentication;
-	return { loggingIn };
+	const { registering } = state.registration;
+
+	return { loggingIn, registering }
 }
 
 const actionCreators = {
+	register: userActions.register,
 	login: userActions.login,
 	logout: userActions.logout
-};
+}
 
-const connectedLoginPage = connect(mapState, actionCreators)(Login);
-export { connectedLoginPage as Login };
+const connectedAccountFormPage = connect(mapState, actionCreators)(AccountForm);
+export { connectedAccountFormPage as AccountForm }

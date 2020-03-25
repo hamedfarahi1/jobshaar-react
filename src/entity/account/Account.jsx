@@ -1,8 +1,7 @@
 import React from 'react';
-import { Login } from './Login'
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Register } from './Register';
 import { useStyles } from './styles';
+import { AccountForm } from './AccountForm';
 
 function Account() {
 	const classes = useStyles();
@@ -10,8 +9,8 @@ function Account() {
 		<Switch>
 			<Redirect exact from="/account" to="/account/login">
 			</Redirect>
-			<Route path="/account/login" render={props => <Login {...props}></Login>} />
-			<Route path="/account/register" render={props => <Register {...props}></Register>} />
+			<Route path="/account/login" render={props => <AccountForm {...props} isLoginForm></AccountForm>} />
+			<Route path="/account/register" render={props => <AccountForm {...props} isLoginForm={false}></AccountForm>} />
 		</Switch>
 	</div>
 }

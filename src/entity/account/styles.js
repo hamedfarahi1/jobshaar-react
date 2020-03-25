@@ -18,24 +18,17 @@ export const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(1),
 		backgroundColor: theme.palette.secondary.main,
 	},
-	loginForm: {
+	form: {
 		width: '100%',
 		marginTop: theme.spacing(1),
 	},
-	registerForm: {
-		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
-	},
-	allowExtraEmails: {
-		fontSize: 'small'
-	},
 	submit: {
-		margin: theme.spacing(3, 0, 2),
+		margin: '24px 0 16px !important',
 	},
-	rememberMe: {
-		fontSize: 'small'
+	checkBox: {
+		fontSize: 'small !important'
 	},
 	buttonGroupe: {
-		float: 'right'
+		float: 'right',
 	}
 }));
