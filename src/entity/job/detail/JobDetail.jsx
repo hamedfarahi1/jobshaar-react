@@ -35,15 +35,19 @@ function JobDetail() {
 			setUser(usr)
 			if (+usr.roleTypeIndex === 1) {
 				getResume()
-				console.log(usr.roleTypeIndex)
-
 			}
 			jobService.getJobById(id).then(res => {
 				setJob(res);
 				if (+usr.roleTypeIndex === 1) userService.isAppliedResume(res.id).then((rs) => setResumeApplied(rs))
 			})
 		})
+		return () => {
+			setResume('');
+			setUser({ username: '', email: '', roleTypeIndex: 1 });
+			setJob({})
+		}
 	}, [id])
+
 	function getResume() {
 		userService.getResume().then(res => {
 			if (res.url) {
