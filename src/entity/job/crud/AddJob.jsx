@@ -93,7 +93,7 @@ function AddJob() {
 				, { [classes.paperChange]: isMobile })}>
 				<Grid container spacing={3}>
 					<Grid item sm={6} xs={12} md={6}>
-						<MyTextField onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
+						<MyTextField autoFocus={true} onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
 					</Grid>
 					<Grid item sm={6} xs={12} md={6}>
 						<MySelect name={'categoryTypeIndex'} value={values.categoryTypeIndex} label={'دسته شغلی'} list={jobKeyValue.jobCategoryObj} />
