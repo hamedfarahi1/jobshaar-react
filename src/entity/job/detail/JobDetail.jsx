@@ -19,7 +19,7 @@ import { uiActions } from '../../../core/_actions';
 
 
 function JobDetail() {
-	let { id } = useParams()
+	const { id } = useParams()
 	const [job, setJob] = useState({})
 	const classes = useJobDetailStyles()
 	const shouldDecrese = useMediaQuery({ maxWidth: 500 })
