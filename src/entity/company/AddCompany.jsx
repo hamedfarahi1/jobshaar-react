@@ -89,14 +89,12 @@ function AddCompany(props) {
 						field='bio'
 						label={companyFieldContants.BIO}
 						onChange={handleInputChange}
-						autoFocus={true}
 						margin='normal'
 					/>
 					<MyTextField
 						field='address'
 						label={companyFieldContants.ADDRESS}
 						onChange={handleInputChange}
-						autoFocus={true}
 						margin='normal'
 					/>
 					<Button
