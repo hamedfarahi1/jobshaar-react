@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import { useJobDetailStyles } from './styles';
 import { Grid, Divider, Button } from '@material-ui/core';
-import { jobService } from '../../../core/services/job/jobService';
 import { Typography } from "@material-ui/core";
 import './styles.scss'
 import { Chips } from './Chips';
@@ -15,10 +14,11 @@ import clsx from 'clsx';
 import { userService } from '../../../core/services/user/userService';
 import { ResumeDialog } from './ResumeDialog';
 import { store } from '../../../core/_helpers';
-import { uiActions } from '../../../core/_actions';
+import { uiActions, jobActions } from '../../../core/_actions';
+import { connect } from 'react-redux';
 
 
-function JobDetail() {
+function JobDetail(props) {
 	const { id } = useParams()
 	const [job, setJob] = useState({})
 	const classes = useJobDetailStyles()
@@ -36,7 +36,7 @@ function JobDetail() {
 			if (+usr.roleTypeIndex === 1) {
 				getResume()
 			}
-			jobService.getJobById(id).then(res => {
+			props.get(id).then(res => {
 				setJob(res);
 				if (+usr.roleTypeIndex === 1) userService.isAppliedResume(res.id).then((rs) => setResumeApplied(rs))
 			})
@@ -46,6 +46,7 @@ function JobDetail() {
 			setUser({ username: '', email: '', roleTypeIndex: 1 });
 			setJob({})
 		}
+		// eslint-disable-next-line
 	}, [id])
 
 	function getResume() {
@@ -83,7 +84,7 @@ function JobDetail() {
 		return { __html: job.description }
 	}
 	return (
-		<div>
+		<div className={props.gettingJob && 'getting-job'}>
 			<ResumeDialog handleClose={() => setDialogState(false)} resumeList={resumeList} open={dialogState} />
 			<Paper elevation={3} className={'backImgAnimate'}>
 				<Typography className={classes.title} variant='h5'>{job.title}</Typography>
@@ -165,4 +166,14 @@ function JobDetail() {
 	)
 }
 
-export { JobDetail }
+function mapState(state) {
+	const { gettingJob } = state.job;
+	return { gettingJob }
+}
+
+const jobCreators = {
+	get: jobActions.getJobById
+}
+
+const connectedJobDetailsPage = connect(mapState, jobCreators)(JobDetail)
+export { connectedJobDetailsPage as JobDetail }

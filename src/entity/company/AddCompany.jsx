@@ -103,7 +103,7 @@ function AddCompany(props) {
 						variant="contained"
 						color="secondary"
 						className={classes.submit}
-						disabled={isNotValidForm()}
+						disabled={isNotValidForm() || props.addingCompany}
 					>
 						{companyFormConstants.SUBMIT_COMPANY}
 					</Button >
@@ -118,7 +118,8 @@ function AddCompany(props) {
 
 function mapState(state) {
 	const { user } = state.authentication;
-	return { user }
+	const { addingCompany } = state.companyAdding;
+	return { user, addingCompany }
 }
 
 const actionCreators = {

@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Container } from '@material-ui/core';
-import { jobService } from '../../../core/services/job/jobService';
+import { Grid, Container, LinearProgress } from '@material-ui/core';
 import { MyCard } from './MyCard';
 import { useJobsGridStyles } from '../styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { jobActions } from '../../../core/_actions';
+import { connect } from 'react-redux';
 
 
-function JobsGrid() {
+function JobsGrid(props) {
 
 	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(0);
 
 	useEffect(() => {
 		setTimeout(() => getJobs(page), 500);
+		// eslint-disable-next-line
 	}, [page]);
 
 	const classes = useJobsGridStyles();
 	const [jobs, setJobs] = useState([]);
 
-
 	const getJobs = (pageIndex) => {
-		jobService.getJobs(+pageIndex - 1, 12, []).then(res => {
+		props.getJobs(+pageIndex - 1, 12, []).then(res => {
 			setJobs(res.data);
 			const getPageCount = (e) => e % 12 === 0 ? parseInt(e / 12) : parseInt(e / 12) + 1
 			setPageCount(getPageCount(res.totalCount));
@@ -47,7 +48,10 @@ function JobsGrid() {
 			</Grid>
 		)
 	}
-
+	if (props.gettingJobs)
+		return <Container>
+			<LinearProgress />
+		</Container>
 	return (
 		<Container>
 			<MyGrid />
@@ -57,5 +61,14 @@ function JobsGrid() {
 		</Container>
 	);
 }
+function mapState(state) {
+	const { gettingJobs } = state.job;
+	return { gettingJobs }
+}
+const actionCreators = {
+	getJobs: jobActions.getJobs
+}
 
-export { JobsGrid };
+const connectedJobsGridPage = connect(mapState, actionCreators)(JobsGrid)
+
+export { connectedJobsGridPage as JobsGrid };

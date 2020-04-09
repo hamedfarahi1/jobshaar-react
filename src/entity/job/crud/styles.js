@@ -15,7 +15,7 @@ export const useAddJobStyles = makeStyles((theme) => ({
 	editor: {
 		boxShadow: '0px 1px 2px 0px grey',
 		margin: '12px',
-		minHeight: '20rem'
+		minHeight: '30rem'
 	},
 	editorTitle: {
 		padding: '20px',

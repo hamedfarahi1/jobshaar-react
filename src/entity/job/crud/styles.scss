@@ -1,3 +1,13 @@
 .rdw-editor-toolbar {
 	direction: ltr;
 }
+
+.fadein-con {
+	-webkit-animation: fadein 1s ease-in alternate infinite;
+    -moz-animation: fadein 1s ease-in alternate infinite;
+    animation: fadein 1s ease-in alternate infinite;
+}
+@keyframes fadein {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Grid, Select, InputLabel, FormControl, MenuItem, Typography, Button } from '@material-ui/core';
+import { Paper, Grid, Select, InputLabel, FormControl, MenuItem, Typography, Button, LinearProgress } from '@material-ui/core';
 import { useAddJobStyles } from './styles'
 import MyTextField from '../../../shared/component/my-text-field/MyTextField';
 import { useRef } from 'react';
@@ -9,14 +9,13 @@ import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
-import { jobService } from '../../../core/services/job/jobService';
 import './styles.scss'
-import { history, store } from '../../../core/_helpers';
-import { uiActions } from '../../../core/_actions';
+import { jobActions } from '../../../core/_actions';
 import { useMediaQuery } from 'react-responsive';
 import clsx from 'clsx';
+import { connect } from 'react-redux';
 
-function AddJob() {
+function AddJob(props) {
 	const classes = useAddJobStyles()
 
 	const isMobile = useMediaQuery({ maxWidth: 500 })
@@ -61,10 +60,7 @@ function AddJob() {
 
 	const addJob = () => {
 		if (!isNotValidForm())
-			jobService.addJob(values).then((res) => {
-				store.dispatch(uiActions.successSnackbar('عملیات ثبت شغل با موفقیت انجام شد'));
-				history.push('/job/' + res.id);
-			})
+			props.add(values);
 	}
 
 	function MySelect({ name, value, label, list }) {
@@ -90,8 +86,16 @@ function AddJob() {
 	return (
 		<div className={classes.container}>
 			<Paper className={clsx(classes.paper
-				, { [classes.paperChange]: isMobile })}>
+				, { [classes.paperChange]: isMobile, 'fadein-con': props.addingJob })}>
 				<Grid container spacing={3}>
+					<Grid item sm={12} xs={12} md={12}>
+						<Button style={{ float: 'left' }} color='secondary' disabled={isNotValidForm() || props.addingJob} variant="contained" onClick={addJob}>ثبت شغل</Button>
+					</Grid>
+					{props.addingJob &&
+						<Grid item sm={12} xs={12} md={12}>
+							<LinearProgress />
+						</Grid>
+					}
 					<Grid item sm={6} xs={12} md={6}>
 						<MyTextField autoFocus={true} onChange={handleInputChange} value={values.title} field={'title'} label={'عنوان'}></MyTextField>
 					</Grid>
@@ -118,13 +122,20 @@ function AddJob() {
 							onEditorStateChange={handleEditorChange}
 						/>
 					</Grid>
-					<Grid item sm={12} xs={12} md={12}>
-						<Button color='secondary' disabled={isNotValidForm()} variant="contained" onClick={addJob}>ثبت شغل</Button>
-					</Grid>
 				</Grid>
 			</Paper>
 		</div>
 	)
 }
 
-export { AddJob }
+function mapState(state) {
+	const { addingJob } = state.job;
+	return { addingJob };
+}
+
+const jobCreators = {
+	add: jobActions.addJob
+}
+
+const connectedAddJobPage = connect(mapState, jobCreators)(AddJob);
+export { connectedAddJobPage as AddJob }

@@ -20,3 +20,13 @@
 		background-position: 0% 50%;
 	}
 }
+
+.getting-job {
+	-webkit-animation: fadein 1s ease-in alternate infinite;
+    -moz-animation: fadein 1s ease-in alternate infinite;
+    animation: fadein 1s ease-in alternate infinite;
+}
+@keyframes fadein {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
