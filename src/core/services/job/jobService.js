@@ -1,7 +1,7 @@
 import { createRequestOption } from '../../../shared/utils/request-util';
 import { store } from '../../_helpers';
 
-const axios = require('axios').default;
+const axios = require('../client');
 
 export const jobService = {
 	getJobs,

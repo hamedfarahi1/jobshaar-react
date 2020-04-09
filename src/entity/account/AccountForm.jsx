@@ -41,8 +41,8 @@ function AccountForm(props) {
 
 	const submitForm = (event) => {
 		isLoginForm ?
-			props.login(values) :
-			props.register(values);
+			props.login({ ...values, username: values.username.toLowerCase() }) :
+			props.register({ ...values, username: values.username.toLowerCase() });
 		event.preventDefault();
 
 	}
