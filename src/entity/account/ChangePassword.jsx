@@ -16,16 +16,17 @@ import { userFieldConstants, accountPropConstants } from '../../core/_constants'
 import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { LinearProgress } from '@material-ui/core';
+import queryString from 'query-string'
 
 function ChangePassword(props) {
 
 	useEffect(() => {
 		if (isResetPage) {
 			props.logout();
-			let a = props.location;
-			if (a.search)
+			const values = queryString.parse(props.location.search)
+			if (values.key)
 				localStorage.setItem('auth', JSON.stringify({
-					token: ('' + a.search).substring(5)
+					token: values.key
 				}));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
