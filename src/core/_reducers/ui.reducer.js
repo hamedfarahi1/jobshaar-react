@@ -7,6 +7,7 @@ export function ui(state = {}, action) {
 			return {
 				...state,
 				successSnackbarOpen: true,
+				errorSnackbarMessage: null,
 				successSnackbarMessage: action.message
 			};
 		case uiConstants.SNACKBAR_CLEAR:
@@ -20,6 +21,7 @@ export function ui(state = {}, action) {
 			return {
 				...state,
 				errorSnackbarOpen: true,
+				successSnackbarMessage: null,
 				errorSnackbarMessage: action.message
 			};
 		default:

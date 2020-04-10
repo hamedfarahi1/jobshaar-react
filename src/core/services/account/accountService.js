@@ -5,7 +5,10 @@ export const accountService = {
 	logout,
 	register,
 	getUserInfo,
-	setAuthInterceptor
+	setAuthInterceptor,
+	resetPasswordSendEmail,
+	resetPass,
+	changePass
 }
 function login(credential) {
 	return axios.post(`/api/${+credential.roleTypeIndex === 1 ? 'employee' : 'employer'}/login`, {
@@ -45,6 +48,18 @@ function submitUser(res, credential) {
 	localStorage.setItem('user', JSON.stringify(user));
 	setAuthInterceptor()
 	return
+}
+
+function resetPasswordSendEmail(email) {
+	return axios.post(`/api/account/forget-password?email=${email}`)
+}
+
+function resetPass(values) {
+	return axios.put('/api/account/reset-password', values)
+}
+
+function changePass(values) {
+	return axios.put('/api/account/change-password', values)
 }
 
 function setAuthInterceptor() {

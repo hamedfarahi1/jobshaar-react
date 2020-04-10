@@ -2,11 +2,15 @@ import { userConstants } from '../_constants';
 import { accountService } from '../services/account/accountService'
 import { alertActions } from '.';
 import { history } from '../_helpers';
+import { uiActions } from './ui.actions';
 
 export const userActions = {
 	login,
 	logout,
 	register,
+	resetPasswordSendEmail,
+	resetPass,
+	changePass,
 	delete: _delete
 };
 
@@ -62,6 +66,61 @@ function register(user) {
 	function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
+function resetPasswordSendEmail(email) {
+	return dispatch => {
+		dispatch(request());
+		accountService.resetPasswordSendEmail(email).then(
+			() => dispatch(success()),
+			err => dispatch(failure(err))
+		)
+	}
+
+	function request() { return { type: userConstants.FORGOT_PASSWORD_REQUEST } }
+	function success() { return { type: userConstants.FORGOT_PASSWORD_SUCCESS } }
+	function failure(error) { return { type: userConstants.FORGOT_PASSWORD_FAILURE, error } }
+}
+
+function changePass(values) {
+	return dispatch => {
+		dispatch(request());
+		accountService.changePass(values).then(
+			() => {
+				dispatch(success());
+				dispatch(uiActions.successSnackbar('رمز عبور با موفقیت تغییر کرد'))
+				history.push('/home')
+			},
+			err => {
+				dispatch(failure(err))
+				dispatch(uiActions.errorSnackbar(err.response.data))
+			}
+		)
+	}
+
+	function request() { return { type: userConstants.CHANGE_PASSWORD_REQUEST } }
+	function success() { return { type: userConstants.CHANGE_PASSWORD_SUCCESS } }
+	function failure(error) { return { type: userConstants.CHANGE_PASSWORD_FAILURE, error } }
+}
+
+function resetPass(values, key) {
+	return dispatch => {
+		dispatch(request());
+		accountService.resetPass(values, key).then(
+			() => {
+				dispatch(success());
+				dispatch(uiActions.successSnackbar('رمز عبور با موفقیت تغییر کرد'))
+				history.push('/account/login')
+			},
+			err => {
+				dispatch(failure(err))
+				dispatch(uiActions.errorSnackbar(err.response.data))
+			}
+		)
+	}
+
+	function request() { return { type: userConstants.RESET_PASSWORD_REQUEST } }
+	function success() { return { type: userConstants.RESET_PASSWORD_SUCCESS } }
+	function failure(error) { return { type: userConstants.RESET_PASSWORD_FAILURE, error } }
+}
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
 	return dispatch => {

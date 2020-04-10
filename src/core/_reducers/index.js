@@ -5,7 +5,8 @@ import { registration } from './registration.reducer';
 import { alert } from './alert.reducer';
 import { ui } from './ui.reducer';
 import { companyAdding } from './company.reducer'
-import { job } from './job.reducer'
+import { job } from './job.reducer';
+import { resetingPassword } from './resetingPassword.reducer';
 
 const rootReducer = combineReducers({
 	authentication,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
 	alert,
 	ui,
 	companyAdding,
-	job
+	job,
+	resetingPassword
 });
 
 export default rootReducer;

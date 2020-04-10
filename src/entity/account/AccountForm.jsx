@@ -142,7 +142,7 @@ function AccountForm(props) {
 						{
 							isLoginForm &&
 							<Grid item xs>
-								<Link to="#" variant="body2">
+								<Link to="/account/forgot-password" variant="body2">
 									{accountPropConstants.FORGOT_PASSWORD}
 								</Link>
 							</Grid>

@@ -31,10 +31,10 @@ function PaperMenu(props) {
 							</MenuItem>
 						</Link>
 						<Divider />
-						<Link to="#" className={classes.link}>
+						<Link to="/account/change-password" className={classes.link}>
 							<MenuItem onClick={props.handlePaperClose}>
 								<Icon>person_outline</Icon>
-								<Typography className={classes.itemText}>اکانت</Typography>
+								<Typography className={classes.itemText}>تغییر رمز عبور</Typography>
 							</MenuItem>
 						</Link>
 						<Divider />
