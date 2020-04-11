@@ -113,15 +113,23 @@ function ChangePassword(props) {
 						{accountPropConstants.CHANGE_PASSWORD}
 					</Button>
 					{props.resetingPass && <LinearProgress />}
-					<Grid className={classes.link} container justify="flex-end">
-						{
-							<Grid item xs>
-								<Link to="#" variant="body2">
-									{accountPropConstants.FORGOT_PASSWORD}
-								</Link>
-							</Grid>
-						}
-					</Grid>
+					{
+						isResetPage && <Grid className={classes.link} container justify="flex-end">
+							{
+								<>
+									<Grid item xs>
+										<Link to="/account/login" variant="body2">
+											{accountPropConstants.LOGIN_IN_SITE}
+										</Link>
+									</Grid>
+									<Grid item>
+										<Link to="/account/register" variant="body2">
+											{accountPropConstants.REGISTER_IN_SITE}
+										</Link>
+									</Grid></>
+							}
+						</Grid>
+					}
 				</form>
 			</div>
 		</Container>
