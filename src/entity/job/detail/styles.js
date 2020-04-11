@@ -51,7 +51,7 @@ export const useJobDetailStyles = makeStyles(theme => ({
 	resumeTitle: {
 		textAlign: 'center',
 		padding: '22px',
-		fontSize: '2vw',
+		fontSize: 'calc(2vw + 10px)',
 		color: theme.palette.primary.main,
 		marginTop: '45px'
 	},

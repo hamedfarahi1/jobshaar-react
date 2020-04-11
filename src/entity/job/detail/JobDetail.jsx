@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import { useJobDetailStyles } from './styles';
@@ -16,6 +16,7 @@ import { ResumeDialog } from './ResumeDialog';
 import { store } from '../../../core/_helpers';
 import { uiActions, jobActions } from '../../../core/_actions';
 import { connect } from 'react-redux';
+import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 
 
 function JobDetail(props) {
@@ -29,6 +30,7 @@ function JobDetail(props) {
 	const [resumeApplied, setResumeApplied] = useState(false);
 	const [resumeList, setResumeList] = useState([]);
 	const [dialogState, setDialogState] = useState(false);
+	const fileInputRef = useRef();
 
 	useEffect(() => {
 		accountService.getUserInfo().then(usr => {
@@ -49,6 +51,12 @@ function JobDetail(props) {
 		// eslint-disable-next-line
 	}, [id])
 
+
+	const [uploadResumeType, setUploadResumeType] = useState('0');
+	const handleToggleInputChange = (e, value) => {
+		setUploadResumeType(value);
+	}
+
 	function getResume() {
 		userService.getResume().then(res => {
 			if (res.url) {
@@ -56,6 +64,10 @@ function JobDetail(props) {
 				setResumeExist(true)
 			}
 		})
+	}
+
+	function selectFile() {
+		fileInputRef.current.click();
 	}
 
 	function getResumes() {
@@ -128,7 +140,7 @@ function JobDetail(props) {
 									value={user.email}
 									label={userFieldConstants.EMAIL} />
 							</div>
-							<div>
+							<div style={{ textAlign: 'center' }}>
 								<Typography className={classes.resumeTitle}>رزومه</Typography>
 								{
 									+user.roleTypeIndex === 0 ?
@@ -140,15 +152,28 @@ function JobDetail(props) {
 												شما برای ما رزومه ای ارسال نکرده اید، لطفا آدرس فایل رزومه ی خود را در کادر زیر وارد کنید
 									</Typography> : ''
 								}
+								<ToggleButtonGroup value={uploadResumeType} exclusive onChange={handleToggleInputChange} style={{ width: '86%' }}>
+									<ToggleButton style={{ width: '50%' }} key='0' value='0'>انتخاب فایل</ToggleButton>
+									<ToggleButton style={{ width: '50%' }} key='1' value='1'>وارد کردن آدرس</ToggleButton>
+								</ToggleButtonGroup>
 								{
 									+user.roleTypeIndex === 1 ?
-										<MyTextField
-											onChange={handleInputChange}
-											style={{ textAlign: 'center' }}
-											value={resume}
-											disabled={resumeExist}
-											label={'رزومه'} /> : ''
+										<div className={classes.resumeSubmit}>
+											{+uploadResumeType === 1 ? <MyTextField
+												onChange={handleInputChange}
+												style={{ textAlign: 'center' }}
+												value={resume}
+												disabled={resumeExist}
+												label={'رزومه'} /> :
+												<>
+													<Button onClick={selectFile} size='large' variant="contained" color="primary">
+														انتخاب فایل
+												</Button>
+													<input ref={fileInputRef} style={{ display: 'none' }} type='file' label='انتخاب فایل' placeholder='فایلی انتخاب نکردید' /></>
+											}
+										</div> : ''
 								}
+
 								<div className={classes.resumeSubmit}>
 									<Button disabled={resumeApplied} onClick={+user.roleTypeIndex === 0 ? getResumes : resumeExist ? sendResume : uploadResume} size='large' variant="contained" color="secondary">
 										{
