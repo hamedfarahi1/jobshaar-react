@@ -5,27 +5,47 @@ import { useJobsGridStyles } from '../styles';
 import Pagination from '@material-ui/lab/Pagination';
 import { jobActions } from '../../../core/_actions';
 import { connect } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import { JobsFilter } from './JobsFilter';
 
 
 function JobsGrid(props) {
 
 	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(0);
+	const [totalCount, setTotalCount] = useState(0);
+
+	const [filters, setValues] = useState({
+		title: '',
+		categoryTypeIndex: '',
+		cooperationTypeIndex: '',
+		requiredGenderTypeIndex: '',
+	})
+
+	const isMobile = useMediaQuery({ maxWidth: 500 })
 
 	useEffect(() => {
-		setTimeout(() => getJobs(page), 500);
+		setTimeout(() => getJobs(page, filters), 1000);
 		// eslint-disable-next-line
-	}, [page]);
+	}, [page, filters]);
 
 	const classes = useJobsGridStyles();
 	const [jobs, setJobs] = useState([]);
 
-	const getJobs = (pageIndex) => {
-		props.getJobs(+pageIndex - 1, 12, []).then(res => {
+	const getJobs = (pageIndex, filters) => {
+		props.getJobs(+pageIndex - 1, 12, filters).then(res => {
 			setJobs(res.data);
+			setTotalCount(res.totalCount)
 			const getPageCount = (e) => e % 12 === 0 ? parseInt(e / 12) : parseInt(e / 12) + 1
 			setPageCount(getPageCount(res.totalCount));
 		});
+	}
+
+	const handleFilterChange = e => {
+		const { name, value } = e.target
+		if (value === -1 && filters[name] === '')
+			return
+		setValues({ ...filters, [name]: value })
 	}
 
 	const handleChange = (event, value) => {
@@ -48,19 +68,23 @@ function JobsGrid(props) {
 			</Grid>
 		)
 	}
-	if (props.gettingJobs)
-		return <Container>
-			<LinearProgress />
-		</Container>
-	return (
+
+	return (<>
+		<JobsFilter totalCount={totalCount} values={filters} handleFilterChange={handleFilterChange} />
+		{
+			props.gettingJobs && <Container>
+				<LinearProgress />
+			</Container>
+		}
 		<Container classes={{
 			root: classes.root
-		}} >
+		}} className={isMobile ? classes.rootMobile : ''}>
 			<MyGrid />
 			<div className={classes.paginatorContainer}>
 				<Pagination onChange={handleChange} size="large" className={classes.paginator} count={pageCount} color="secondary" />
 			</div>
 		</Container>
+	</>
 	);
 }
 function mapState(state) {

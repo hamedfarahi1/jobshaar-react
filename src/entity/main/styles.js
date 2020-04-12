@@ -121,7 +121,7 @@ export const useMainStyles = makeStyles(theme => ({
 	appBarBody: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		height: '18rem',
+		height: '290px',
 		transition: theme.transitions.create(['margin', 'width'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,

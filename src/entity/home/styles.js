@@ -40,6 +40,9 @@ export const useJobsGridStyles = makeStyles((theme) => ({
 		boxSizing: 'border-box',
 		marginRight: 'auto',
 		marginLeft: 'auto',
+		marginTop: '24px'
+	},
+	rootMobile: {
 		paddingRight: '0',
 		paddingLeft: '0'
 	},
@@ -53,5 +56,25 @@ export const useJobsGridStyles = makeStyles((theme) => ({
 	paginatorContainer: {
 		display: 'flex',
 		marginTop: theme.spacing(5)
+	}
+}))
+
+export const useJobsFilterStyles = makeStyles((theme) => ({
+	mobile: {
+		marginRight: '-16px !important',
+		marginLeft: '-16px !important'
+	},
+	textField: {
+		marginBottom: '32px'
+	},
+	setFixed: {
+		position: 'fixed',
+		zIndex: 10,
+		marginTop: '-330px'
+	},
+	setFixedMobile: {
+		position: 'fixed',
+		zIndex: 10,
+		marginTop: '-40px'
 	}
 }))

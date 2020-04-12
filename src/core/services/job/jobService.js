@@ -9,8 +9,9 @@ export const jobService = {
 	addJob
 }
 
-function getJobs(pageIndex, pageSize, filter) {
+function getJobs(pageIndex, pageSize, filters) {
 	const { user } = store.getState().authentication;
+	const filter = createFilterObj(filters)
 	const query = {
 		page: pageIndex,
 		size: pageSize,
@@ -18,6 +19,19 @@ function getJobs(pageIndex, pageSize, filter) {
 	}
 	const params = createRequestOption(query);
 	return axios.get(`/api/jobs/${+user.roleTypeIndex === 1 ? 'employee' : 'employer'}`, { params: params })
+
+	function createFilterObj(val) {
+		const res = []
+		Object.keys(val).forEach(key => {
+			if (val[key].length > 0) res.push({
+				key: key + '.in',
+				value: val[key]
+			})
+		}
+		)
+
+		return res;
+	}
 }
 
 function getJobById(id) {

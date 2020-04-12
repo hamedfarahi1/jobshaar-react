@@ -14,7 +14,8 @@ function MyTextField({
 	field,
 	onChange,
 	autoFocus,
-	margin
+	margin,
+	placeholder
 }) {
 	return <TextField
 		className={className}
@@ -33,6 +34,7 @@ function MyTextField({
 		onChange={onChange}
 		autoFocus={autoFocus}
 		margin={margin}
+		placeholder={placeholder}
 	/>
 }
 
