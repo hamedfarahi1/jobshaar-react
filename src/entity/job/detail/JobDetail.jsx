@@ -93,7 +93,9 @@ function JobDetail(props) {
 		})
 	}
 	function createMarkUp() {
-		return { __html: job.description }
+		// this is bug
+		// fix it later
+		return { __html: ('' + job.description).split('&nbsp;').join('') }
 	}
 	return (
 		<div className={props.gettingJob && 'getting-job'}>

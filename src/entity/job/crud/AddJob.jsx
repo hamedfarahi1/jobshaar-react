@@ -59,8 +59,9 @@ function AddJob(props) {
 	}
 
 	const addJob = () => {
+		const obj = { ...values, description: values.description.split('&nbsp;').join('') }
 		if (!isNotValidForm())
-			props.add(values);
+			props.add(obj);
 	}
 
 	function MySelect({ name, value, label, list }) {
