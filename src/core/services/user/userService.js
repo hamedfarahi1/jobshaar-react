@@ -5,7 +5,17 @@ export const userService = {
 	uploadResume,
 	sendResume,
 	isAppliedResume,
-	getResumes
+	getResumes,
+	uploadResumeFile,
+	updateResume,
+	updateResumeFile
+}
+
+const fileConfig = {
+	headers: {
+		'Accept': 'multipart/form-data, application/json, text/plain, */*',
+		'Content-Type': 'multipart/form-data'
+	}
 }
 
 function getResume() {
@@ -13,7 +23,19 @@ function getResume() {
 }
 
 function uploadResume(resume) {
-	return axios.post('/api/resume/employee', { url: resume })
+	return axios.post('/api/resume/url', { url: resume })
+}
+
+function uploadResumeFile(formData) {
+	return axios.post('/api/resume/file', formData, fileConfig)
+}
+
+function updateResume(resume) {
+	return axios.put('/api/resume/url', { url: resume })
+}
+
+function updateResumeFile(formData) {
+	return axios.put('/api/resume/file', formData, fileConfig)
 }
 
 function sendResume(jobId) {

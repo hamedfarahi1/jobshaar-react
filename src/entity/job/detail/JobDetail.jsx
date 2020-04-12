@@ -168,7 +168,7 @@ function JobDetail(props) {
 												disabled={resumeExist}
 												label={'رزومه'} /> :
 												<>
-													<Button onClick={selectFile} size='large' variant="contained" color="primary">
+													<Button disabled onClick={selectFile} size='large' variant="contained" color="primary">
 														انتخاب فایل
 												</Button>
 													<input ref={fileInputRef} style={{ display: 'none' }} type='file' label='انتخاب فایل' placeholder='فایلی انتخاب نکردید' /></>
