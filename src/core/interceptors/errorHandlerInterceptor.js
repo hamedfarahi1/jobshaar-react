@@ -1,12 +1,12 @@
 import { uiActions } from '../_actions';
-import { store } from '../_helpers';
+import { store, history } from '../_helpers';
 import { errorConstants } from '../_constants'
 import { accountService } from '../services/account/accountService';
 
 export const errorHandlerInterceptor = (error) => {
 	const statusCode = error.response.status;
 	createErrorMessage(statusCode);
-	if (statusCode === 401) {
+	if (statusCode === 401 && !history.location.pathname.startsWith('/account')) {
 		accountService.logout();
 		window.location.reload(true);
 	}

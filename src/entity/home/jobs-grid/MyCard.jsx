@@ -38,7 +38,9 @@ function MyCard(props) {
 					subheader={item.company.name}
 				/>
 				<CardMedia
-					className={cardClasses.media}
+					classes={{
+						root: cardClasses.media
+					}}
 					image={require(`../../../assest/images/18.png`)}
 					title="Paella dish"
 				/>

@@ -4,8 +4,8 @@ export const useCardStyles = makeStyles(theme => ({
 	media: {
 		height: 0,
 		paddingTop: '56.25%', // 16:9
-		backgroundSize: '40%',
-		margin: 'auto'
+		margin: 'auto',
+		backgroundSize: '40% !important'
 	},
 	expand: {
 		transform: 'rotate(0deg)',
