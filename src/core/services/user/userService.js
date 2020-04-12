@@ -23,7 +23,7 @@ function getResume() {
 }
 
 function uploadResume(resume) {
-	return axios.post('/api/resume/url', { url: resume })
+	return axios.post('/api/resume/employee', { url: resume })
 }
 
 function uploadResumeFile(formData) {

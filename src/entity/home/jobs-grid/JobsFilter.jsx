@@ -70,7 +70,7 @@ function JobsFilter(props) {
 			<ExpansionPanelDetails>
 				<Grid container spacing={3}>
 					<Grid item sm={12} xs={12} md={12}>
-						<MyTextField autoFocus={true} className={classes.textField} onChange={''
+						<MyTextField disabled autoFocus={true} className={classes.textField} onChange={''
 							// props.handleFilterChange
 						} value={props.values.title} field={'title'} placeholder={' ... عنوان شغل، نام شهر، نام استان'} label={'جستجو'}></MyTextField>
 					</Grid>
