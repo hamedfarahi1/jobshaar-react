@@ -30,6 +30,7 @@ import { Footer } from './footer/Footer';
 import { Job } from '../job/Job';
 import { useMediaQuery } from 'react-responsive';
 import { ButtonGroup } from '@material-ui/core';
+import { ScrollToTop } from '../../shared/component/scroll-to-top/scroll-to-top';
 
 function Main(props) {
 
@@ -173,6 +174,7 @@ function Main(props) {
 				</Switch>
 				<Footer />
 			</Side>
+			<ScrollToTop />
 		</Router>
 	);
 }
