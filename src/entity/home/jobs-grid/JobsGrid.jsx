@@ -53,7 +53,9 @@ function JobsGrid(props) {
 			<LinearProgress />
 		</Container>
 	return (
-		<Container>
+		<Container classes={{
+			root: classes.root
+		}} >
 			<MyGrid />
 			<div className={classes.paginatorContainer}>
 				<Pagination onChange={handleChange} size="large" className={classes.paginator} count={pageCount} color="secondary" />

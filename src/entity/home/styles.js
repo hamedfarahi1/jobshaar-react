@@ -35,6 +35,14 @@ export const useHomeStyles = makeStyles(theme => ({
 }));
 
 export const useJobsGridStyles = makeStyles((theme) => ({
+	root: {
+		width: '100%',
+		boxSizing: 'border-box',
+		marginRight: 'auto',
+		marginLeft: 'auto',
+		paddingRight: '0',
+		paddingLeft: '0'
+	},
 	item: {
 		width: '100%',
 	},

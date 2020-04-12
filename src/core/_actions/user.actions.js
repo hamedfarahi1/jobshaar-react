@@ -70,7 +70,10 @@ function resetPasswordSendEmail(email) {
 	return dispatch => {
 		dispatch(request());
 		accountService.resetPasswordSendEmail(email).then(
-			() => dispatch(success()),
+			() => {
+				dispatch(success());
+				dispatch(uiActions.successSnackbar('لینک تغییر رمز عبور به ایمیل شما ارسال گردید، در صورت عدم دریافت لینک دوباره تلاش کنید'))
+			},
 			err => dispatch(failure(err))
 		)
 	}

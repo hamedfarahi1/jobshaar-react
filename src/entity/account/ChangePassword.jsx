@@ -17,6 +17,7 @@ import { useStyles } from './styles';
 import MyTextField from '../../shared/component/my-text-field/MyTextField';
 import { LinearProgress } from '@material-ui/core';
 import queryString from 'query-string'
+import { history } from '../../core/_helpers';
 
 function ChangePassword(props) {
 
@@ -28,6 +29,7 @@ function ChangePassword(props) {
 				localStorage.setItem('auth', JSON.stringify({
 					token: values.key
 				}));
+			else if (isResetPage) history.push('/account/forgot-password');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])

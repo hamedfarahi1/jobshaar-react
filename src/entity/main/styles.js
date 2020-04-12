@@ -103,6 +103,7 @@ export const useMainStyles = makeStyles(theme => ({
 	},
 	title: {
 		flexGrow: 1,
+		fontSize: 'calc(1vw + 11px)'
 	},
 	link: {
 		textDecoration: 'none'

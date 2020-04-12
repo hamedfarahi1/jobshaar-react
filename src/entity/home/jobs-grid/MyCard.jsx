@@ -44,7 +44,7 @@ function MyCard(props) {
 				/>
 			</Link>
 			<CardContent>
-				<Typography variant="body2" color="textSecondary" component="p">
+				<Typography style={{ maxHeight: '20px', overflow: 'hidden' }} variant="body2" color="textSecondary" component="p">
 					{item.company.bio}
 				</Typography>
 			</CardContent>
