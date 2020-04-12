@@ -10,20 +10,28 @@ function JobsFilter(props) {
 	const classes = useJobsFilterStyles();
 	const isMobile = useMediaQuery({ maxWidth: 500 })
 	const [scrolled, setScrolled] = useState(false)
-
+	const [expand, setExpand] = useState(false);
 	const [jobKeyValue] = useState(jobKeyValues)
 
 	const inputLabel = useRef(null);
 	const [labelWidth, setLabelWidth] = useState(0);
 	useEffect(() => {
 		setLabelWidth(inputLabel.current.offsetWidth);
-		console.log(props.totalCount)
 		window.onscroll = () => {
-			setScrolled(props.totalCount > 3 &&
-				((isMobile && window.pageYOffset > 140) || window.pageYOffset > 600))
-		}
-	}, [isMobile, props.totalCount]);
+			if (props.resultCount > 3) {
+				if ((isMobile && window.pageYOffset > 160) || window.pageYOffset > 620)
+					expandPanel();
+				setScrolled(props.resultCount > 3 &&
+					((isMobile && window.pageYOffset > 140) || window.pageYOffset > 600))
+			}
+			else setScrolled(false)
 
+		}
+	}, [isMobile, props.resultCount]);
+
+	function expandPanel() {
+		setTimeout(setExpand(false), 2000)
+	}
 	function MySelect({ name, value, label, list }) {
 		return <FormControl fullWidth variant="outlined">
 			<InputLabel ref={inputLabel} id="select-outlined-label">
@@ -49,7 +57,7 @@ function JobsFilter(props) {
 	}
 
 	return <Container className={scrolled && isMobile ? classes.setFixedMobile : scrolled ? classes.setFixed : ''}>
-		<ExpansionPanel className={
+		<ExpansionPanel expanded={expand} onChange={(e, exp) => setExpand(exp)} className={
 			isMobile ? classes.mobile : ''
 		}>
 			<ExpansionPanelSummary
@@ -62,7 +70,9 @@ function JobsFilter(props) {
 			<ExpansionPanelDetails>
 				<Grid container spacing={3}>
 					<Grid item sm={12} xs={12} md={12}>
-						<MyTextField autoFocus={true} className={classes.textField} onChange={props.handleFilterChange} value={props.values.title} field={'title'} placeholder={' ... عنوان شغل، نام شهر، نام استان'} label={'جستجو'}></MyTextField>
+						<MyTextField autoFocus={true} className={classes.textField} onChange={''
+							// props.handleFilterChange
+						} value={props.values.title} field={'title'} placeholder={' ... عنوان شغل، نام شهر، نام استان'} label={'جستجو'}></MyTextField>
 					</Grid>
 					<Grid item sm={6} xs={12} md={4}>
 						<MySelect name={'categoryTypeIndex'} value={props.values.categoryTypeIndex} label={'دسته شغلی'} list={jobKeyValue.jobCategoryObj} />

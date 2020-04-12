@@ -13,7 +13,7 @@ function JobsGrid(props) {
 
 	const [page, setPage] = useState(1);
 	const [pageCount, setPageCount] = useState(0);
-	const [totalCount, setTotalCount] = useState(0);
+	const [resultCount, setResultCount] = useState(0);
 
 	const [filters, setValues] = useState({
 		title: '',
@@ -35,7 +35,7 @@ function JobsGrid(props) {
 	const getJobs = (pageIndex, filters) => {
 		props.getJobs(+pageIndex - 1, 12, filters).then(res => {
 			setJobs(res.data);
-			setTotalCount(res.totalCount)
+			setResultCount(res.data.length);
 			const getPageCount = (e) => e % 12 === 0 ? parseInt(e / 12) : parseInt(e / 12) + 1
 			setPageCount(getPageCount(res.totalCount));
 		});
@@ -70,7 +70,7 @@ function JobsGrid(props) {
 	}
 
 	return (<>
-		<JobsFilter totalCount={totalCount} values={filters} handleFilterChange={handleFilterChange} />
+		<JobsFilter resultCount={resultCount} values={filters} handleFilterChange={handleFilterChange} />
 		{
 			props.gettingJobs && <Container>
 				<LinearProgress />
