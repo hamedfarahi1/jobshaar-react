@@ -30,6 +30,9 @@ const createErrorMessage = (statusCode) => {
 		case 607:
 			showErrorMessage(errorConstants.STUDENT_DOES_NOT_EXIST);
 			break;
+		case 617:
+			showErrorMessage(errorConstants.GNEDER_TYPE_NOT_EQUAL);
+			break;
 		default:
 			showErrorMessage(errorConstants.ERROR);
 	}

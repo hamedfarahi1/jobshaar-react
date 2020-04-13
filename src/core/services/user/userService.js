@@ -8,7 +8,8 @@ export const userService = {
 	getResumes,
 	uploadResumeFile,
 	updateResume,
-	updateResumeFile
+	updateResumeFile,
+	getResumeFile
 }
 
 const fileConfig = {
@@ -20,6 +21,10 @@ const fileConfig = {
 
 function getResume() {
 	return axios.get('/api/employee/resume')
+}
+
+function getResumeFile() {
+	return axios.get('/api/resume', { responseType: 'blob' })
 }
 
 function uploadResume(resume) {

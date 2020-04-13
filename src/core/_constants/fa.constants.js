@@ -8,6 +8,7 @@ export const errorConstants = {
 	INVALID_USERNAME: "نام کاربری نا معتبر است",
 	UNAUTHORITY: "احراز هویت با موفقیت انجام نشد",
 	SERVER_ERROR: "خطا در اتصال به سرور",
+	GNEDER_TYPE_NOT_EQUAL: "عدم تطابق جنسیت",
 	ERROR: "خطا"
 }
 

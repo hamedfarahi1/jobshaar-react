@@ -13,6 +13,7 @@
 		"classnames": "^2.2.6",
 		"draft-js": "^0.11.4",
 		"draftjs-to-html": "^0.9.1",
+		"file-saver": "^2.0.2",
 		"history": "^4.10.1",
 		"http-proxy-middleware": "^1.0.0",
 		"jss-rtl": "^0.3.0",

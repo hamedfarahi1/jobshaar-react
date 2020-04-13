@@ -56,7 +56,6 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		marginTop: '45px'
 	},
 	resumeSubmit: {
-		display: ' flex',
 		justifyContent: 'center',
 		padding: theme.spacing(3),
 		'& button': {
