@@ -2,6 +2,7 @@ import { uiActions } from '../_actions';
 import { store, history } from '../_helpers';
 import { errorConstants } from '../_constants'
 import { accountService } from '../services/account/accountService';
+import { errorCodeKeyValues } from './errors-keyValue';
 
 export const errorHandlerInterceptor = (error) => {
 	const statusCode = error.response.status;
@@ -14,27 +15,11 @@ export const errorHandlerInterceptor = (error) => {
 }
 
 const createErrorMessage = (statusCode) => {
-	switch (statusCode) {
-		case 504:
-			showErrorMessage(errorConstants.SERVER_ERROR);
-			break;
-		case 601:
-			showErrorMessage(errorConstants.INVALID_PASSWORD);
-			break;
-		case 604:
-			showErrorMessage(errorConstants.INVALID_USERNAME);
-			break;
-		case 401:
-			showErrorMessage(errorConstants.UNAUTHORITY);
-			break;
-		case 607:
-			showErrorMessage(errorConstants.STUDENT_DOES_NOT_EXIST);
-			break;
-		case 617:
-			showErrorMessage(errorConstants.GNEDER_TYPE_NOT_EQUAL);
-			break;
-		default:
-			showErrorMessage(errorConstants.ERROR);
+	try {
+		showErrorMessage(errorCodeKeyValues[statusCode]);
+		
+	} catch (e) {
+		showErrorMessage(errorConstants.ERROR);
 	}
 }
 
