@@ -15,12 +15,12 @@ export const errorHandlerInterceptor = (error) => {
 }
 
 const createErrorMessage = (statusCode) => {
-	try {
-		showErrorMessage(errorCodeKeyValues[statusCode]);
-		
-	} catch (e) {
+	const errMsg = errorCodeKeyValues[statusCode]
+	if (errMsg)
+		showErrorMessage(errMsg);
+	else
 		showErrorMessage(errorConstants.ERROR);
-	}
+
 }
 
 const showErrorMessage = (message) => {
