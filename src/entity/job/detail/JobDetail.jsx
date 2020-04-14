@@ -13,6 +13,7 @@ import { userService } from '../../../core/services/user/userService';
 import { jobActions } from '../../../core/_actions';
 import { connect } from 'react-redux';
 import { ResumeSide } from './ResumeSide';
+import { Suggests } from '../suggests/Suggests';
 
 
 function JobDetail(props) {
@@ -104,6 +105,9 @@ function JobDetail(props) {
 						setResumeApplied={setResumeApplied}
 					/>
 				</Grid>
+
+				<Suggests id={job.id} />
+
 			</div>
 		</div>
 	)

@@ -30,6 +30,11 @@ export const useJobDetailStyles = makeStyles(theme => ({
 		minHeight: '600px',
 		padding: theme.spacing(2)
 	},
+	sameJobs: {
+		width: '100%',
+		marginTop: theme.spacing(4),
+		padding: theme.spacing(2)
+	},
 	attache: {
 		width: '45px',
 		marginTop: '-72px'

@@ -6,7 +6,8 @@ const axios = require('../client');
 export const jobService = {
 	getJobs,
 	getJobById,
-	addJob
+	addJob,
+	getSameJobById
 }
 
 function getJobs(pageIndex, pageSize, filters) {
@@ -36,6 +37,10 @@ function getJobs(pageIndex, pageSize, filters) {
 
 function getJobById(id) {
 	return axios.get(`/api/jobs?id=${id}`);
+}
+
+function getSameJobById(id) {
+	return axios.get(`/api/jobs/same-jobs?id=${id}`);
 }
 
 function addJob(job) {
