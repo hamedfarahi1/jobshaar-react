@@ -1,0 +1,17 @@
+{
+	"name": "jobshaar",
+	"version": "0.0.0",
+	"description": "jobs crawling",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "hamedfarahi",
+	"license": "MIT",
+	"keywords": [],
+	"dependencies": {
+		"axios": "^0.19.2",
+		"express": "^4.17.1",
+		"jssoup": "0.0.11"
+	}
+}
