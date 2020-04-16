@@ -27,7 +27,7 @@ function MyCard(props) {
 			<Link to={"/job/" + item.id}>
 				<CardHeader
 					avatar={
-						<Avatar aria-label="recipe" src={require(`../../../assest/images/18.png`)} />
+						<Avatar aria-label="recipe" src={item.company.logoDataUrl ? item.company.logoDataUrl : require(`../../../assest/images/18.png`)} />
 					}
 					action={
 						<IconButton onClick={onMoreOption} aria-label="settings">
@@ -41,7 +41,7 @@ function MyCard(props) {
 					classes={{
 						root: cardClasses.media
 					}}
-					image={require(`../../../assest/images/18.png`)}
+					image={item.company.logoDataUrl ? item.company.logoDataUrl : require(`../../../assest/images/18.png`)}
 					title="Paella dish"
 				/>
 			</Link>

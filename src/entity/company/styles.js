@@ -25,4 +25,15 @@ export const useStyles = makeStyles(theme => ({
 	selectEmpty: {
 		marginTop: theme.spacing(2),
 	},
+	imgContainer: {
+		display: 'flex',
+		justifyContent: 'space-between'
+	},
+	logoBtn: {
+		height: 'fit-content',
+		alignSelf: 'center'
+	},
+	img: {
+		maxWidth: theme.spacing(18)
+	}
 }));

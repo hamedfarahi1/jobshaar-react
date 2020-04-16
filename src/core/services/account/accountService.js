@@ -6,7 +6,7 @@ export const accountService = {
 	register,
 	getUserInfo,
 	setAuthInterceptor,
-	resetPasswordSendEmail,
+	resetPasswordSendUsername,
 	resetPass,
 	changePass
 }
@@ -50,8 +50,8 @@ function submitUser(res, credential) {
 	return
 }
 
-function resetPasswordSendEmail(email) {
-	return axios.post(`/api/account/forget-password?email=${email}`)
+function resetPasswordSendUsername(username) {
+	return axios.post(`/api/account/forget-password?username=${username}`)
 }
 
 function resetPass(values) {

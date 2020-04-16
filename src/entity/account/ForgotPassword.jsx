@@ -20,20 +20,20 @@ import { LinearProgress } from '@material-ui/core';
 function ForgotPassword(props) {
 
 	const classes = useStyles();
-	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
 	const handleInputChange = e => {
 		const { value } = e.target
-		setEmail(value)
+		setUsername(value)
 	}
 
 	const submitForm = (event) => {
-		props.sendEmail(email);
+		props.sendUsername(username);
 		event.preventDefault();
 
 	}
 
 	const isNotValidForm = () => {
-		return !email;
+		return !username;
 	}
 
 	return (
@@ -50,11 +50,11 @@ function ForgotPassword(props) {
 				</Typography>
 				<form className={classes.form} onSubmit={submitForm}>
 					<MyTextField
-						value={email}
+						value={username}
 						style={{ textAlign: 'left' }}
 						required={true}
-						field='email'
-						label={userFieldConstants.EMAIL}
+						field='username'
+						label={userFieldConstants.USERNAME}
 						onChange={handleInputChange}
 						margin='normal'
 
@@ -65,11 +65,11 @@ function ForgotPassword(props) {
 						variant="contained"
 						color="secondary"
 						className={classes.submit}
-						disabled={isNotValidForm() || props.sendingEmail}
+						disabled={isNotValidForm() || props.sendingUsername}
 					>
 						{accountPropConstants.SEND_EMAIL}
 					</Button>
-					{props.sendingEmail && <LinearProgress />}
+					{props.sendingUsername && <LinearProgress />}
 					<Grid className={classes.link} container justify="flex-end">
 						<Grid item xs>
 							<Link to="/account/login" variant="body2">
@@ -90,12 +90,12 @@ function ForgotPassword(props) {
 }
 
 function mapState(state) {
-	const { sendingEmail } = state.resetingPassword;
-	return { sendingEmail }
+	const { sendingUsername } = state.resetingPassword;
+	return { sendingUsername }
 }
 
 const actionCreators = {
-	sendEmail: userActions.resetPasswordSendEmail,
+	sendUsername: userActions.resetPasswordSendUsername,
 }
 
 const connectedForgotPasswordPage = connect(mapState, actionCreators)(ForgotPassword);

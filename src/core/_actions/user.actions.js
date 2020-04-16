@@ -8,7 +8,7 @@ export const userActions = {
 	login,
 	logout,
 	register,
-	resetPasswordSendEmail,
+	resetPasswordSendUsername,
 	resetPass,
 	changePass,
 	delete: _delete
@@ -66,10 +66,10 @@ function register(user) {
 	function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function resetPasswordSendEmail(email) {
+function resetPasswordSendUsername(username) {
 	return dispatch => {
 		dispatch(request());
-		accountService.resetPasswordSendEmail(email).then(
+		accountService.resetPasswordSendUsername(username).then(
 			() => {
 				dispatch(success());
 				dispatch(uiActions.successSnackbar('لینک تغییر رمز عبور به ایمیل شما ارسال گردید، در صورت عدم دریافت لینک دوباره تلاش کنید'))
