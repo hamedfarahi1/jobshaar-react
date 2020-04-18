@@ -1,13 +1,37 @@
 const axios = require('axios').default;
 var JSSoup = require('jssoup').default;
 const express = require('express')
-const performance = require('perf_hooks').performance;
+const url = require('url');
 
+const performance = require('perf_hooks').performance;
+const createParams = (str) => {
+	str = str.substr(1)
+	str = str.split('keywords').join('filters[keywords][0]')
+		.split('locations').join('filters[locations][]')
+		.split('job_categories').join('filters[job_categories][]')
+		.split('sort').join('sort_by')
+	return str;
+}
 
 const app = express()
 
+var
+	persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+	fixNumbers = function (str) {
+		if (typeof str === 'string') {
+			for (var i = 0; i < 10; i++) {
+				str = str.replace(persianNumbers[i], i);
+			}
+		}
+		return str
+			.split(',').join('')
+			.split('فرصت ‌شغلی').join('')
+			.split(' ').join('')
+			.split('\n').join('');
+	};
+
 app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "188.40.195.134:3000"); // update to match the domain you will make the request from
+	res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
@@ -18,75 +42,33 @@ app.get('/', function (req, res, next) {
 })
 
 function createResp(req, resp) {
+	let params = createParams(req.url)
 	var t0 = performance.now()
-	let response = `
-	<html>
-	<head>
-	<style>
-	body {
-		direction:rtl
-	}	
-31
-32
-33
-* {margin: 0; padding: 0; }
- 
-div {
-  margin: 20px;
-}
- 
-ul {
-  list-style-type: none;
-  width: 500px;
-}
- 
-h3 {
-  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
-}
- 
-li img {
-  float: left;
-  margin: 0 15px 0 0;
-}
- 
-li p {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
-}
- 
-li {
-  padding: 10px;
-  overflow: auto;
-}
- 
-li:hover {
-  background: #eee;
-  cursor: pointer;
-}
-	</style>
-	</head>
-	<body>
-	<ul>
-	
-	
-	`
-	axios.get('https://jobinja.ir/jobs').then(
+	let response = {
+		data: [],
+		totalCount: 0,
+		resTime: 0
+	}
+	axios.get('https://jobinja.ir/jobs' + params).then(
 		res => {
 			var soup = new JSSoup(res.data);
-			const array = soup.find('ul', 'o-listView__list').
-				findAll('li', 'o-listView__item');
-			for (i = 0; i < array.length; i++) {
-				let ele = array[i].find('a', 'c-jobListView__titleLink');
-				response = response + `
-				<li>
-     
-      <h3>${ele}</h3>
-      <p>برای مشاهده بر روی عنوان کلیک کنید</p>
-    </li>
-				`;
+			const totalCount = soup.find('span', 'c-jobSearchState__numberOfResultsEcho');
+			var str = totalCount.text;
+			const list = soup.find('ul', 'o-listView__list');
+			if (list) {
+				const array = list.
+					findAll('li', 'o-listView__item');
+				for (i = 0; i < array.length; i++) {
+					let ele = array[i].find('a', 'c-jobListView__titleLink');
+					response.data.push({
+						title: ele.text.split('\n').join(''),
+						href: ele.attrs['href']
+					})
+				}
+				response.totalCount = +fixNumbers(str)
 			}
-			response = response + '</ul></body></html>'
-			var t1 = performance.now()
-			response = `مدت زمان پردازش  ${t1 - t0} milis` + response
+
+			response.resTime = performance.now() - t0
 			return resp.send(response)
 		},
 		err => resp.send(err)

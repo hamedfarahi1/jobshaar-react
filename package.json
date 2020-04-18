@@ -13,6 +13,8 @@
 		"axios": "^0.19.2",
 		"express": "^4.17.1",
 		"jssoup": "0.0.11",
-		"perf_hooks": "0.0.1"
+		"perf_hooks": "0.0.1",
+		"querystring": "^0.2.0",
+		"url": "^0.11.0"
 	}
 }
