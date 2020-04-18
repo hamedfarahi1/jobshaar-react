@@ -42,6 +42,12 @@ function PaperMenu(props) {
 							<Icon>clear</Icon>
 							<Typography className={classes.itemText}>خروج</Typography>
 						</MenuItem>
+						<Link className={classes.link} to="/crawler">
+							<MenuItem onClick={props.handlePaperClose}>
+								<Icon>add_circle</Icon>
+								<Typography className={classes.itemText}>موتور جست و جو</Typography>
+							</MenuItem>
+						</Link>
 					</MenuList>
 
 					:
@@ -56,6 +62,12 @@ function PaperMenu(props) {
 							<MenuItem onClick={props.handlePaperClose}>
 								<Icon>add_circle</Icon>
 								<Typography className={classes.itemText}>ثبت نام</Typography>
+							</MenuItem>
+						</Link>
+						<Link className={classes.link} to="/crawler">
+							<MenuItem onClick={props.handlePaperClose}>
+								<Icon>add_circle</Icon>
+								<Typography className={classes.itemText}>موتور جست و جو</Typography>
 							</MenuItem>
 						</Link>
 					</MenuList>

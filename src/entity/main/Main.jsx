@@ -31,6 +31,7 @@ import { Job } from '../job/Job';
 import { useMediaQuery } from 'react-responsive';
 import { ButtonGroup } from '@material-ui/core';
 import { ScrollToTop } from '../../shared/component/scroll-to-top/scroll-to-top';
+import { Crawler } from '../../shared/crawler/Crawler';
 
 function Main(props) {
 
@@ -167,6 +168,7 @@ function Main(props) {
 					<Route path="/account">
 						<Account></Account>
 					</Route>
+					<Route path="/crawler"><Crawler /></Route>
 					<PrivateRoute path="/job" component={Job} />
 					<PrivateRoute path="/company" roleFlag roleTypeIndex={'0'} component={Company} />
 					<PrivateRoute path="/home" component={Home} />
