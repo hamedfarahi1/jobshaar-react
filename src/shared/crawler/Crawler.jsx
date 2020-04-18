@@ -21,7 +21,7 @@ function Crawler() {
 
 	const handleChange = (event, value) => {
 		setPage(value)
-		getJobs(value);
+		getJobs(+value);
 	}
 	const handleFilterChange = e => {
 		const { name, value } = e.target
@@ -31,14 +31,15 @@ function Crawler() {
 	}
 	const [jobs, setJobs] = useState([]);
 	useEffect(() => {
-		setTimeout(() => getJobs(values, page), 1000);
+		setTimeout(() => getJobs(), 1000);
 		// eslint-disable-next-line
 	}, [])
 
 
 	const getJobs = (pag) => {
+		pag = pag ? pag : page;
 		setGettingJobs(true)
-		crawlService.getJobs({ ...values, page: pag ? pag : page }).then(res => {
+		crawlService.getJobs({ ...values, page: pag }).then(res => {
 
 			setJobs(res.data.data);
 			const getPageCount = (e) => e % 20 === 0 ? parseInt(e / 20) : parseInt(e / 20) + 1
@@ -71,7 +72,11 @@ function Crawler() {
 				}
 			</Grid>
 		</Container>
-
+		{
+			gettingJobs && <Container>
+				<LinearProgress />
+			</Container>
+		}
 		<div className={classes.paginatorContainer}>
 
 			<Pagination onChange={handleChange} size="large" className={classes.paginator} count={pageCount} color="secondary" />
