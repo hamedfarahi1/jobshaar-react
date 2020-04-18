@@ -7,7 +7,7 @@ const performance = require('perf_hooks').performance;
 const app = express()
 
 app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "http://188.40.195.134:3000"); // update to match the domain you will make the request from
+	res.header("Access-Control-Allow-Origin", "188.40.195.134:3000"); // update to match the domain you will make the request from
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
