@@ -55,7 +55,7 @@ function AddJob(props) {
 
 	const isNotValidForm = () => {
 		const { description, title } = values;
-		return (!description || !title) || description.length <= 500;
+		return (!description || !title) || description.length <= 10;
 	}
 
 	const addJob = () => {
