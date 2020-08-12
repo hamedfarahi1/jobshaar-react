@@ -7,7 +7,7 @@ import { ChangePassword } from './ChangePassword';
 
 function Account() {
 	const classes = useStyles();
-	return <div id="container-account" className={classes.container}>
+	return <div className={classes.container}>
 		<Switch>
 			<Redirect exact from="/account" to="/account/login">
 			</Redirect>

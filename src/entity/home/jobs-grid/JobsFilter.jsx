@@ -56,7 +56,7 @@ function JobsFilter(props) {
 		</FormControl>
 	}
 
-	return <Container id="container-filter" className={scrolled && isMobile ? classes.setFixedMobile : scrolled ? classes.setFixed : ''}>
+	return <Container className={scrolled && isMobile ? classes.setFixedMobile : scrolled ? classes.setFixed : ''}>
 		<ExpansionPanel expanded={expand} onChange={(e, exp) => setExpand(exp)} className={
 			isMobile ? classes.mobile : ''
 		}>

@@ -17,7 +17,7 @@
 		"history": "^4.10.1",
 		"http-proxy-middleware": "^1.0.0",
 		"jss-rtl": "^0.3.0",
-		"node-sass": "^4.14.1",
+		"node-sass": "^4.13.1",
 		"query-string": "^6.12.0",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
@@ -53,9 +53,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"devDependencies": {
-		"enzyme": "^3.11.0",
-		"enzyme-adapter-react-16": "^1.15.3"
 	}
 }
