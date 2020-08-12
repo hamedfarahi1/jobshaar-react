@@ -9,7 +9,7 @@ function Home() {
 	const classes = useHomeStyles();
 
 	return (
-		<Container component="main">
+		<Container id="container-home" component="main">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<JobsSwiper />
