@@ -47,7 +47,7 @@ function submitUser(res, credential) {
 	localStorage.setItem('auth', JSON.stringify(res));
 	localStorage.setItem('user', JSON.stringify(user));
 	setAuthInterceptor()
-	return
+	return res
 }
 
 function resetPasswordSendUsername(username) {

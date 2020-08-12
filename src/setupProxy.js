@@ -3,7 +3,7 @@ module.exports = function (app) {
 	app.use(
 		'/api',
 		proxy.createProxyMiddleware({
-			target: 'http://188.40.195.134:8081/',
+			target: 'https://jobshaar.herokuapp.com',
 			changeOrigin: true,
 		})
 	);
