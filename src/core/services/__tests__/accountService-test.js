@@ -1,7 +1,7 @@
 import { accountService } from '../account/accountService';
 
 const myTestUserNumber = Math.random() * 100;
-test("login with exist userpass should successfully", async (done) => {
+test("register with this object should be successfully", async (done) => {
 	const user = {
 		username: `user_for_test${myTestUserNumber}`,
 		password: '123456',
@@ -17,7 +17,7 @@ test("login with exist userpass should successfully", async (done) => {
 	done();
 }, 15000);
 
-test("login with exist userpass should successfully", async (done) => {
+test("login with exist userpass should be successfully", async (done) => {
 	const user = {
 		roleTypeIndex: 0,
 		username: `user_for_test${myTestUserNumber}`,
