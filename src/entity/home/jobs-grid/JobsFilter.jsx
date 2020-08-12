@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Container, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, Grid, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Icon, Container, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, Grid, FormControl, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useMediaQuery } from 'react-responsive';
 import { useJobsFilterStyles } from '../styles'
@@ -57,36 +57,45 @@ function JobsFilter(props) {
 	}
 
 	return <Container id="container-filter" className={scrolled && isMobile ? classes.setFixedMobile : scrolled ? classes.setFixed : ''}>
-		<ExpansionPanel expanded={expand} onChange={(e, exp) => setExpand(exp)} className={
-			isMobile ? classes.mobile : ''
-		}>
-			<ExpansionPanelSummary
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-				id="panel1a-header"
-			>
-				<Typography >فیلتر ها</Typography>
-			</ExpansionPanelSummary>
-			<ExpansionPanelDetails>
-				<Grid container spacing={3}>
-					<Grid item sm={12} xs={12} md={12}>
-						<MyTextField disabled autoFocus={true} className={classes.textField} onChange={''
-							// props.handleFilterChange
-						} value={props.values.title} field={'title'} placeholder={' ... عنوان شغل، نام شهر، نام استان'} label={'جستجو'}></MyTextField>
-					</Grid>
-					<Grid item sm={6} xs={12} md={4}>
-						<MySelect name={'categoryTypeIndex'} value={props.values.categoryTypeIndex} label={'دسته شغلی'} list={jobKeyValue.jobCategoryObj} />
-					</Grid>
-					<Grid item sm={6} xs={12} md={4}>
-						<MySelect name={'requiredGenderTypeIndex'} value={props.values.requiredGenderTypeIndex} label={'جنسیت'} list={jobKeyValue.genderObj} />
-					</Grid>
-					<Grid item sm={6} xs={12} md={4}>
-						<MySelect name={'cooperationTypeIndex'} value={props.values.cooperationTypeIndex} label={'تایم کاری'} list={jobKeyValue.cooperationTypeObj} />
-					</Grid>
-				</Grid>
-			</ExpansionPanelDetails>
-		</ExpansionPanel>
-
+		<Grid container justify="space-around">
+			<Grid item xs="11">
+				<ExpansionPanel expanded={expand} onChange={(e, exp) => setExpand(exp)} className={
+					isMobile ? classes.mobile : ''
+				}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel1a-content"
+						id="panel1a-header"
+					>
+						<Typography >فیلتر ها</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						<Grid container spacing={3}>
+							<Grid item sm={12} xs={12} md={12}>
+								<MyTextField disabled autoFocus={true} className={classes.textField} onChange={''
+									// props.handleFilterChange
+								} value={props.values.title} field={'title'} placeholder={' ... عنوان شغل، نام شهر، نام استان'} label={'جستجو'}></MyTextField>
+							</Grid>
+							<Grid item sm={6} xs={12} md={4}>
+								<MySelect name={'categoryTypeIndex'} value={props.values.categoryTypeIndex} label={'دسته شغلی'} list={jobKeyValue.jobCategoryObj} />
+							</Grid>
+							<Grid item sm={6} xs={12} md={4}>
+								<MySelect name={'requiredGenderTypeIndex'} value={props.values.requiredGenderTypeIndex} label={'جنسیت'} list={jobKeyValue.genderObj} />
+							</Grid>
+							<Grid item sm={6} xs={12} md={4}>
+								<MySelect name={'cooperationTypeIndex'} value={props.values.cooperationTypeIndex} label={'تایم کاری'} list={jobKeyValue.cooperationTypeObj} />
+							</Grid>
+						</Grid>
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+			</Grid>
+			<Grid item xs="1">
+				<Button onClick={props.refresh}>
+					<Icon>refresh
+				</Icon>
+				</Button>
+			</Grid>
+		</Grid>
 	</Container>
 }
 

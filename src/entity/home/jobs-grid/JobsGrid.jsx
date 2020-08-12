@@ -59,6 +59,10 @@ function JobsGrid(props) {
 			</Grid>)
 	}
 
+	function refresh() {
+		getJobs(page, filters)
+	}
+
 	function MyGrid() {
 		return (
 			<Grid container id="container-grid" spacing={2}>
@@ -70,7 +74,7 @@ function JobsGrid(props) {
 	}
 
 	return (<>
-		<JobsFilter resultCount={resultCount} values={filters} handleFilterChange={handleFilterChange} />
+		<JobsFilter resultCount={resultCount} values={filters} handleFilterChange={handleFilterChange} refresh={refresh} />
 		{
 			props.gettingJobs && <Container>
 				<LinearProgress />
