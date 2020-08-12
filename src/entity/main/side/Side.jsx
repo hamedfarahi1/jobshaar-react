@@ -59,9 +59,9 @@ function Side(props) {
 						{ title: 'صفحه ی اصلی', link: '/home', icon: 'home' }
 						, { title: 'کار های من', link: '#', icon: 'work' }
 						, { title: 'مشاهده کار ها', link: '#', icon: 'format_list_numbered_ltr' }
-						, { title: 'افزودن کار', link: '/job/add', icon: 'add' }
+						, { title: 'افزودن کار', link: '/job/add', icon: 'add', disable: props.user !== undefined && +props.user.roleTypeIndex === 1 }
 					].map((item, index) => (
-						<Link key={index} to={item.link}>
+						!item.disable && <Link key={index} to={item.link}>
 							<ListItem onClick={props.handleDrawerClose} button>
 								<ListItemIcon><Icon>{item.icon}</Icon></ListItemIcon>
 								<ListItemText primary={item.title} />

@@ -89,7 +89,10 @@ function JobsFilter(props) {
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 			</Grid>
-			<Grid item xs="1">
+			<Grid style={{
+				textAlign: 'center',
+				margin: 'auto'
+			}} item xs="1">
 				<Button onClick={props.refresh}>
 					<Icon>refresh
 				</Icon>
