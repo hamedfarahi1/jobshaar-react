@@ -31,7 +31,7 @@
 		"redux": "^4.0.4",
 		"redux-logger": "^3.0.6",
 		"redux-thunk": "^2.3.0",
-		"swiper": "^5.3.6"
+		"swiper": "^6.5.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",
